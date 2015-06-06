@@ -1,0 +1,26 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+[Project tree]
+simplifyDDL
+	+doc
+		LICENSE
+		README.md
+	-sample
+	-sourcen
+[Open project files]
+0=README.md
+[Selected Project Files]
+Main=
+Selected=README.md
+[README.md]
+TopLine=116
+Caret=11,169
