@@ -3,7 +3,7 @@
 simplifyDDL (sDDL)
 ==================
 
-Hilfsroutinen für Firebird (2.5.x) zur Erstellung von Datenbankobjekte auf der 
+Hilfsroutinen für Firebird (2.5.x) zur automatisierten Erstellung von DDL Syntax auf der 
 Basis von bestehenden Tabellen.  
 
 **Inhaltsübersicht:**
@@ -81,14 +81,14 @@ Zielvorgabe
 -----------
 
 Bei *simplifyDDL* handelt es sich um ein Sammlung von StoredProcedures, sowie 
-eines Workflow um auf der Basis einer Tabelle notwendige Datenbankobjekte 
-automatisch erstellen zu können.
+eines Workflow um auf der Basis einer Tabelle notwendige DDL Syntax automatisch 
+erstellen zu können.
 
 Zu diesem Zweck wird ein Befehlssatz eingeführt, der in den Kommentaren einer Tabelle
 und deren Felder eingebettet wird.
 
 Diese Befehl werden ausgelesen, es wird ein Dictionary erstellt, auf der Grundlage des
-Dictionary wird ein Script mit den gewünschten Datenbankobjekten erstellt.
+Dictionary wird ein Script mit der gewünschten DDL Syntax erstellt.
 
 Ziel ist es, beim Entwurf eines Datenbankmodells auf schnelle Art ein lauffähiges 
 Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
