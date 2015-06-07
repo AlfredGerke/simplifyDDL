@@ -32,5 +32,5 @@ Selected=doc\command_syntax.md
 TopLine=1
 Caret=22,16
 [doc\command_syntax.md]
-TopLine=37
-Caret=18,78
+TopLine=11
+Caret=39,20
