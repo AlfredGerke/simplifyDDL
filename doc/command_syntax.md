@@ -9,7 +9,7 @@ Folgende Zeichen dürfen verwendet werden
 
 - Buchstaben: `A..Z`
 - Zahlen: `0..9`
-- Zusätzlich: '{ } : = ; + - %' 
+- Zusätzlich: `{ } : = ; + - %` 
 - Buchstaben immer groß schreiben
 - keine Umlaute, Umlatue entsprechend auflösen (z.B.: Ä = AE) 
 - kein scharfes S, scharfes S entsprechend auflösen (ß = SS)
