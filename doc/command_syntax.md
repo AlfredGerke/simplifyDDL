@@ -28,7 +28,7 @@ Beispiel: `{UNIQUE.KEY:=%%<UNIQUEKEY>%%}{IDX:=%%<INDEX>%%;0:DESC}`
 Beispiel: `{FK:=TABELE.ID}`
 
 - Anweisungen in einem Befehl werden mit einem Semikolon getrennt       
-Beispiel: `{FK:=TABELE.ID;0:DCUC}'
+Beispiel: `{FK:=TABELE.ID;0:DCUC}`
 
 - Zusätzliche Anweisungen in einem Befehl werden mit einem Nullbasierten Index 
 versehen       
@@ -84,7 +84,7 @@ Standardaufgaben
         * `UNIQUE.KEY:=%%<UNIQUEKEY>%%` = Es wird in den Tabellenfeldern nach Members für einen Unique Key Constraint gesucht 
     * Im Feldkommentar:
         * `UNIQUE.KEY` = für das Feld wird ein Unique Key Constraint eingerichtet
-        * `UNIQUE.KEY:=%%<INDEXNAME>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
+        * `UKEY.MEMBER:=%%<INDEXNAME>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
   
  7. Indices einrichten     
     * Im Tabellenkommentar:
