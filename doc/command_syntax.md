@@ -9,7 +9,7 @@ Folgende Zeichen dürfen verwendet werden
 
 - Buchstaben: `A..Z`
 - Zahlen: `0..9`
-- Zusätzlich: `{ } : = ; + - %` 
+- Zusätzlich: `{ } : = . ; + - %` 
 - Buchstaben immer groß schreiben
 - keine Umlaute, Umlatue entsprechend auflösen (z.B.: Ä = AE) 
 - kein scharfes S, scharfes S entsprechend auflösen (ß = SS)
@@ -73,7 +73,7 @@ Standardaufgaben
         * `-STDF=*` = Es wird kein Standardfeld eingetragen 
         * `-STDF=%%<STANDARDFELDNAME>%%` = Es werden alle Standardfelder bis auf das angegebene Feld eingerichtet  
     * Im Feldkommentar:
-        * Keine Befehle vorhanden
+        * Keine Befehle vorgesehen
   
  5. Trigger einrichten     
     * Im Tabellenkommentar:
@@ -102,10 +102,13 @@ Standardaufgaben
  8. Foreign Keys einrichten     
     * Im Tabellenkommentar:
     * Im Feldkommentar:
+        * `FK:=<TARGETTABLE>.<TARGETFIELD>` = 
   
  9. Standardviews einrichten     
     * Im Tabellenkommentar:
+        * `-STDVW` =
     * Im Feldkommentar:
+        * Keine Befehle vorgesehen
   
 10. n:m Verbindungen realisieren     
     * Im Tabellenkommentar:
