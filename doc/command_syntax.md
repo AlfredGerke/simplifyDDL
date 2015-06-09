@@ -37,7 +37,7 @@ Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> 0:DCUC`
 - Der Index wird mit einem : der Anweisung zugewiesen      
 
 - Der Index für zustäzliche Anweisungen ist immer konstant, egal in welcher 
-Reihenfolge die Anweisungen eintragen werden oder ob Anweisungen nur teilweise
+Reihenfolge die Anweisungen eingetragen werden oder ob Anweisungen nur teilweise
 verwendet werden       
 Beispiel: `{FK:=TABELE.ID;0:DCUC -> 0:DCUC} -> 0:DCUC -> 0 bleibt immer mit der Anweisung DCUC verbunden`  
 
@@ -84,7 +84,7 @@ Standardaufgaben
         * `UNIQUE.KEY:=%%<UNIQUEKEY>%%` = Es wird in den Tabellenfeldern nach Members für einen Unique Key Constraint gesucht 
     * Im Feldkommentar:
         * `UNIQUE.KEY` = für das Feld wird ein Unique Key Constraint eingerichtet
-        * `UKEY.MEMBER:=%%<INDEXNAME>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
+        * `UKEY.MEMBER:=%%<UNIQUEKEY>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
   
  7. Indices einrichten     
     * Im Tabellenkommentar:
@@ -106,7 +106,7 @@ Standardaufgaben
   
  9. Standardviews einrichten     
     * Im Tabellenkommentar:
-        * `-STDVW` =
+        * `-STDV` =
     * Im Feldkommentar:
         * Keine Befehle vorgesehen
   
