@@ -106,6 +106,8 @@ Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 - Standardviews einrichten
 - n:m Verbindungen realisieren
 - Reservierte Keywords prüfen
+- Tabelle reorganisieren
+- Lookuptabellen einrichten
 
 ### Sequences einrichten
 Für Primärschlüssel (Standardfeld `<ID>`) werden Sequences angelegt. 
@@ -156,6 +158,12 @@ Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* �
 
 ### Reservierte Keywords prüfen
 Das Datenmodell wird auf von Firebird als reservierte Keywords definierte Datenbank Objektnamen geprüft.
+
+### Tabelle reorganisieren     
+Die Tabelle wird nach Positionsvorgaben in den Feldkommentaren neu organisiert
+
+### Lookuptabellen einrichten     
+Es werden Standard-Lookuptabellen eingerichtet
 
 Zu einigen dieser Standards wird man Ausnahmen definieren können.
 

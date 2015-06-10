@@ -52,68 +52,122 @@ Beispiel: `{UNIQUE.KEY:=%%<UNIQUEKEY>%%} -> %%<UNIQUEKEY>%% -> <UNIQUEKEY> ist d
 Standardaufgaben
 ----------------
 
- 1. Sequences einrichten
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
-  
- 2. Domains einrichten      
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
-  
- 3. Primärschlüssel einrichten
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
-  
- 4. Standardfelder ergänzen            
-    Standardfelder werden im statischen Dictionary definiert        
-    Die Befehle sind nur bedingt kombinierbar        
-    * Im Tabellenkommentar: 
-        * `+STDF=*` = Standard (muss nicht codiert werden)
-        * `+STDF=%%<STANDARDFELDNAME>%%` = Es wird das angegebene Feld eingerichtet      
-        * `-STDF=*` = Es wird kein Standardfeld eingetragen 
-        * `-STDF=%%<STANDARDFELDNAME>%%` = Es werden alle Standardfelder bis auf das angegebene Feld eingerichtet  
-    * Im Feldkommentar:
-        * Keine Befehle vorgesehen
-  
- 5. Trigger einrichten     
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
-  
- 6. Unique Keys einrichten     
-    * Im Tabellenkommentar:
-        * `UNIQUE.KEY:=%%<UNIQUEKEY>%%` = Es wird in den Tabellenfeldern nach Members für einen Unique Key Constraint gesucht 
-    * Im Feldkommentar:
-        * `UNIQUE.KEY` = für das Feld wird ein Unique Key Constraint eingerichtet
-        * `UKEY.MEMBER:=%%<UNIQUEKEY>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
-  
- 7. Indices einrichten     
-    * Im Tabellenkommentar:
-        * `IDX:=%%<INDEX>%%` = Es wird in den Tabellenfeldern nach Members für einen einfachen Index gesucht, aufsteigend sortiert
-        * `IDX:=%%<INDEX>%%;0:DESC` = Es wird in den Tabellenfeldern nach Members für einen einfachen Index gesucht, absteigend sortiert
-        * `IDX.UNIQUE:=%%<INDEX>%%` = Es wird in den Tabellenfeldern nach Members für einen eindeuitgen Index gesucht, aufsteigend sortiert
-        * `IDX.UNIQUE:=%%<INDEX>%%;0:DESC` = Es wird in den Tabellenfeldern nach Members für einen eindeuitgen Index gesucht, absteigend sortiert         
-    * Im Feldkommentar:
-        * `IDX` = Für das Feld wird ein einfacher Index angelegt, aufsteigend sortiert
-        * `IDX:=DESC` = Für das Feld wird ein einfacher Index angelegt, absteigend sortiert   
-        * `IDX.UNIQUE` = Für das Feld wird ein eindeutiger Index angelegt, aufsteigend sortiert    
-        * `IDX.UNIQUE:=DESC` = Für das Feld wird ein eindeutiger Index angelegt, absteigend sortiert
-        * `IDX.MEMBER:=%%<INDEX>%%`    
-  
- 8. Foreign Keys einrichten     
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
-        * `FK:=<TARGETTABLE>.<TARGETFIELD>` = 
-  
- 9. Standardviews einrichten     
-    * Im Tabellenkommentar:
-        * `-STDV` =
-    * Im Feldkommentar:
-        * Keine Befehle vorgesehen
-  
-10. n:m Verbindungen realisieren     
-    * Im Tabellenkommentar:
-    * Im Feldkommentar: 
+* Sequences einrichten
+  * Im Tabellenkommentar:
+      * `-STDS` = Es werden keine Standardsequencen für die Tabelle erzeugt     
+  * Im Feldkommentar:
+      * Keine Befehle vorgesehen     
 
-11. Reservierte Keywords prüfen     
-    * Im Tabellenkommentar:
-    * Im Feldkommentar:
+* Domains einrichten      
+  * Im Tabellenkommentar:
+      * `-STDD` = Es werden keine Standarddomains für die Tabelle erzeugt     
+  * Im Feldkommentar:
+      * Keine Befehle vorgesehen     
+
+* Primärschlüssel einrichten
+  * Im Tabellenkommentar:
+      * `PK:=%%PRIMARYKEY%%` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen Primärschlüssel gesucht                
+  * Im Feldkommentar:
+      * `PK` = Feld wird als Primärschlüssel eingerichtet
+      * `PK:=%%PRIMARYKEY%%` = Feld ist mit anderen Feldern Teil eines Primärschlüssel        
+        
+* Standardfelder ergänzen            
+  Standardfelder werden im statischen Dictionary definiert        
+  Die Befehle sind nur bedingt kombinierbar        
+  * Im Tabellenkommentar: 
+      * `+STDF=*` = Standard (muss nicht codiert werden)
+      * `+STDF=%%<STANDARDFELDNAME>%%` = Es wird das angegebene Feld eingerichtet      
+      * `-STDF=*` = Es wird kein Standardfeld eingetragen 
+      * `-STDF=%%<STANDARDFELDNAME>%%` = Es werden alle Standardfelder bis auf das angegebene Feld eingerichtet  
+  * Im Feldkommentar:
+      * Keine Befehle vorgesehen
+
+* Trigger einrichten         
+  * Im Tabellenkommentar:
+      * `-STDT` = Es werden keine Standardtrigger für die Tabelle erzeugt     
+  * Im Feldkommentar:
+      * Keine Befehle vorgesehen     
+
+* Unique Keys einrichten     
+  * Im Tabellenkommentar:
+      * `UNIQUE.KEY:=%%<UNIQUEKEY>%%` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen Unique Key Constraint gesucht 
+  * Im Feldkommentar:
+      * `UNIQUE.KEY` = für das Feld wird ein Unique Key Constraint eingerichtet
+      * `UKEY.MEMBER:=%%<UNIQUEKEY>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
+
+* Indices einrichten             
+  * Im Tabellenkommentar:
+      * `IDX:=%%<INDEX>%%;0:ASC` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen einfachen Index gesucht, absteigend sortiert
+      * `IDX.UNIQUE:=%%<INDEX>%%;0:ASC` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen eindeuitgen Index gesucht, absteigend sortiert
+          * `%%<INDEX>%%` = Bezeichung für einen Index der in den Feldkommentaren gesucht wird 
+          * `0:ASC` = Index 0 beschreibt die Sortierreihenfolge des Index 
+              * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
+              * `DESC` = absteigend 
+               
+  * Im Feldkommentar:
+      * `IDX` = Für das Feld wird ein einfacher Index angelegt, aufsteigend sortiert
+      * `IDX:=DESC` = Für das Feld wird ein einfacher Index angelegt, absteigend sortiert   
+      * `IDX.UNIQUE` = Für das Feld wird ein eindeutiger Index angelegt, aufsteigend sortiert    
+      * `IDX.UNIQUE:=DESC` = Für das Feld wird ein eindeutiger Index angelegt, absteigend sortiert
+      * `IDX.MEMBER:=%%<INDEX>%%` = Feld ist mit anderen Felder Teil eines Index    
+
+* Foreign Keys einrichten             
+  * Im Tabellenkommentar:
+      * `FK:=%%FOREIGNKEY%%;0:<TARGETTABLE>;1:DCUC;2:ASC` = Es wird in den Kommentaren der Tabellenfeldern nach Members für einen Fremdschlüssel gesucht
+          * `%%FOREIGNKEY%%` = Bezeichnung für einen Fremdschlüssel der in den Felderkommentaren gesucht wird
+          * `0:<TARGETTABLE>` = Index 0 bestimmt die Zieltabelle für den Fremdschlüssel
+          * `1:DCUC` = Index 1 beschreibt das Verhalten bei Änderungen des Primärschlüssels
+              * `DCUC` = DELETE CASCADE UPDATE CASCADE (Standard wenn keine Anweisung mit dem Index 1 angegeben)
+              * `DNUC` = DELETE SET NULL UPDATE CASCADE
+              * `DNUN` = DELETE SET NULL UPDATE SET NULL
+              * `DCUN` = DELETE CASCADE UPDATE SET NULL
+              * `DRUR` = DELETE RESTRICT UPDATE RESTRICT
+          * `2:ASC` = Index 2 beschreibt die Sortierreihenfolge des Index 
+              * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 2 vorhanden)
+              * `DESC` = absteigend 
+                                                                  
+  * Im Feldkommentar:
+      * `FK:=<TARGETTABLE>.<TARGETFIELD>;=0:DCUC;1:ASC` = Auf dem Feld wird ein Fremdschlüssel für das angegebene Zielfeld angelegt
+          * `0:DCUC` = Index 0 beschreibt das Verhalten bei Änderungen des Primärschlüssels            
+              * `DCUC` = DELETE CASCADE UPDATE CASCADE (Standard wenn keine Anweisung mit dem Index 0 angegeben)
+              * `DNUC` = DELETE SET NULL UPDATE CASCADE
+              * `DNUN` = DELETE SET NULL UPDATE SET NULL
+              * `DCUN` = DELETE CASCADE UPDATE SET NULL
+              * `DRUR` = DELETE RESTRICT UPDATE RESTRICT
+          * `1:ASC` = Index 1 beschreibt die Sortierreihenfolge des Index 
+              * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 1 vorhanden)
+              * `DESC` = absteigend
+      * `FK.MEMBER=%%FOREIGNKEY%%;0:<TARGETFIELD>` = Feld ist mit anderen Felder Teil eines Fremdschlüssels
+          * `%%FOREIGNKEY%%` = Bezeichnung für einen Fremdschlüssel der im Tabellenkommentar beschreiben wird
+          * `0:<TARGETFIELD>` = Index 0 bestimmt das Zielfeld für den Fremdschlüssel 
+
+* Standardviews einrichten             
+  * Im Tabellenkommentar:
+      * `-STDV` = Es wird keine Standardview für die Tabelle erzeugt
+  * Im Feldkommentar:
+      * Keine Befehle vorgesehen
+
+* n:m Verbindungen realisieren             
+  * Im Tabellenkommentar:
+      * `N:M:=%%N:M%%` = Es wird in den Kommentaren anderer Tabellen nach dem n:m Namen gesucht   
+  * Im Feldkommentar:
+      * `N:M` = Das Feld wird als Fremdschlüssel in der n:m Beziehungstabelle verwendet    
+
+* Reservierte Keywords prüfen             
+  * Im Tabellenkommentar:
+      * `-CHKRK;0:R` = Tabellenname wird nicht geprüft
+      * `0:R` = Index 0 verhindert auch die Prüfung der Feldnamen        
+  * Im Feldkommentar:
+      * `-CHKRK` = Feldname wird nicht geprüft   
+
+* Tabelle reorganisieren
+  * Im Tabellenkommentar:
+      * `REORG` = Reorganisiert eine Tabelle nach den Positionsangaben in den Kommentaren der Felder   
+  * Im Feldkommentar: 
+      * `POS:=<new_pos>` = Neu Position für das Feld innerhalb der Tabelle
+
+* Lookuptabellen einrichten
+  * Im Tabellenkommentar:
+      * Keine Befehle vorgesehen   
+  * Im Feldkommentar: 
+      * Keine Befehle vorgesehen                    
