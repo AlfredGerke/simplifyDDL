@@ -66,10 +66,14 @@ Standardaufgaben
 
 * Primärschlüssel einrichten
   * Im Tabellenkommentar:
-      * `PK:=%%PRIMARYKEY%%` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen Primärschlüssel gesucht                
+      * `-STDP` = Es wird keine Standardprimärschlüssel erzeugt                 
+      * `-STDPPK:=%%PRIMARYKEY%%` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen
+          * Nur wirksam wenn `-STDP` gesetzt wurde
   * Im Feldkommentar:
       * `PK` = Feld wird als Primärschlüssel eingerichtet
+          * Nur wirksam wenn `-STDP` gesetzt wurde
       * `PK:=%%PRIMARYKEY%%` = Feld ist mit anderen Feldern Teil eines Primärschlüssel        
+          * Nur wirksam wenn `-STDP` gesetzt wurde
         
 * Standardfelder ergänzen            
   Standardfelder werden im statischen Dictionary definiert        
