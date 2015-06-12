@@ -93,9 +93,15 @@ Standardaufgaben
 
 * Unique Keys einrichten     
   * Im Tabellenkommentar:
-      * `UNIQUE.KEY:=%%<UNIQUEKEY>%%` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen Unique Key Constraint gesucht 
+      * `UNIQUE.KEY:=%%<UNIQUEKEY>%%;0:ASC` = Es wird in den Kommentaren der Tabellenfelder nach Members für einen Unique Key Constraint gesucht 
+      * `0:ASC` = Index 0 beschreibt die Sortierreihenfolge des Index 
+          * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
+          * `DESC` = absteigend 
   * Im Feldkommentar:
-      * `UNIQUE.KEY` = für das Feld wird ein Unique Key Constraint eingerichtet
+      * `UNIQUE.KEY;0:ASC` = für das Feld wird ein Unique Key Constraint eingerichtet
+      * `0:ASC` = Index 0 beschreibt die Sortierreihenfolge des Index 
+          * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
+          * `DESC` = absteigend 
       * `UKEY.MEMBER:=%%<UNIQUEKEY>%%` = Feld ist mit anderen Feldern Teil eines Unique Key Constraint   
 
 * Indices einrichten             
@@ -111,8 +117,8 @@ Standardaufgaben
       * `IDX;0:ASC` = Für das Feld wird ein einfacher Index angelegt, aufsteigend sortiert
       * `IDX.UNIQUE;0:ASC` = Für das Feld wird ein eindeutiger Index angelegt, aufsteigend sortiert    
       * `0:ASC` = Index 0 beschreibt die Sortierreihenfolge des Index 
-              * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
-              * `DESC` = absteigend 
+          * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
+          * `DESC` = absteigend 
       * `IDX.MEMBER:=%%<INDEX>%%` = Feld ist mit anderen Felder Teil eines Index    
 
 * Foreign Keys einrichten             
