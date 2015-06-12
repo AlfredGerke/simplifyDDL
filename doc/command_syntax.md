@@ -79,9 +79,8 @@ Standardaufgaben
   Standardfelder werden im statischen Dictionary definiert        
   Die Befehle sind nur bedingt kombinierbar        
   * Im Tabellenkommentar: 
-      * `+STDF=*` = Standard (muss nicht codiert werden)
-      * `+STDF=%%<STANDARDFELDNAME>%%` = Es wird das angegebene Feld eingerichtet      
-      * `-STDF=*` = Es wird kein Standardfeld eingetragen 
+      * `+STDF=%%<STANDARDFELDNAME>%%` = Es wird nur das angegebene Standardfeld eingerichtet      
+      * `-STDF` = Es wird kein Standardfeld eingetragen 
       * `-STDF=%%<STANDARDFELDNAME>%%` = Es werden alle Standardfelder bis auf das angegebene Feld eingerichtet  
   * Im Feldkommentar:
       * Keine Befehle vorgesehen
@@ -109,10 +108,11 @@ Standardaufgaben
               * `DESC` = absteigend 
                
   * Im Feldkommentar:
-      * `IDX` = Für das Feld wird ein einfacher Index angelegt, aufsteigend sortiert
-      * `IDX:=DESC` = Für das Feld wird ein einfacher Index angelegt, absteigend sortiert   
-      * `IDX.UNIQUE` = Für das Feld wird ein eindeutiger Index angelegt, aufsteigend sortiert    
-      * `IDX.UNIQUE:=DESC` = Für das Feld wird ein eindeutiger Index angelegt, absteigend sortiert
+      * `IDX;0:ASC` = Für das Feld wird ein einfacher Index angelegt, aufsteigend sortiert
+      * `IDX.UNIQUE;0:ASC` = Für das Feld wird ein eindeutiger Index angelegt, aufsteigend sortiert    
+      * `0:ASC` = Index 0 beschreibt die Sortierreihenfolge des Index 
+              * `ASC` = aufsteigend (Standard wenn keine Anweisung mit dem Index 0 vorhanden)
+              * `DESC` = absteigend 
       * `IDX.MEMBER:=%%<INDEX>%%` = Feld ist mit anderen Felder Teil eines Index    
 
 * Foreign Keys einrichten             
@@ -153,9 +153,9 @@ Standardaufgaben
 
 * n:m Verbindungen realisieren             
   * Im Tabellenkommentar:
-      * `N:M:=%%N:M%%` = Es wird in den Kommentaren anderer Tabellen nach dem n:m Namen gesucht   
+      * `M:N:=%%N:M%%` = Es wird in den Kommentaren anderer Tabellen nach dem m:n Namen gesucht   
   * Im Feldkommentar:
-      * `N:M` = Das Feld wird als Fremdschlüssel in der n:m Beziehungstabelle verwendet    
+      * `M:N` = Das Feld wird als Fremdschlüssel in der m:n Beziehungstabelle verwendet    
 
 * Reservierte Keywords prüfen             
   * Im Tabellenkommentar:
