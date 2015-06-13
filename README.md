@@ -160,10 +160,12 @@ Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* �
 Das Datenmodell wird auf von Firebird als reservierte Keywords definierte Datenbank Objektnamen geprüft.
 
 ### Tabelle reorganisieren     
-Die Tabelle wird nach Positionsvorgaben in den Feldkommentaren neu organisiert
+Die Tabelle wird nach Positionsvorgaben in den Feldkommentaren neu organisiert. Zusaätzlich werden 
+informationen aus dem Statischen Dictionary berücksichtigt. 
+Dort wird angegeben ob ein Standtadfeld am Anfang oder am Ende eingetragen wird, relativ zu seiner eigenen Postionsangaben.
 
 ### Lookuptabellen einrichten     
-Es werden Standard-Lookuptabellen eingerichtet
+Es werden Standard-Lookuptabellen eingerichtet.
 
 Zu einigen dieser Standards wird man Ausnahmen definieren können.
 

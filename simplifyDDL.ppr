@@ -27,10 +27,10 @@ simplifyDDL
 1=doc\command_syntax.md
 [Selected Project Files]
 Main=
-Selected=doc\command_syntax.md
+Selected=README.md
 [README.md]
 TopLine=1
-Caret=22,16
+Caret=26,112
 [doc\command_syntax.md]
-TopLine=11
-Caret=39,20
+TopLine=87
+Caret=3,80
