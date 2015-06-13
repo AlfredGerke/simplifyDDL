@@ -23,14 +23,14 @@ Die Version *sDDL 0.9 M1* ist die erste Version der Anwendung.
 Es werden alle notwendigen Scripte und Beispiele eingeführt. 
 
 Das in diesem Projekt beschriebene Vorgehen, Standardaufgaben bei der Datenmodelierung
-teilweise oder komplett zu generieren, hat seinen Ursprung in dem Projekt [ZABonline](ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker").
+teilweise oder komplett zu generieren, hat seinen Ursprung in dem Projekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker").
 
 ZABonline ist ein Testprojekt mit die Möglichkeiten von WaveMakter 6.7.0 austestet werden.
 
-Im Zug dieser Entwicklung wurden dieverse [`SQL-Scripte`](ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
+Im Zug dieser Entwicklung wurden dieverse [`SQL-Scripte`](https://github.com/AlfredGerke/ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
 Um die Arbeit zu vereinfachen wurden immer wiederkehrende Aufagaben vereinheitlicht, in einen Standard gebracht und von Hilfsroutinen teilweise oder komplett übernommen.
 
-Diese Hilfsroutinen befinden sich in den Scripten [`create_tools.sql`](ZABonline/source/script/script/create_tools.sql "create_tools.sql") und [`create_hibernate_workaround.sql`](ZABonline/source/script/script/create_hibernate_workaround.sql "create_hibernate_workaround.sql"). 
+Diese Hilfsroutinen befinden sich in den Scripten [`create_tools.sql`](https://github.com/AlfredGerke/ZABonline/source/script/script/create_tools.sql "create_tools.sql") und [`create_hibernate_workaround.sql`](https://github.com/AlfredGerke/ZABonline/source/script/script/create_hibernate_workaround.sql "create_hibernate_workaround.sql"). 
 
 Dieses Projekt soll das in ZABonline eingeführte Verfahren zur Generierung von DDL-Inhalten vereinfachen und erweitern.
 
