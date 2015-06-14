@@ -13,6 +13,7 @@ ProjectFilesOnly=0
 simplifyDDL
 	+doc
 		doc\command_syntax.md
+		doc\setting_entries.md
 	+root
 		LICENSE
 		README.md
@@ -25,12 +26,16 @@ simplifyDDL
 [Open project files]
 0=README.md
 1=doc\command_syntax.md
+2=doc\setting_entries.md
 [Selected Project Files]
 Main=
-Selected=README.md
+Selected=doc\setting_entries.md
 [README.md]
 TopLine=1
 Caret=158,28
 [doc\command_syntax.md]
 TopLine=80
 Caret=3,80
+[doc\setting_entries.md]
+TopLine=1
+Caret=43,36
