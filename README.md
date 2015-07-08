@@ -27,7 +27,7 @@ teilweise oder komplett zu generieren, hat seinen Ursprung in dem Projekt [ZABon
 
 Mit ZABonline werden die Möglichkeiten von WaveMaker 6.7.x im speziellen, so wie der Aufbau einer Anwendung als SPA (Single-Page-Application) im Allgemeinen getestet. 
 
-Im Zug dieser Entwicklung wurden dieverse [`SQL-Scripte`](https://github.com/AlfredGerke/ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
+Im Zuge dieser Entwicklung wurden diverse [`SQL-Scripte`](https://github.com/AlfredGerke/ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
 Um die Arbeit zu vereinfachen wurden immer wiederkehrende Aufagaben vereinheitlicht, in einen Standard gebracht und von Hilfsroutinen teilweise oder komplett übernommen.
 
 Diese Hilfsroutinen befinden sich in den Scripten [`create_tools.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_tools.sql "create_tools.sql") und [`create_hibernate_workaround.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_hibernate_workaround.sql "create_hibernate_workaround.sql"). 
