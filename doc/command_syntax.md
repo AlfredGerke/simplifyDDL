@@ -25,10 +25,10 @@ Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC}`
 Beispiel: `{UNIQUE.KEY:=%%<UNIQUEKEY>%%}{IDX:=%%<INDEX>%%;0:DESC}` 
 
 - Wertzuweiseungen werden mit := dargestellt (Pascal-Syntax)       
-Beispiel: `{FK:=TABELE.ID}`
+Beispiel: `{FK:=TABELLE.ID}`
 
 - Anweisungen in einem Befehl werden mit einem Semikolon getrennt       
-Beispiel: `{FK:=TABELE.ID;0:DCUC}`
+Beispiel: `{FK:=TABELLE.ID;0:DCUC}`
 
 - Zusätzliche Anweisungen in einem Befehl werden mit einem Nullbasierten Index 
 versehen       
@@ -39,7 +39,7 @@ Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> 0:DCUC`
 - Der Index für zustäzliche Anweisungen ist immer konstant, egal in welcher 
 Reihenfolge die Anweisungen eingetragen werden oder ob Anweisungen nur teilweise
 verwendet werden       
-Beispiel: `{FK:=TABELE.ID;0:DCUC -> 0:DCUC} -> 0:DCUC -> 0 bleibt immer mit der Anweisung DCUC verbunden`  
+Beispiel: `{FK:=TABELLE.ID;0:DCUC -> 0:DCUC} -> 0:DCUC -> 0 bleibt immer mit der Anweisung DCUC verbunden`  
 
 - Die direkte Zuweisung benötigt keinen Index       
 Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> FK:=<TABELLE>.<FELDNAME>`

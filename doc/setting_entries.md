@@ -1,7 +1,9 @@
 Einträge für die Tabelle `sddl$dict_setting`
 ============================================
 
-### SECTION: `PRÄFIX`
+Die Einträge können von jedem Entwickler beliebig verändert werden.
+
+### SECTION: `PREFIX`
 
 * IDENT: `VIEW`              
   VALUE: `V_`
@@ -31,6 +33,7 @@ Einträge für die Tabelle `sddl$dict_setting`
   VALUE: `CAT_`
   
 ### SECTION: `SCRIPT.COMMENT`
+Notwendige Syntaxinformationen zur Kommentierung in Scripten erstellt.
 
 * IDENT: `START`              
   VALUE: `/*`
@@ -45,6 +48,10 @@ Einträge für die Tabelle `sddl$dict_setting`
   VALUE: `100`
   
 ### SECTION: `SCRIPT.HEADER`
+Notwendige Informationen für einen Header in einem Script.
+
+* IDENT: `ACTIVE`              
+  VALUE: [0|1] 0=kein Header  
 
 * IDENT: `AUTHOR`              
   VALUE: `<Vorname> <Name>`
@@ -53,4 +60,9 @@ Einträge für die Tabelle `sddl$dict_setting`
   VALUE: [entsprechend]
 
 * IDENT: `COPYRIGHT`              
-  VALUE: [entsprechend]       
+  VALUE: [entsprechend]   
+  
+* IDENT: `COMMENT`              
+  VALUE: [entsprechend]   
+  
+      

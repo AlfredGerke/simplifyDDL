@@ -11,6 +11,10 @@ FileFormat=0
 ProjectFilesOnly=0
 [Project tree]
 simplifyDDL
+	+make
+		source\make_sDDL.bat
+		source\_make.bat
+		source\make_sDDL.log
 	+doc
 		doc\command_syntax.md
 		doc\setting_entries.md
@@ -23,19 +27,34 @@ simplifyDDL
 		sample\README.md
 	+source
 		source\README.md
+		source\batch.sql
+		source\create_db.sql
+		source\create_static_dict.sql
 [Open project files]
-0=README.md
-1=doc\command_syntax.md
-2=doc\setting_entries.md
+0=source\make_sDDL.bat
+1=source\_make.bat
+2=source\batch.sql
+3=source\create_db.sql
+4=source\create_static_dict.sql
+5=source\make_sDDL.log
 [Selected Project Files]
 Main=
-Selected=doc\setting_entries.md
-[README.md]
+Selected=source\_make.bat
+[source\make_sDDL.bat]
 TopLine=1
-Caret=158,28
-[doc\command_syntax.md]
-TopLine=80
-Caret=3,80
-[doc\setting_entries.md]
+Caret=47,3
+[source\_make.bat]
 TopLine=1
-Caret=43,36
+Caret=56,25
+[source\batch.sql]
+TopLine=1
+Caret=1,36
+[source\create_db.sql]
+TopLine=1
+Caret=101,23
+[source\create_static_dict.sql]
+TopLine=73
+Caret=101,116
+[source\make_sDDL.log]
+TopLine=135
+Caret=1,1
