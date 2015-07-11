@@ -30,7 +30,7 @@ Beispiel: `{FK:=TABELLE.ID}`
 - Anweisungen in einem Befehl werden mit einem Semikolon getrennt       
 Beispiel: `{FK:=TABELLE.ID;0:DCUC}`
 
-- Zusätzliche Anweisungen in einem Befehl werden mit einem Nullbasierten Index 
+- Zusätzliche Anweisungen in einem Befehl werden mit einem nullbasierten Index 
 versehen       
 Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> 0:DCUC`
 
@@ -39,12 +39,16 @@ Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> 0:DCUC`
 - Der Index für zustäzliche Anweisungen ist immer konstant, egal in welcher 
 Reihenfolge die Anweisungen eingetragen werden oder ob Anweisungen nur teilweise
 verwendet werden       
-Beispiel: `{FK:=TABELLE.ID;0:DCUC -> 0:DCUC} -> 0:DCUC -> 0 bleibt immer mit der Anweisung DCUC verbunden`  
+Beispiel: `{FK:=TABELLE.ID;0:DCUC} -> 0:DCUC -> 0 bleibt immer mit der Anweisung DCUC verbunden`  
+
+- Wahlweise kann auf die Zuweisung des Index zur Anweisung verzichtet werden. In dem Fall wird
+der Index aus dem statischen Dictionary ermittelt     
+Beispiel: `{FK:=TABELLE.ID;DCUC} -> DCUC -> Index 0 nicht angegeben, wird vom Parser aus dem statischen Dictionary ermittelt`
 
 - Die direkte Zuweisung benötigt keinen Index       
 Beispiel: `{FK:=<TABELLE>.<FELDNAME>;0:DCUC} -> FK:=<TABELLE>.<FELDNAME>`
 
-- Bezeichnungen werden in doppelten % eingebettet      
+- Bezeichnungen werden in doppelten % eingebettet, ein Bezeichner kann bis zu 64 Zeichen lang sein      
 Beispiel: `{UNIQUE.KEY:=%%<UNIQUEKEY>%%} -> %%<UNIQUEKEY>%% -> <UNIQUEKEY> ist die Bezeichnung` 
 
 

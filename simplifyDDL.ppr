@@ -30,6 +30,42 @@ simplifyDDL
 		source\batch.sql
 		source\create_db.sql
 		source\create_static_dict.sql
+		source\create_domains.sql
+		source\create_sequences.sql
+		source\create_dynamic_dict.sql
 [Open project files]
+0=source\create_static_dict.sql
+1=source\create_dynamic_dict.sql
+2=source\create_sequences.sql
+3=source\batch.sql
+4=source\create_domains.sql
+5=source\make_sDDL.log
+6=doc\command_syntax.md
+7=source\README.md
 [Selected Project Files]
 Main=
+Selected=source\README.md
+[source\create_static_dict.sql]
+TopLine=62
+Caret=31,91
+[source\create_dynamic_dict.sql]
+TopLine=348
+Caret=40,294
+[source\create_sequences.sql]
+TopLine=1
+Caret=41,17
+[source\batch.sql]
+TopLine=1
+Caret=101,41
+[source\create_domains.sql]
+TopLine=1
+Caret=11,19
+[source\make_sDDL.log]
+TopLine=877
+Caret=55,913
+[doc\command_syntax.md]
+TopLine=1
+Caret=50,51
+[source\README.md]
+TopLine=1
+Caret=143,10
