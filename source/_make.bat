@@ -22,7 +22,7 @@ echo.
 echo    Das Batchprogramm zur Installation der sDDL Sourcen, sowie wahlweise das Erstellen   
 echo    einer sDDL Entwicklungsdatenbank wird wie folgt aufgerufen:
 echo.
-echo    make_sDDL {ISQL} {Ziel der Logdatei} [CREATE_DB]
+echo    make_sDDL {ISQL} {Ziel der Logdatei} [*]
 echo.
 
 goto END2

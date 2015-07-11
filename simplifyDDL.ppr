@@ -31,30 +31,5 @@ simplifyDDL
 		source\create_db.sql
 		source\create_static_dict.sql
 [Open project files]
-0=source\make_sDDL.bat
-1=source\_make.bat
-2=source\batch.sql
-3=source\create_db.sql
-4=source\create_static_dict.sql
-5=source\make_sDDL.log
 [Selected Project Files]
 Main=
-Selected=source\_make.bat
-[source\make_sDDL.bat]
-TopLine=1
-Caret=47,3
-[source\_make.bat]
-TopLine=1
-Caret=56,25
-[source\batch.sql]
-TopLine=1
-Caret=1,36
-[source\create_db.sql]
-TopLine=1
-Caret=101,23
-[source\create_static_dict.sql]
-TopLine=73
-Caret=101,116
-[source\make_sDDL.log]
-TopLine=135
-Caret=1,1
