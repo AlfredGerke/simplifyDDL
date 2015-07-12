@@ -12,8 +12,14 @@
 /*          Script erstellen
 /*------------------------------------------------------------------------------------------------*/
 
-
 /* Sequences -------------------------------------------------------------------------------------*/
+CREATE SEQUENCE SDDL$SEQ_CODE_COMMAND_ID;
+
+COMMENT ON SEQUENCE SDDL$SEQ_CODE_COMMAND_ID
+IS 'Primärschlüssel für SDDL$CODE_COMMAND';
+
+/* ------ */
+
 CREATE SEQUENCE SDDL$SEQ_DYN_ARGUMENT_ID;
 
 COMMENT ON SEQUENCE SDDL$SEQ_DYN_ARGUMENT_ID

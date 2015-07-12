@@ -12,8 +12,17 @@
 /*          Script erstellen
 /*------------------------------------------------------------------------------------------------*/
 
-
 /* Domains ---------------------------------------------------------------------------------------*/
+CREATE DOMAIN SDDL$DN_CODE
+AS VARCHAR(4000)
+DEFAULT ''
+NOT NULL;
+
+COMMENT ON DOMAIN SDDL$DN_CODE 
+IS 'z. B.: DDL-Code';
+
+/* ------ */
+
 CREATE DOMAIN SDDL$DN_ASSIGNMENT
 AS VARCHAR(64)
 DEFAULT ''
@@ -78,11 +87,11 @@ IS '31 Zeichen für einen Datenbankobjektnamen';
 
 /* ------ */
 
-CREATE DOMAIN DICT_PRIMARY_KEY
+CREATE DOMAIN SDDL$DICT_PRIMARY_KEY
 AS BIGINT
 NOT NULL;
 
-COMMENT ON DOMAIN DICT_PRIMARY_KEY 
+COMMENT ON DOMAIN SDDL$DICT_PRIMARY_KEY 
 IS 'Primärschlüssel';
 
 /* ------ */
