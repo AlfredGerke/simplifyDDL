@@ -40,16 +40,16 @@ simplifyDDL
 3=source\create_domains.sql
 [Selected Project Files]
 Main=
-Selected=source\create_domains.sql
+Selected=source\create_static_dict.sql
 [source\create_static_dict.sql]
-TopLine=109
-Caret=5,109
+TopLine=189
+Caret=1,206
 [source\create_dynamic_dict.sql]
-TopLine=163
-Caret=1,163
+TopLine=170
+Caret=1,185
 [source\create_sequences.sql]
-TopLine=1
-Caret=1,14
+TopLine=29
+Caret=43,19
 [source\create_domains.sql]
-TopLine=69
+TopLine=95
 Caret=31,90

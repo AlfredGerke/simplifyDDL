@@ -13,6 +13,13 @@
 /*------------------------------------------------------------------------------------------------*/
 
 /* Sequences -------------------------------------------------------------------------------------*/
+CREATE SEQUENCE SDDL$SEQ_CODE_ARGUMENT_ID;
+
+COMMENT ON SEQUENCE SDDL$SEQ_CODE_ARGUMENT_ID
+IS 'Primärschlüssel für SDDL$CODE_ARGUMENT';
+
+/* ------ */
+
 CREATE SEQUENCE SDDL$SEQ_CODE_COMMAND_ID;
 
 COMMENT ON SEQUENCE SDDL$SEQ_CODE_COMMAND_ID
