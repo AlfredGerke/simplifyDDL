@@ -39,7 +39,7 @@ Voraussetzungen
 ---------------
 
 ### Entwicklung unter Firebird
-*simplifyDDL* wendet sich an Datenmodellentwickler für Firebird. 
+*simplifyDDL* wendet sich an Modellentwickler für Firebird. 
 Wann immer es sinnvoll erscheint, werden Sprachelemente genutzt, die speziell von Firebird zur Verfügung gestellt 
 werden und nicht notwendigerweise in anderen Datenbanksystemen vorhanden sind.
 Eine Ausweitung auf andere Datenbanksysteme ist in dieser Entwicklungsphase nicht
@@ -102,7 +102,7 @@ und deren Felder eingebettet wird.
 Diese Befehl werden ausgelesen, es wird ein Dictionary erstellt, auf der Grundlage des
 Dictionary wird ein Script mit der gewünschten DDL Syntax erstellt.
 
-Ziel ist es, beim Entwurf eines Datenbankmodells auf schnelle Art ein lauffähiges 
+Ziel ist es, beim Entwurf eines Datenbankmodells auf Skriptbasis, auf schnelle Art ein lauffähiges 
 Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 
 **Standardaufgaben:**
@@ -116,7 +116,7 @@ Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 - Indices einrichten
 - Foreign Keys einrichten
 - Standardviews einrichten
-- n:m Verbindungen realisieren
+- m:n Verbindungen realisieren
 - Reservierte Keywords prüfen
 - Tabelle reorganisieren
 - Lookuptabellen einrichten
@@ -163,9 +163,9 @@ Für jede Tabelle wird wird ein Standardview erstellt.
 Im statischen Dictionary wird der Präfix für Standardviews festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
-### n:m Verbindungen realisieren
+### m:n Verbindungen realisieren
 Es wird eine zusätzliche Tabelle mit den Primärschlüssel zweier verschiedener Tabellen aus Foreign Keys eingerichtet.
-Im statischen Dictionary wird der Präfix für n:m Verbindungen festgelegt.
+Im statischen Dictionary wird der Präfix für m:n Verbindungen festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
 ### Reservierte Keywords prüfen
