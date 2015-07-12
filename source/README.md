@@ -4,7 +4,10 @@ Sourcen
 Alle Scripte zur Entwicklung von *simplifyDDL*  
 
 - make_sDDL.bat            
-Startet _make.bat mit Parametern: 1. Parameter: ISQL (+Pfdad) - 2. Parameter Name der Logdatei - 3. Parameter (Opitional) *
+Startet _make.bat mit Parametern: 
+  - Erster Parameter: ISQL (+Pfdad) 
+  - Zweiter Parameter: Name der Logdatei 
+  - Dritter Parameter (Opitional = *): Erstellt eine Entwicklungsdatenbank
 
 - _make.bat            
 Mit Hilfe der übergebenen Parameter wird SDDL über ISQL installiert. Wurde der 3. Parameter übergeben wird eine Entwicklungsdatenbank erstellt
