@@ -13,6 +13,15 @@
 /*------------------------------------------------------------------------------------------------*/
 
 /* Domains ---------------------------------------------------------------------------------------*/
+CREATE DOMAIN SDDL$DN_CODE_BLOB
+AS BLOB SUBTYPE 1
+NOT NULL;
+
+COMMENT ON DOMAIN SDDL$DN_CODE_BLOB 
+IS 'DDL-Code';
+
+/* ------ */
+
 CREATE DOMAIN SDDL$DN_CODE
 AS VARCHAR(4000)
 DEFAULT ''
