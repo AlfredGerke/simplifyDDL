@@ -2,8 +2,9 @@
 ## simplifyDDL (sDDL)
 ######################
 
+sample_code.sql
+
 *.log
 *.bak
 *.zip
 *.zargo~
-manufacture.database.create.installer.tools.sql

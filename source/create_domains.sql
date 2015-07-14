@@ -14,7 +14,7 @@
 
 /* Domains ---------------------------------------------------------------------------------------*/
 CREATE DOMAIN SDDL$DN_CODE_BLOB
-AS BLOB SUBTYPE 1
+AS BLOB SUB_TYPE 1
 NOT NULL;
 
 COMMENT ON DOMAIN SDDL$DN_CODE_BLOB 

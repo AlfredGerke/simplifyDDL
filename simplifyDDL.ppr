@@ -18,6 +18,7 @@ simplifyDDL
 	+doc
 		doc\command_syntax.md
 		doc\setting_entries.md
+		doc\sddl_code_referenz.md
 	+root
 		LICENSE
 		README.md
@@ -38,13 +39,15 @@ simplifyDDL
 1=source\create_dynamic_dict.sql
 2=source\create_sequences.sql
 3=source\create_domains.sql
-4=README.md
+4=doc\command_syntax.md
+5=doc\sddl_code_referenz.md
+6=doc\setting_entries.md
 [Selected Project Files]
 Main=
-Selected=README.md
+Selected=doc\setting_entries.md
 [source\create_static_dict.sql]
-TopLine=229
-Caret=36,240
+TopLine=173
+Caret=40,206
 [source\create_dynamic_dict.sql]
 TopLine=170
 Caret=1,185
@@ -52,8 +55,14 @@ Caret=1,185
 TopLine=1
 Caret=49,26
 [source\create_domains.sql]
-TopLine=8
-Caret=15,16
-[README.md]
+TopLine=58
+Caret=32,90
+[doc\command_syntax.md]
+TopLine=127
+Caret=37,156
+[doc\sddl_code_referenz.md]
 TopLine=1
-Caret=1,1
+Caret=19,2
+[doc\setting_entries.md]
+TopLine=27
+Caret=50,14
