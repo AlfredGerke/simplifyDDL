@@ -1,6 +1,5 @@
-Befehlssyntax
-=============
-
+SDDL-Befehl Referenz
+====================
 Befehlssyntax für *simplifyDDL* der Version: v0.9-M1
 
 
@@ -161,7 +160,7 @@ Standardaufgaben
   * Im Feldkommentar:
       * Keine Befehle vorgesehen
 
-* n:m Verbindungen realisieren             
+* m:n Verbindungen realisieren             
   * Im Tabellenkommentar:
       * `{M:N:=%%M:N%%}` = Es wird in den Kommentaren anderer Tabellen nach dem m:n Namen gesucht
           * `%%M:N%%` = Bezeichnung für eine M:N Verbindung nach der in anderen Tabellenkommentaren gesucht werden soll 

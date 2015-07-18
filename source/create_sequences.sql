@@ -13,6 +13,20 @@
 /*------------------------------------------------------------------------------------------------*/
 
 /* Sequences -------------------------------------------------------------------------------------*/
+CREATE SEQUENCE SDDL$SEQ_CODE_STANDARD_DDL_ID; 
+
+COMMENT ON SEQUENCE SDDL$SEQ_CODE_STANDARD_DDL_ID
+IS 'Primärschlüssel für SDDL$CODE_STANDARD_DDL';
+
+/* ------ */
+
+CREATE SEQUENCE SDDL$SEQ_DICT_OBJECT_TYPE_ID; 
+
+COMMENT ON SEQUENCE SDDL$SEQ_DICT_OBJECT_TYPE_ID
+IS 'Primärschlüssel für SDDL$DICT_OBJECT_TYPE';
+
+/* ------ */
+
 CREATE SEQUENCE SDDL$SEQ_CODE_DEFAULT_FIELD_ID; 
 
 COMMENT ON SEQUENCE SDDL$SEQ_CODE_DEFAULT_FIELD_ID

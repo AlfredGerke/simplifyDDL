@@ -6,31 +6,34 @@ Die Einträge können von jedem Entwickler beliebig verändert werden.
 ### SECTION: `PREFIX`
 
 * IDENT: `VIEW`              
-  VALUE: `V_`
+  VALUE: `V`
 
 * IDENT: `TABLE`              
   VALUE: [leerstring]
 
 * IDENT: `SEQUENCE`              
-  VALUE: `SEQ_`
+  VALUE: `SEQ`
 
 * IDENT: `STOREDPROCEDURE`              
-  VALUE: `SP_` 
+  VALUE: `SP` 
 
 * IDENT: `FOREIGNKEY`              
-  VALUE: `FK_`
+  VALUE: `FK`
+  
+* IDENT: `PRIMARYKEY`
+* VALUE: `PK`  
 
 * IDENT: `INDEX`              
-  VALUE: `IDX_`
+  VALUE: `IDX`
 
 * IDENT: `UNIQUEKEY`              
-  VALUE: `UNQ_`
+  VALUE: `UNQ`
 
 * IDENT: `M:N`              
-  VALUE: `REL_`
+  VALUE: `REL`
 
 * IDENT: `CATALOG`              
-  VALUE: `CAT_`
+  VALUE: `CAT`
   
 ### SECTION: `SCRIPT.COMMENT`
 Notwendige Syntaxinformationen zur Kommentierung in Scripten erstellt.
