@@ -44,12 +44,12 @@ Standardaufgaben
   * DDL-Code: 
 
     SET TERM ;    
-        CREATE TRIGGER %%TRIGGER_NAME%% FOR %%TABLE_NAME%%    
-        ACTIVE %%TRIGGER_EVENT_TIME%% %%TRIGGER_EVENT_TYPE%% POSITION %%TRIGGER_ORDER%%    
-        AS     
-        BEGIN     
-             %%TRIGGER_CODE%%     
-        END^    
+    CREATE TRIGGER %%TRIGGER_NAME%% FOR %%TABLE_NAME%%    
+    ACTIVE %%TRIGGER_EVENT_TIME%% %%TRIGGER_EVENT_TYPE%% POSITION %%TRIGGER_ORDER%%    
+    AS     
+    BEGIN     
+        %%TRIGGER_CODE%%     
+    END^    
     SET TERM ; ^     
 
   * Aufbau %%TRIGGER_NAME%%: `%%PREFIX%%_%%TABLE_NAME%%_%%SUFFIX%%`
