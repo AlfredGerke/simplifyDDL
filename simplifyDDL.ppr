@@ -42,10 +42,9 @@ simplifyDDL
 4=doc\command_syntax.md
 5=doc\sddl_code_referenz.md
 6=doc\setting_entries.md
-7=source\sample_code.sql
 [Selected Project Files]
 Main=
-Selected=doc\sddl_code_referenz.md
+Selected=doc\command_syntax.md
 [source\create_static_dict.sql]
 TopLine=1
 Caret=31,16
@@ -59,14 +58,11 @@ Caret=1,16
 TopLine=89
 Caret=68,103
 [doc\command_syntax.md]
-TopLine=135
+TopLine=131
 Caret=6,165
 [doc\sddl_code_referenz.md]
-TopLine=34
-Caret=5,54
+TopLine=101
+Caret=12,99
 [doc\setting_entries.md]
 TopLine=1
 Caret=13,39
-[source\sample_code.sql]
-TopLine=879
-Caret=33,906
