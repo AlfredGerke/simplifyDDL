@@ -35,6 +35,9 @@ Die Einträge können von jedem Entwickler beliebig verändert werden.
 * IDENT: `CATALOG`              
   VALUE: `CAT`
   
+* IDENT: `DOMAIN`
+* VALUE: `DN`  
+  
 ### SECTION: `SCRIPT.COMMENT`
 Notwendige Syntaxinformationen zur Kommentierung in Scripten erstellt.
 
