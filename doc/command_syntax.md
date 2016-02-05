@@ -160,13 +160,13 @@ Standardaufgaben
   * Im Feldkommentar:
       * Keine Befehle vorgesehen
 
-* m:n Verbindungen realisieren             
+* n:m Verbindungen realisieren             
   * Im Tabellenkommentar:
-      * `{M:N:=%%M:N%%}` = Es wird in den Kommentaren anderer Tabellen nach dem m:n Namen gesucht
-          * `%%M:N%%` = Bezeichnung für eine M:N Verbindung nach der in anderen Tabellenkommentaren gesucht werden soll 
-              * nur zwei Tabellen können eine M:N Verbindung herstellen                   
+      * `{N:M:=%%N:M%%}` = Es wird in den Kommentaren anderer Tabellen nach dem n:m Namen gesucht
+          * `%%N:M%%` = Bezeichnung für eine N:M Verbindung nach der in anderen Tabellenkommentaren gesucht werden soll 
+              * nur zwei Tabellen können eine N:M Verbindung herstellen                   
   * Im Feldkommentar:
-      * `{M:N}` = Das Feld wird als Fremdschlüssel in der m:n Beziehungstabelle verwendet          
+      * `{N:M}` = Das Feld wird als Fremdschlüssel in der n:m Beziehungstabelle verwendet          
 
 * Reservierte Keywords prüfen             
   * Im Tabellenkommentar:

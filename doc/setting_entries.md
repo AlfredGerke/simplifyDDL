@@ -29,7 +29,7 @@ Die Einträge können von jedem Entwickler beliebig verändert werden.
 * IDENT: `UNIQUEKEY`              
   VALUE: `UNQ`
 
-* IDENT: `M:N`              
+* IDENT: `N:M`              
   VALUE: `REL`
 
 * IDENT: `CATALOG`              

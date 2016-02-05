@@ -42,12 +42,13 @@ simplifyDDL
 4=doc\command_syntax.md
 5=doc\sddl_code_referenz.md
 6=doc\setting_entries.md
+7=README.md
 [Selected Project Files]
 Main=
-Selected=doc\command_syntax.md
+Selected=source\create_static_dict.sql
 [source\create_static_dict.sql]
-TopLine=1
-Caret=31,16
+TopLine=171
+Caret=137,111
 [source\create_dynamic_dict.sql]
 TopLine=170
 Caret=1,185
@@ -58,11 +59,14 @@ Caret=1,16
 TopLine=89
 Caret=68,103
 [doc\command_syntax.md]
-TopLine=131
-Caret=6,165
+TopLine=154
+Caret=62,169
 [doc\sddl_code_referenz.md]
-TopLine=101
-Caret=12,99
+TopLine=102
+Caret=6,117
 [doc\setting_entries.md]
-TopLine=1
-Caret=13,39
+TopLine=17
+Caret=12,32
+[README.md]
+TopLine=153
+Caret=49,168

@@ -114,7 +114,7 @@ Standardaufgaben
   * %%PREFIX%%: s. SDDL$DICT_SETTING - Section: PREFIX - Ident: entsprechend dem gewählten Objekt  
   * Objecttype: *VIEW*            
 
-* m:n Verbindungen realisieren
+* n:m Verbindungen realisieren
   * DDL-Code: 
   * DDL-Code Kommentar:
   * %%PREFIX%%: s. SDDL$DICT_SETTING - Section: PREFIX - Ident: entsprechend dem gewählten Objekt  

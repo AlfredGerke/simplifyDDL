@@ -116,7 +116,7 @@ Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 - Indices einrichten
 - Foreign Keys einrichten
 - Standardviews einrichten
-- m:n Verbindungen realisieren
+- n:m Verbindungen realisieren
 - Reservierte Keywords prüfen
 - Tabelle reorganisieren
 - Lookuptabellen einrichten
@@ -163,9 +163,9 @@ Für jede Tabelle wird wird ein Standardview erstellt.
 Im statischen Dictionary wird der Präfix für Standardviews festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
-### m:n Verbindungen realisieren
+### n:m Verbindungen realisieren
 Es wird eine zusätzliche Tabelle mit den Primärschlüssel zweier verschiedener Tabellen aus Foreign Keys eingerichtet.
-Im statischen Dictionary wird der Präfix für m:n Verbindungen festgelegt.
+Im statischen Dictionary wird der Präfix für n:n Verbindungen festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
 ### Reservierte Keywords prüfen
