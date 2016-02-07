@@ -37,6 +37,9 @@ Die Einträge können von jedem Entwickler beliebig verändert werden.
   
 * IDENT: `DOMAIN`
 * VALUE: `DN`  
+ 
+* IDENT: `UNIQUE.CONSTRAINT`
+* VALUE: `ALT`
   
 ### SECTION: `SCRIPT.COMMENT`
 Notwendige Syntaxinformationen zur Kommentierung in Scripten erstellt.

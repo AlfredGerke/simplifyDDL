@@ -11,6 +11,14 @@ FileFormat=0
 ProjectFilesOnly=0
 [Project tree]
 simplifyDDL
+	+insert
+		source\insert_sDDL.bat
+		source\_insert.bat
+		source\insert_sDDL.log
+	+data
+		source\insert.sql
+		source\insert_settings.sql
+		source\insert_valid_sddl_keywords.sql
 	+make
 		source\make_sDDL.bat
 		source\_make.bat
@@ -35,50 +43,10 @@ simplifyDDL
 		source\create_sequences.sql
 		source\create_dynamic_dict.sql
 [Open project files]
-0=source\create_static_dict.sql
-1=source\create_dynamic_dict.sql
-2=source\create_sequences.sql
-3=source\create_domains.sql
-4=doc\command_syntax.md
-5=doc\sddl_code_referenz.md
-6=doc\setting_entries.md
-7=README.md
-8=source\batch.sql
-9=source\create_db.sql
-10=source\make_sDDL.log
+0=source\batch.sql
 [Selected Project Files]
 Main=
-Selected=source\make_sDDL.log
-[source\create_static_dict.sql]
-TopLine=309
-Caret=72,328
-[source\create_dynamic_dict.sql]
-TopLine=296
-Caret=1,328
-[source\create_sequences.sql]
-TopLine=7
-Caret=52,25
-[source\create_domains.sql]
-TopLine=53
-Caret=40,106
-[doc\command_syntax.md]
-TopLine=154
-Caret=62,169
-[doc\sddl_code_referenz.md]
-TopLine=102
-Caret=6,117
-[doc\setting_entries.md]
-TopLine=17
-Caret=12,32
-[README.md]
-TopLine=153
-Caret=49,168
+Selected=source\batch.sql
 [source\batch.sql]
 TopLine=1
-Caret=1,1
-[source\create_db.sql]
-TopLine=1
-Caret=1,1
-[source\make_sDDL.log]
-TopLine=1320
 Caret=1,1
