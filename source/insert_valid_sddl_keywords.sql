@@ -307,6 +307,22 @@ SDDL$V_DICT_VALID_COMMAND
 )
 values
 (
+  'UKEY.MEMBER',
+  'Feld ist mit anderen Feldern Teil eines Unique-Constraint'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_COMMAND
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
   'IDX',
   'Es wird ein Index erzeugt'
 )
@@ -437,6 +453,141 @@ values
 (
   'POS',
   'Position eines Feldes in einer Tabelle'
+)
+matching(CAPTION);
+
+COMMIT WORK;
+/* COMMAND ---------------------------------------------------------------------------------------*/
+
+delete
+from SDDL$V_DICT_VALID_ARGUMENT;
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'ASC',
+  'Aufsteigend sortieren'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DESC',
+  'Absteigend sortieren'
+)
+matching(CAPTION);
+
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DCUC',
+  'DELETE CASCADE UPDATE CASCADE'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DNUC',
+  'DELETE SET NULL UPDATE CASCADE'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DNUN',
+  'DELETE SET NULL UPDATE SET NULL'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DCUN',
+  'DELETE CASCADE UPDATE SET NULL'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'DRUR',
+  'DELETE RESTRICT UPDATE RESTRICT'
+)
+matching(CAPTION);
+
+/* ------ */
+
+update or insert
+into 
+SDDL$V_DICT_VALID_ARGUMENT
+(
+  CAPTION,
+  DESCRIPTION
+)
+values
+(
+  'R',
+  'Recursive'
 )
 matching(CAPTION);
 
