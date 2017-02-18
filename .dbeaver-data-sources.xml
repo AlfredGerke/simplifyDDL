@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="firebird_jaybird-1544ec894e1-57badc4fcdf68ea4" provider="generic" driver="firebird_jaybird" name="Firebird - SIMPLIFYDDL" create-date="1461610987658" login-date="1461870997166" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="3050" server="" database="SIMPLIFYDDL" url="jdbc:firebirdsql://localhost:3050/SIMPLIFYDDL" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
+				<property name="port" value="22"/>
+				<property name="keyPath" value=""/>
+				<property name="host" value=""/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-host" value=""/>
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<bootstrap/>
+		</connection>
+		<filters>
+			<filter type="org.jkiss.dbeaver.ext.generic.model.GenericTable" enabled="false"/>
+		</filters>
+		<virtual-meta-data>
+			<container name="model">
+				<entity name="SDDL$V_DICT_SETTING">
+					<constraint name="PRIMARY" type="VIRTUAL KEY">
+						<attribute name="SECTION"/>
+						<attribute name="IDENT"/>
+					</constraint>
+				</entity>
+			</container>
+		</virtual-meta-data>
+		<custom-property name="script.commit.lines" value="1000"/>
+		<custom-property name="sql.parameter.prefix" value=":"/>
+		<custom-property name="statement.invalidate.before.execute" value="false"/>
+		<custom-property name="sql.parameter.mark" value="?"/>
+		<custom-property name="sql.parameter.anonymous.enabled" value="false"/>
+		<custom-property name="script.commit.type" value="NO_COMMIT"/>
+		<custom-property name="SQLEditor.resetCursorOnExecute" value="false"/>
+		<custom-property name="sql.format.keywordCase" value=""/>
+		<custom-property name="script.sql.ignoreNativeDelimiter" value="false"/>
+		<custom-property name="statement.timeout" value="10000"/>
+		<custom-property name="script.sql.delimiter.blank" value="true"/>
+		<custom-property name="sql.parameter.enabled" value="true"/>
+		<custom-property name="sql.format.external.timeout" value="500"/>
+		<custom-property name="script.sql.delimiter" value=";"/>
+		<custom-property name="sql.format.external.file" value="false"/>
+		<custom-property name="sql.format.formatter" value="DEFAULT"/>
+		<custom-property name="script.error.handling" value="STOP_ROLLBACK"/>
+		<custom-property name="script.fetch.resultset" value="true"/>
+		<custom-property name="sql.format.external.cmd" value=""/>
+	</data-source>
+</data-sources>
