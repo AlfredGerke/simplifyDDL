@@ -90,7 +90,7 @@ Die Datenbankverbindung wird für Firebird über die Jaybird JDBC Treiber herges
 Für FB 3.0x müssen die passenden Jaybird JDBC Treiber verwendet werden. DBeaver kann über die [Groupid 
 und der Artifactid](https://www.firebirdsql.org/file/documentation/drivers_documentation/java/3.0.0-beta-2/release_notes.html "Groupid 
 und der Artifactid") des JDBC Treibers die notwendigen Dateien selber herunterladen.  
-Um DBeaver unter FB 3.0x verwenden zu können, muss in *Firebird.conf* `WIRECRYPE=Enabled` eingestellt werden.
+Um DBeaver unter FB 3.0x verwenden zu können, muss in *Firebird.conf* `WIRECRYPT=Enabled` eingestellt werden.
 DBeaver ist OpenSource und kann ohne Bedenken eingesetzt werden.
 
 ### PSPad
