@@ -43,26 +43,10 @@ simplifyDDL
 		source\create_sequences.sql
 		source\create_dynamic_dict.sql
 [Open project files]
-0=source\make_sDDL.bat
-1=source\_make.bat
-2=source\create_db.sql
-3=..\..\..\Programme\Firebird_3_0\databases.conf
-4=source\log.txt
+0=README.md
 [Selected Project Files]
 Main=
-Selected=source\make_sDDL.bat
-[source\make_sDDL.bat]
-TopLine=1
-Caret=54,5
-[source\_make.bat]
-TopLine=1
-Caret=7,12
-[source\create_db.sql]
-TopLine=1
-Caret=39,19
-[..\..\..\Programme\Firebird_3_0\databases.conf]
-TopLine=1
-Caret=1,1
-[source\log.txt]
-TopLine=1
-Caret=1,1
+Selected=README.md
+[README.md]
+TopLine=78
+Caret=1,86

@@ -3,10 +3,21 @@
 	<name>sDDL</name>
 	<comment></comment>
 	<projects>
-		<project>General</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>
 	<natures>
+		<nature>org.jkiss.dbeaver.DBeaverNature</nature>
 	</natures>
+	<filteredResources>
+		<filter>
+			<id>1496530072109</id>
+			<name>source</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*.sql</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>

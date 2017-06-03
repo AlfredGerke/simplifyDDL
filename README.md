@@ -3,7 +3,7 @@
 simplifyDDL (sDDL)
 ==================
 
-Hilfsroutinen für Firebird (2.5.x) zur automatisierten Erstellung von DDL Syntax auf der 
+Hilfsroutinen für FB 3.0x zur automatisierten Erstellung von DDL Syntax auf der 
 Basis von bestehenden Tabellen.  
 
 **Inhaltsübersicht:**
@@ -43,7 +43,7 @@ Voraussetzungen
 Wann immer es sinnvoll erscheint, werden Sprachelemente genutzt, die speziell von Firebird zur Verfügung gestellt 
 werden und nicht notwendigerweise in anderen Datenbanksystemen vorhanden sind.
 Eine Ausweitung auf andere Datenbanksysteme ist in dieser Entwicklungsphase nicht
-vorgesehen. Über folgenden Link: [Firebird Download](http://www.firebirdsql.org/en/firebird-2-5-4/ "Firebird Download")
+vorgesehen. Über folgenden Link: [Firebird Download](https://firebirdsql.org/en/firebird-3-0/ "Firebird Download")
 kann die aktuellste Version für alle gängigen Plattformen bezogen werden. 
 
 ### SQL und PSQL   
@@ -60,7 +60,9 @@ im Prinzip verstanden sein (s. [Firebirds ISQL Interactive SQL tool](http://www.
 Versionen
 ---------
 
-* Firebird 2.5.x [Firebird Download](http://www.firebirdsql.org/en/firebird-2-5-4/ "Firebird Download")
+* FB 3.0x [Firebird Download](https://firebirdsql.org/en/firebird-3-0/ "Firebird Download")
+* Jaybird 3.0 [JDBC Driver](https://firebirdsql.org/en/jdbc-driver/ "JDBC Driver")
+    - Wird für die Anbindung von DBeaver benötigt 
 
 
 zusätzliche Entwicklungsumgebungen
@@ -68,7 +70,8 @@ zusätzliche Entwicklungsumgebungen
 
 * [ISQL](http://www.firebirdsql.org/manual/isql-interactive.html "ISQL-Commandlinetool")
 * [FlameRobin](http://www.flamerobin.org/ "GUI für Datenbankentwurf/-entwicklung")
-* [PSPad](http://www.pspad.com/de/ "PSPad – der ultimative Editor für Softwareentwickler")
+* [DBeaver](http://dbeaver.jkiss.org/ "Universial SQL Client")
+* [PSPad](http://www.pspad.com/de/ "PSPad – der ultimative Editor für Softwareentwickler")  
 
 ### ISQL
 ISQL ist Teil der Firebird Installation und dient der Administration der Datenbank. 
@@ -80,6 +83,15 @@ FlameRobin ist ein plattformübergreifendes Administrationstool für FireBird, w
 welche über den ISQL verarbeitet werden können, in einer GUI anbietet. Neben der Administration lässt sich 
 FlameRobin sehr gut für die Entwicklung einsetzen. FlameRobin ist OpenSource und kann ohne
 Bedenken eingesetzt werden.
+
+### DBeaver
+DBeaver ist ein plattformübergreifendes Entwicklungswerkzeug. Die IDE basiert auf Eclipse. 
+Die Datenbankverbindung wird für Firebird über die Jaybird JDBC Treiber hergestellt.
+Für FB 3.0x müssen die passenden Jaybird JDBC Treiber verwendet werden. DBeaver kann über die [Groupid 
+und der Artifactid](https://www.firebirdsql.org/file/documentation/drivers_documentation/java/3.0.0-beta-2/release_notes.html "Groupid 
+und der Artifactid") des JDBC Treibers die notwendigen Dateien selber herunterladen.  
+Um DBeaver unter FB 3.0x verwenden zu können, muss in *Firebird.conf* `WIRECRYPE=Enabled` eingestellt werden.
+DBeaver ist OpenSource und kann ohne Bedenken eingesetzt werden.
 
 ### PSPad
 Wenn man zum Commandlinetool (ISQL) und FlameRobin für die Entwicklung der Datenbank 
