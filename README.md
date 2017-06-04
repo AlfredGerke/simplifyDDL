@@ -90,7 +90,7 @@ Die Datenbankverbindung wird für Firebird über die Jaybird JDBC Treiber herges
 Für FB 3.0x müssen die passenden Jaybird JDBC Treiber verwendet werden. DBeaver kann über die [Groupid 
 und der Artifactid](https://www.firebirdsql.org/file/documentation/drivers_documentation/java/3.0.0-beta-2/release_notes.html "Groupid 
 und der Artifactid") des JDBC Treibers die notwendigen Dateien selber herunterladen.  
-Um DBeaver unter FB 3.0x verwenden zu können, muss in *Firebird.conf* `WIRECRYPT=Enabled` eingestellt werden.
+Um DBeaver unter FB 3.0x verwenden zu können, muss in *firebird.conf* `WireCrypt = Enabled` eingestellt werden.
 DBeaver ist OpenSource und kann ohne Bedenken eingesetzt werden.
 
 ### PSPad
@@ -128,7 +128,7 @@ Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 - Indices einrichten
 - Foreign Keys einrichten
 - Standardviews einrichten
-- n:m Verbindungen realisieren
+- m:n Verbindungen realisieren
 - Reservierte Keywords prüfen
 - Tabelle reorganisieren
 - Lookuptabellen einrichten
@@ -175,9 +175,9 @@ Für jede Tabelle wird wird ein Standardview erstellt.
 Im statischen Dictionary wird der Präfix für Standardviews festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
-### n:m Verbindungen realisieren
+### m:n Verbindungen realisieren
 Es wird eine zusätzliche Tabelle mit den Primärschlüssel zweier verschiedener Tabellen aus Foreign Keys eingerichtet.
-Im statischen Dictionary wird der Präfix für n:n Verbindungen festgelegt.
+Im statischen Dictionary wird der Präfix für M:n Verbindungen festgelegt.
 Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
 
 ### Reservierte Keywords prüfen
@@ -248,10 +248,12 @@ Eine bestimmte Anweisung in einem Befehl wird immer den selben Index besitzen.
 
 - ISQL wird als Script-Engine eingesetzt 
 - Es wird ein Script für das statische Dictionary ausgeführt
+- Das eingerichtete statische Dictionary wird auf Mandatory-Inhalte geprüft (z. B: Standardfeld ID)
 - Der Entwickler kann beliebig viele Script einfügen in denen er das Datenmodell 
 anlegt. Dabei kann sich der Entwickler auf die individuellen Aufgaben 
 konzentrieren und über die Befehle in den Kommentare die Standardaufgaben organisieren
-- Abschließend wird ein Script mit einer Parser-StoredProcedure aufgerufen. Diese 
-Parser-StoredProcedure erzeugt das Create/Alter-Script um das Datenmodell zu vervollständigen
-- Das erzeugte Script wird sofort über ISQL eingespielt
+- Abschließend wird ein Script mit einer Parser-StoredProcedure aufgerufen: 
+    - Es werden alle Creates bzw. Alters erzeugt um das Datenmodell zu vervollständigen
+    - Es werden alle Foreign-Keys angelegt
+    - Das Datenmodelle wird über Rollen mit Grants versehen
 - Fertig

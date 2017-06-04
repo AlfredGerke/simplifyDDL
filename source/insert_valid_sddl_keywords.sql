@@ -4,7 +4,7 @@
 /* Purpose: Legt die erlaubten sDDL-Keywords an   
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FireBird 2.5.x   
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
 /* - Das Script ist für die Ausführung im ISQL erstellt worden
 /* - sDDL muss vorhanden sein 
 /*            
