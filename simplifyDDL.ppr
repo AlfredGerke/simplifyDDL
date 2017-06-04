@@ -11,6 +11,9 @@ FileFormat=0
 ProjectFilesOnly=0
 [Project tree]
 simplifyDDL
+	+firebird
+		..\..\..\Programme\Firebird_3_0\firebird.conf
+		..\..\..\Programme\Firebird_3_0\databases.conf
 	+insert
 		source\insert_sDDL.bat
 		source\_insert.bat
@@ -44,9 +47,13 @@ simplifyDDL
 		source\create_dynamic_dict.sql
 [Open project files]
 0=README.md
+1=..\..\..\Programme\Firebird_3_0\firebird.conf
 [Selected Project Files]
 Main=
 Selected=README.md
 [README.md]
-TopLine=78
-Caret=1,86
+TopLine=161
+Caret=47,180
+[..\..\..\Programme\Firebird_3_0\firebird.conf]
+TopLine=543
+Caret=20,569
