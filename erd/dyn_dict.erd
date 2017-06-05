@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="dyn_dict.erd" time="201706051124">
+	<entities>
+		<data-source id="935DE3C2-98B6-570B-ED4D-B7999941718E-15c6fcb28b1-1d796d77e2237999">
+			<entity id="1" name="SDDL$DYN_ARGUMENT" fq-name="SDDL$DYN_ARGUMENT" x="811" y="72"/>
+			<entity id="2" name="SDDL$DYN_ASSIGNMENT" fq-name="SDDL$DYN_ASSIGNMENT" x="811" y="210"/>
+			<entity id="3" name="SDDL$DYN_FIELD_COMMENT" fq-name="SDDL$DYN_FIELD_COMMENT" x="298" y="20"/>
+			<entity id="4" name="SDDL$DYN_PARSED_COMMAND" fq-name="SDDL$DYN_PARSED_COMMAND" x="576" y="115"/>
+			<entity id="5" name="SDDL$DYN_TABLE_COMMENT" fq-name="SDDL$DYN_TABLE_COMMENT" x="20" y="126"/>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FK_AC_DYN_ARGUMENT" fq-name="SDDL$DYN_ARGUMENT.FK_AC_DYN_ARGUMENT" type="fk" pk-ref="1" fk-ref="4"/>
+		<relation name="FK_AC_DYN_PARSED_COMMAND" fq-name="SDDL$DYN_ASSIGNMENT.FK_AC_DYN_PARSED_COMMAND" type="fk" pk-ref="2" fk-ref="4"/>
+		<relation name="FK_FT_DYN_FIELD_COMMENT_TABLE" fq-name="SDDL$DYN_FIELD_COMMENT.FK_FT_DYN_FIELD_COMMENT_TABLE" type="fk" pk-ref="3" fk-ref="5"/>
+		<relation name="FK_FF_DYN_PARSED_COMMAND" fq-name="SDDL$DYN_PARSED_COMMAND.FK_FF_DYN_PARSED_COMMAND" type="fk" pk-ref="4" fk-ref="3"/>
+		<relation name="FK_FT_DYN_PARSED_COMMAND" fq-name="SDDL$DYN_PARSED_COMMAND.FK_FT_DYN_PARSED_COMMAND" type="fk" pk-ref="4" fk-ref="5"/>
+	</relations>
+	<notes/>
+</diagram>

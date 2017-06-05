@@ -53,7 +53,7 @@ Main=
 Selected=README.md
 [README.md]
 TopLine=161
-Caret=47,180
+Caret=28,177
 [..\..\..\Programme\Firebird_3_0\firebird.conf]
 TopLine=543
 Caret=20,569
