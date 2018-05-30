@@ -46,14 +46,18 @@ simplifyDDL
 		source\create_sequences.sql
 		source\create_dynamic_dict.sql
 [Open project files]
-0=README.md
-1=..\..\..\Programme\Firebird_3_0\firebird.conf
+0=sample\README.md
+1=source\README.md
+2=README.md
 [Selected Project Files]
 Main=
 Selected=README.md
+[sample\README.md]
+TopLine=1
+Caret=1,1
+[source\README.md]
+TopLine=1
+Caret=1,1
 [README.md]
-TopLine=161
-Caret=28,177
-[..\..\..\Programme\Firebird_3_0\firebird.conf]
-TopLine=543
-Caret=20,569
+TopLine=97
+Caret=1,1
