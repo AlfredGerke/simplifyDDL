@@ -1,0 +1,49 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+[Project tree]
+create_sysdba
+	+create
+		database.security.create.sql
+		createSysdba64.bat
+		createSysdba64.log
+		_createSysdba.bat
+		createSysdba32.bat
+		createSysdba32.log
+[Open project files]
+0=database.security.create.sql
+1=createSysdba64.bat
+2=createSysdba64.log
+3=_createSysdba.bat
+4=createSysdba32.bat
+5=createSysdba32.log
+[Selected Project Files]
+Main=
+Selected=_createSysdba.bat
+[database.security.create.sql]
+TopLine=1
+Caret=1,1
+[createSysdba64.bat]
+TopLine=1
+Caret=1,1
+[createSysdba64.log]
+TopLine=1
+Caret=1,1
+[_createSysdba.bat]
+TopLine=1
+Caret=1,1
+[createSysdba32.bat]
+TopLine=1
+Caret=1,1
+[createSysdba32.log]
+TopLine=1
+Caret=1,1

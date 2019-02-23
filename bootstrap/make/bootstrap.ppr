@@ -1,0 +1,57 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+Extensions=*.*
+[Project tree]
+bootstrap
+	+log
+		make.log
+	+sddl
+		..\sddl\sddl.bootstrap.create.db.sql
+		..\sddl\sddl.bootstrap.create.domains.sql
+		..\sddl\sddl.bootstrap.create.history.udate.model.sql
+		..\sddl\sddl.bootstrap.create.history.udate.package.sql
+		..\sddl\sddl.bootstrap.create.roles.sql
+		..\sddl\sddl.bootstrap.create.setting.model.sql
+		..\sddl\sddl.bootstrap.create.setting.package.sql
+		..\sddl\sddl.bootstrap.create.sql
+	+connect
+		..\connect\connect.sysdba.sql
+	+make
+		_make.bat
+		batch.sql
+		make.bat
+		make.log
+[Open project files]
+0=make.log
+1=batch.sql
+2=..\sddl\sddl.bootstrap.create.setting.model.sql
+3=..\sddl\sddl.bootstrap.create.domains.sql
+4=..\sddl\sddl.bootstrap.create.setting.package.sql
+[Selected Project Files]
+Main=
+Selected=..\sddl\sddl.bootstrap.create.setting.package.sql
+[make.log]
+TopLine=664
+Caret=59,711
+[batch.sql]
+TopLine=1
+Caret=53,38
+[..\sddl\sddl.bootstrap.create.setting.model.sql]
+TopLine=83
+Caret=1,101
+[..\sddl\sddl.bootstrap.create.domains.sql]
+TopLine=167
+Caret=37,210
+[..\sddl\sddl.bootstrap.create.setting.package.sql]
+TopLine=63
+Caret=42,38

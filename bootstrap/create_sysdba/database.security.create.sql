@@ -1,0 +1,2 @@
+CREATE OR ALTER USER SYSDBA PASSWORD 'masterkey';
+commit;
