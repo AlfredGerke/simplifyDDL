@@ -1,10 +1,11 @@
 ***(in Progress: Zielversion sDDL 0.9 M1)***
 
-simplifyDDL (sDDL)
-==================
+sDDl-Bootstrap
+==============
 
-Hilfsroutinen für FB 3.0x zur automatisierten Erstellung von DDL Syntax auf der 
-Basis von bestehenden Tabellen.  
+Framework, welches näher am Ursprungsprojekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker") ist.
+
+Das Framework soll einen neuen Ansatz in die Entwicklung bringen.
 
 **Inhaltsübersicht:**
 
@@ -15,31 +16,16 @@ Basis von bestehenden Tabellen.
 - Zielvorgabe 
 - Realisierung
 
-
 Anmerkung zur neuen Version
 ---------------------------
 
-Die Version *sDDL 0.9 M1* ist die erste Version der Anwendung.
-Es werden alle notwendigen Scripte und Beispiele eingeführt. 
-
-Das in diesem Projekt beschriebene Vorgehen, Standardaufgaben bei der Datenmodelierung
-teilweise oder komplett zu generieren, hat seinen Ursprung in dem Projekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker").
-
-Mit ZABonline werden die Möglichkeiten von WaveMaker 6.7.x im speziellen, so wie der Aufbau einer Anwendung als SPA (Single-Page-Application) im Allgemeinen getestet. 
-
-Im Zuge dieser Entwicklung wurden diverse [`SQL-Scripte`](https://github.com/AlfredGerke/ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
-Um die Arbeit zu vereinfachen wurden immer wiederkehrende Aufagaben vereinheitlicht, in einen Standard gebracht und von Hilfsroutinen teilweise oder komplett übernommen.
-
-Diese Hilfsroutinen befinden sich in den Scripten [`create_tools.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_tools.sql "create_tools.sql") und [`create_hibernate_workaround.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_hibernate_workaround.sql "create_hibernate_workaround.sql"). 
-
-Dieses Projekt soll das in ZABonline eingeführte Verfahren zur Generierung von DDL-Inhalten vereinfachen und erweitern.
-
+???
 
 Voraussetzungen
 ---------------
 
 ### Entwicklung unter Firebird
-*simplifyDDL* wendet sich an Modellentwickler für Firebird. 
+*sDDl-Bootstrap* wendet sich an Modellentwickler für Firebird. 
 Wann immer es sinnvoll erscheint, werden Sprachelemente genutzt, die speziell von Firebird zur Verfügung gestellt 
 werden und nicht notwendigerweise in anderen Datenbanksystemen vorhanden sind.
 Eine Ausweitung auf andere Datenbanksysteme ist in dieser Entwicklungsphase nicht
@@ -104,7 +90,7 @@ Freeware und kann ohne Bedenken eingesetzt werden.
 Zielvorgabe
 -----------
 
-Bei *simplifyDDL* handelt es sich um ein Sammlung von StoredProcedures, sowie 
+Bei *sDDl-Bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
 eines Workflow um auf der Basis einer Tabelle notwendige DDL Syntax automatisch 
 erstellen zu können.
 
@@ -119,141 +105,9 @@ Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 
 **Standardaufgaben:**
 
-- Sequences einrichten
-- Domains einrichten
-- Primärschlüssel einrichten
-- Standardfelder ergänzen
-- Trigger einrichten
-- Unique Keys einrichten
-- Indices einrichten
-- Foreign Keys einrichten
-- Standardviews einrichten
-- m:n Verbindungen realisieren
-- Reservierte Keywords prüfen
-- Tabelle reorganisieren
-- Lookuptabellen einrichten
-
-### Sequences einrichten
-Für Primärschlüssel (Standardfeld `<ID>`) werden Sequences angelegt. 
-Das Feld `<ID>` wird als Standardfeld für Primärschlüssel vorgesehen.
-Im statischen Dictionary wird der Präfix für Sequences festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Domains einrichten
-Für Standardfelder werden Domainen angelegt. (z.B.: `<PREFIX>_CURRENT_USER` für das Standardfeld `CRE_USER`)
-Im statischen Dictionary wird der Präfix für Domains festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Standardfelder ergänzen
-Im statischen Dictionary festgelegte Standardfelder werden ausgelesen und in einer Tabelle ergänzt (z.B. `CRE_USER` oder `<ID>`).  
-Wenn nötig werden Standarddomains erstellt.
-Im statischen Dictionary werden für bestimmte Standardfelder der Feldname festgelegt (z.B. `<ID>` für den Primärschlüssel) 
-
-### Trigger einrichten
-Für das initialisieren von Primärschlüssel und Standardfelder werden Tabellentrigger eingerichtet.
-(z.B.: `<PREFIX>_<TRIGGER_NAME>_BI0` für den Primärschlüssel)
-Im statischen Dictionary wird der Präfix für Trigger festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Unique Keys einrichten
-Für Unique Keys werden die notwendigen Constraints erstellt.
-Im statischen Dictionary wird der Präfix für Unique Key Constraints festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Indices einrichten
-Für Indices werden die notwendigen Constraints erstellt.
-Im statischen Dictionary wird der Präfix für Indices Constraints festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Foreign Keys einrichten
-Für Foreign Keys werden die notwendigen Constraints erstellt.
-Im statischen Dictionary wird der Präfix für Foreign Key Constraints festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Standardviews einrichten
-Für jede Tabelle wird wird ein Standardview erstellt.
-Im statischen Dictionary wird der Präfix für Standardviews festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### m:n Verbindungen realisieren
-Es wird eine zusätzliche Tabelle mit den Primärschlüssel zweier verschiedener Tabellen aus Foreign Keys eingerichtet.
-Im statischen Dictionary wird der Präfix für M:n Verbindungen festgelegt.
-Die Namensgebung, Prüfung auf Länge und Eindeutigkeit wird von *simplifyDDL* übernommen.
-
-### Reservierte Keywords prüfen
-Das Datenmodell wird auf von Firebird als reservierte Keywords definierte Datenbank Objektnamen geprüft.
-
-### Tabelle reorganisieren     
-Die Tabelle wird nach Positionsvorgaben in den Feldkommentaren neu organisiert. Zusaätzlich werden 
-informationen aus dem Statischen Dictionary berücksichtigt. 
-Dort wird angegeben ob ein Standtadfeld am Anfang oder am Ende eingetragen wird, relativ zu seiner eigenen Postionsangaben.
-
-### Lookuptabellen einrichten     
-Es werden Standard-Lookuptabellen eingerichtet.
-
-Zu einigen dieser Standards wird man Ausnahmen definieren können.
+- ???
 
 Realisierung
 ------------
 
-- Statisches Dictionary
-- Dynamisches Dictionary
-- Kommentar
-- Befehle
-- Workflow
-
-### Statisches Dictionary
-Im statischen Dictionary werden Informationen vorgehalten, welche bei der Codegenerierung 
-erforderlich sind und im Befehlssatz nicht vorhanden sind.
-
-So werden z. B. Standardfelder für Tabellen hinterlegt. 
-Für die Namensgebung werden Präfix für die verschiedenen Datenbankobjekte definiert.
-
-Das statische Dictionary kann per Script immer wieder neu erstellt werden oder 
-aber es kann Teil des Datenbankmodells werden.
-Die Inhalte müssen vom Entwickler angelegt werden.
-Es wird eine Grundversion zur Verfügung gestellt.
-
-Bevor *simplifyDDL* seine Arbeit aufnehmen kann, muss das statische Dictionary 
-erstellt und eingerichtet sein.
-
-### Dynamischen Dictionary
-Das dynamische Dictionary wird mit jedem Script-Start neu aufgebaut. Das Dictionary 
-wird aus den Befehlen in den Kommentaren der Tabelle und deren Felder erstellt.
-
-### Kommentar
-Alle relevanten Datenbankobjekte besitzen das Attribut: Kommentar. 
-Der Kommentar kann frei vergeben werden.
-*simplifyDDL* erwartet in diesen Kommentaren seine Anweisungen. 
-Nach dem alle Befehle ausgelesen und die gewünschten Datenbankobjekte erstellt 
-wurden, werden die Befehle aus den Kommentaren entfernt. Übrig bleiben nur die 
-ursprünglichen Erläuterungen.
-
-*simplifyDDL* nutze den Tabellen Kommentar für Anweisungen die direkt mit der 
-Tabelle zusammenhängen oder aber mehrere Felder einer Tabelle einbeziehen.
-Der Kommentar zum Feld einer Tabelle wird für Anweisungen genutzt, die sich 
-ausschließlich auf das Feld konzentrieren. 
-
-### Befehle
-Die Befehle für *simplifyDDL* werden immer zu Anfang eines Kommentars angelegt.
-Befehl können hintereinander verkettet werden. 
-Erst nach dem letzten Befehl wird der eigentlich Kommentar hinterlegt.
-Ein Befehl wird mit geschweiften Klammern begonnen und beendet.
-In einem Befehl kann ein oder mehrere Anweisungen untergebracht werden.
-Jede Anweisung bekommt einen Index vorangestellt. Der Index ist immer Nullbasiert.
-Eine bestimmte Anweisung in einem Befehl wird immer den selben Index besitzen. 
-
-### Workflow
-*simplifyDDL* bietet einen einfachen Workflow für die Entwicklung von Datenmodellen an.
-
-- ISQL wird als Script-Engine eingesetzt 
-- Es wird ein Script für das statische Dictionary ausgeführt
-- Das eingerichtete statische Dictionary wird auf Mandatory-Inhalte geprüft (z. B: Standardfeld ID)
-- Der Entwickler kann beliebig viele Script einfügen in denen er das Datenmodell 
-anlegt. Dabei kann sich der Entwickler auf die individuellen Aufgaben 
-konzentrieren und über die Befehle in den Kommentare die Standardaufgaben organisieren
-- Abschließend wird ein Script mit einer Parser-StoredProcedure aufgerufen: 
-    - Es werden alle Creates bzw. Alters erzeugt um das Datenmodell zu vervollständigen
-    - Es werden alle Foreign-Keys angelegt
-    - Das Datenmodelle wird über Rollen mit Grants versehen
-- Fertig
+- ???
