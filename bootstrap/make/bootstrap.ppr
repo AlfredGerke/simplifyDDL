@@ -1,5 +1,8 @@
 [Config]
-Compilator.SaveAll=0
+Compilator.FileName=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.bat
+Compilator.Log=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.log
+Compilator.DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
+Compilator.SaveAll=1
 Compilator.Capture=0
 Compilator.HideOutput=0
 Compilator.LogType=0
@@ -19,11 +22,14 @@ bootstrap
 		..\sddl\sddl.bootstrap.create.db.sql
 		..\sddl\sddl.bootstrap.create.domains.sql
 		..\sddl\sddl.bootstrap.create.history.udate.model.sql
-		..\sddl\sddl.bootstrap.create.history.udate.package.sql
+		..\sddl\sddl.bootstrap.create.history.udate.package.body.sql
+		..\sddl\sddl.bootstrap.create.history.udate.package.header.sql
+		..\sddl\sddl.bootstrap.create.package.body.sql
+		..\sddl\sddl.bootstrap.create.package.header.sql
 		..\sddl\sddl.bootstrap.create.roles.sql
 		..\sddl\sddl.bootstrap.create.setting.model.sql
-		..\sddl\sddl.bootstrap.create.setting.package.sql
-		..\sddl\sddl.bootstrap.create.sql
+		..\sddl\sddl.bootstrap.create.setting.package.body.sql
+		..\sddl\sddl.bootstrap.create.setting.package.header.sql
 	+connect
 		..\connect\connect.sysdba.sql
 	+make
@@ -32,26 +38,26 @@ bootstrap
 		make.bat
 		make.log
 [Open project files]
-0=make.log
-1=batch.sql
-2=..\sddl\sddl.bootstrap.create.setting.model.sql
-3=..\sddl\sddl.bootstrap.create.domains.sql
-4=..\sddl\sddl.bootstrap.create.setting.package.sql
+0=..\sddl\sddl.bootstrap.create.history.udate.model.sql
+1=..\sddl\sddl.bootstrap.create.history.udate.package.body.sql
+2=..\sddl\sddl.bootstrap.create.setting.package.body.sql
+3=..\sddl\sddl.bootstrap.create.setting.package.header.sql
+4=make.log
 [Selected Project Files]
 Main=
-Selected=..\sddl\sddl.bootstrap.create.setting.package.sql
+Selected=make.log
+[..\sddl\sddl.bootstrap.create.history.udate.model.sql]
+TopLine=55
+Caret=1,1
+[..\sddl\sddl.bootstrap.create.history.udate.package.body.sql]
+TopLine=43
+Caret=52,84
+[..\sddl\sddl.bootstrap.create.setting.package.body.sql]
+TopLine=478
+Caret=34,516
+[..\sddl\sddl.bootstrap.create.setting.package.header.sql]
+TopLine=94
+Caret=24,120
 [make.log]
-TopLine=664
-Caret=59,711
-[batch.sql]
-TopLine=1
-Caret=53,38
-[..\sddl\sddl.bootstrap.create.setting.model.sql]
-TopLine=83
-Caret=1,101
-[..\sddl\sddl.bootstrap.create.domains.sql]
-TopLine=167
-Caret=37,210
-[..\sddl\sddl.bootstrap.create.setting.package.sql]
-TopLine=63
-Caret=42,38
+TopLine=1314
+Caret=44,1356

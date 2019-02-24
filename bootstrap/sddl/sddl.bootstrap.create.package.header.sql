@@ -1,18 +1,20 @@
 /*------------------------------------------------------------------------------------------------*/
-/* ###Description: 
-/*   * Es wird eine Cut-Down-Version der sDDL-Tools erstellt
-/*       - s. https://github.com/AlfredGerke/simplifyDDL
-/*       - s. https://github.com/AlfredGerke/ZABonline
-/*   * Die aufgerufenen Befehle setzen eine Firebird 3.0.x voraus             
-/*   * Ein Connect zu einer Datenbank wird vorausgesetzt                                                                          
-/*   
-/* Initial Developer: AGE
-/*
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-02-22                                                        
+/* Description: Es wird eine Cut-Down-Version der sDDL-Tools erstellt
+/*   - s. https://github.com/AlfredGerke/simplifyDDL
+/*   - s. https://github.com/AlfredGerke/ZABonline
+/*   - Package-Header        
+/*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/*
-/* Last modified: $Date:$
-/* Revision:      $Revision:$
-/* Author:        $Author:$
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect wird vorausgesetzt
+/*   
+/*------------------------------------------------------------------------------------------------*/
+/* History: 2019-02-22
+/*          Script erstellen
+/*   
 /*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/
@@ -1777,6 +1779,36 @@ begin
   
   sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :APublicRole;
   execute statement sql_stmt;    
+  
+  for
+  select a.RDB$DEPENDED_ON_NAME
+  from RDB$DEPENDENCIES a 
+  where RDB$DEPENDENT_NAME = :ADBObject
+  and a.RDB$DEPENDED_ON_NAME like 'V%'  
+  into :relation_name
+  do
+  begin
+    /* Eventuell zuerst prüfen ob :relation_name tatsächlich eine VIEW ist */
+  
+    if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
+      sql_stmt = 'GRANT SELECT ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject;
+    else
+      sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject;
+        
+    execute statement sql_stmt;  
+    
+    if (:AAllowLog = True) then
+    begin
+      sql_stmt = 'GRANT EXECUTE ON PROCEDURE SP_LOG_HISTORY TO PACKAGE ' || :ADBObject;
+      execute statement sql_stmt;    
+    end
+    
+    if (:AAllowDebug = True) then
+    begin
+      sql_stmt = 'GRANT EXECUTE ON PROCEDURE SP_LOG_DEBUG TO PACKAGE ' || :ADBObject;
+      execute statement sql_stmt;
+    end
+  end  
 end^
 
 COMMENT ON PROCEDURE SP_SDDL_GEN_GRANT_PKG IS
@@ -1960,37 +1992,6 @@ end^
 COMMENT ON PROCEDURE SP_SDDL_GEN_GRANT IS
 'Erstellt Grants für eine beliebige View oder SP'^   
     
-CREATE OR ALTER PROCEDURE SP_HISTORY_UPDATE (
-  AMajorNumber DN_MAJOR_NO,
-  AMinorNumber DN_MINOR_NO,
-  AScript DN_FILENAME,
-  ADescription DN_DESCRIPTION)
-AS
-begin
-  if (exists(select 1 from RDB$RELATIONS where RDB$RELATION_NAME='TB_HISTORY_UPDATE')) then
-  begin
-    in autonomous transaction do
-      insert
-      into TB_HISTORY_UPDATE 
-      ( 
-        MAJOR,
-        MINOR,
-        SCRIPT,
-        DESCRIPTION
-      ) 
-      values 
-      ( 
-        :AMajorNumber, 
-        :AMinorNumber, 
-        :AScript, 
-        :ADescription
-      );
-  end 
-end^
-
-COMMENT ON PROCEDURE SP_HISTORY_UPDATE IS
-'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE'^
-
 CREATE OR ALTER PROCEDURE SP_SDDL_CHECK_STYLEGUIDE_KEYW(
   AKeyWordToCheck DN_DB_OBJECT = '') 
 RETURNS (
@@ -2155,38 +2156,6 @@ SET TERM ; ^
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
-/* Primary Keys                                   
-/*------------------------------------------------------------------------------------------------*/
-
-ALTER TABLE TB_HISTORY_UPDATE ADD PRIMARY KEY (ID);
-
-COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
-/* Trigger                                  
-/*------------------------------------------------------------------------------------------------*/
-
-SET TERM ^ ;
-CREATE TRIGGER TRG_HISTORY_UPDATE_BI0 FOR TB_HISTORY_UPDATE ACTIVE
-BEFORE INSERT POSITION 0
-AS
-begin
-  if (new.id is null) then
-    new.id = next value for SEQ_HISTORY_UPDATE_ID;    
-end^
-SET TERM ; ^
-
-SET TERM ^ ;
-CREATE TRIGGER TRG_HISTORY_UPDATE_BU0 FOR TB_HISTORY_UPDATE ACTIVE
-BEFORE UPDATE POSITION 0
-AS
-begin
-  new.chg_user = current_user;
-  new.chg_date = current_timestamp;
-end^
-SET TERM ; ^
-
-COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
 /* Updatehistory                                   
 /*------------------------------------------------------------------------------------------------*/
 
@@ -2195,10 +2164,10 @@ EXECUTE BLOCK AS
 BEGIN
   execute
   procedure
-  SP_HISTORY_UPDATE (0,
+  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
     0,
-    'sddl.bootstrap.create.sql',
-    'sDDL-Bootstrap installiert');
+    'sddl.bootstrap.create.package.header.sql',
+    'Package-Header des sDDL-Bootstrap installiert');
 END^        
 SET TERM ; ^
 

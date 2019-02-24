@@ -1,17 +1,19 @@
 /*------------------------------------------------------------------------------------------------*/
-/* ###Description: 
-/*   * Es wirden alle notwendigen Domains für das sDDL angelegt
-/*   * Die aufgerufenen Befehle setzen eine Firebird 3.0.x voraus             
-/*   * Ein Connect zu einer Datenbank wird vorausgesetzt                                                                          
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-02-22                                                        
+/* Description: Es werden alle notwendigen Domains für das sDDL-Bootstrap angelegt    
+/*                                                                              
+/*------------------------------------------------------------------------------------------------*/
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect wird vorausgesetzt
 /*   
-/* Initial Developer: AGE
-/*
 /*------------------------------------------------------------------------------------------------*/
-/*
-/* Last modified: $Date:$
-/* Revision:      $Revision:$
-/* Author:        $Author:$
+/* History: 2019-02-22
+/*          Script erstellen
+/*   
 /*------------------------------------------------------------------------------------------------*/
+
 
 /* Domains für das sDDL-Bootstrap ----------------------------------------------------------------*/
 
@@ -175,7 +177,16 @@ CREATE DOMAIN DN_TIMESTAMP
 AS TIMESTAMP;
 
 COMMENT ON DOMAIN DN_TIMESTAMP
-IS 'Zeit und Datum';        
+IS 'Zeit und Datum';
+
+CREATE DOMAIN DN_FLOAT AS
+FLOAT;
+
+CREATE DOMAIN DN_INTEGER AS
+INTEGER;
+
+CREATE DOMAIN DN_STRING AS
+VARCHAR(4000);        
 
 /* Domains für TB_HISTORY_UPDATE -----------------------------------------------------------------*/
 

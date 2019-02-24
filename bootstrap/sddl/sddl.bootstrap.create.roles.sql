@@ -1,16 +1,17 @@
 /*------------------------------------------------------------------------------------------------*/
-/* ###Description: 
-/*   * Es werden Standard-benutzer und -Rollen für das sDDL-Bootstrap angelegt
-/*   * Die aufgerufenen Befehle setzen eine Firebird 3.0.x voraus             
-/*   * Ein Connect zu einer Datenbank wird vorausgesetzt                                                                          
-/*   
-/* Initial Developer: AGE
-/*
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-02-22                                                        
+/* Description: Es werden Standard-Benutzer und -Rollen für das sDDL-Bootstrap angelegt    
+/*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/*
-/* Last modified: $Date:$
-/* Revision:      $Revision:$
-/* Author:        $Author:$
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect wird vorausgesetzt
+/*   
+/*------------------------------------------------------------------------------------------------*/
+/* History: 2019-02-22
+/*          Script erstellen
+/*   
 /*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/

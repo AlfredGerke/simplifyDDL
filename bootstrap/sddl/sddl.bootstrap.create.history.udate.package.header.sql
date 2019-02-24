@@ -1,11 +1,12 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Erstellt eine Datenbank um sDDL entwickeln zu kÃ¶nnen    
+/* Description: Es wird der Package-Header für die Update-History angelegt    
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung fÃ¼r FB 3.0x   
-/* - Das Script ist fÃ¼r die AusfÃ¼hrung im ISQL erstellt worden
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect wird vorausgesetzt
 /*   
 /*------------------------------------------------------------------------------------------------*/
 /* History: 2019-02-22
@@ -13,18 +14,21 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/* Vorhandene Datenbank lÃ¶schen: Pfad anpassen! */
-SHEll DEL C:\Users\Alfred\Sourcen\db\firebird\simplifyDDL\SIMPLIFYDDL.FDB;
-
-/* Entwicklungsdatenbank erstellen: Alias SIMPLIFYDDL anlegen! */
-CREATE DATABASE '127.0.0.1/32303:SIMPLIFYDDL' 
-USER 'SYSDBA' 
-PASSWORD 'masterkey' 
-PAGE_SIZE 4096 
-DEFAULT CHARACTER 
-SET WIN1252 
-COLLATION WIN1252;
-
 /*------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------*/  
+
+SET TERM ^ ;
+CREATE OR ALTER PACKAGE PKG$HISTORY_UPDATE
+AS
+begin
+  PROCEDURE SP_SET_INFO (
+    AMajorNumber DN_MAJOR_NO,
+    AMinorNumber DN_MINOR_NO,
+    AScript DN_FILENAME,
+    ADescription DN_DESCRIPTION);
+end^
+SET TERM ; ^
+
+COMMIT WORK;
+/*------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/

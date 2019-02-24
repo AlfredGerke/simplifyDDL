@@ -32,10 +32,19 @@ input '..\connect\connect.sysdba.sql';
 
 /* Input -----------------------------------------------------------------------------------------*/
 input '..\sddl\sddl.bootstrap.create.domains.sql';
+
 input '..\sddl\sddl.bootstrap.create.history.udate.model.sql';
-input '..\sddl\sddl.bootstrap.create.history.udate.package.sql';
+input '..\sddl\sddl.bootstrap.create.history.udate.package.header.sql';
+input '..\sddl\sddl.bootstrap.create.history.udate.package.body.sql';
+
 input '..\sddl\sddl.bootstrap.create.setting.model.sql';
-input '..\sddl\sddl.bootstrap.create.setting.package.sql';
+input '..\sddl\sddl.bootstrap.create.setting.package.header.sql';
+input '..\sddl\sddl.bootstrap.create.setting.package.body.sql';
+
+/*
+input '..\sddl\sddl.bootstrap.create.package.header.sql';
+input '..\sddl\sddl.bootstrap.create.package.body.sql';
+*/
 
 /*------------------------------------------------------------------------------------------------*/
 /* Das wars... 
