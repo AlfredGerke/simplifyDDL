@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Erstellt eine Datenbank um sDDL entwickeln zu können    
+/* Description: Erstellt eine Datenbank um sDDL.bootstrap entwickeln zu können    
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
 /* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   

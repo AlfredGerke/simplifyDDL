@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Es wird eine Cut-Down-Version der sDDL-Tools erstellt
+/* Description: Das sDDL.bootstrap wird angelegt
 /*   - s. https://github.com/AlfredGerke/simplifyDDL
 /*   - s. https://github.com/AlfredGerke/ZABonline
 /*   - Package-Header        

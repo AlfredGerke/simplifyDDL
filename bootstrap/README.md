@@ -1,6 +1,6 @@
 ***(in Progress: Zielversion sDDL 0.9 M1)***
 
-sDDl-Bootstrap
+sDDl.bootstrap
 ==============
 
 Framework, welches näher am Ursprungsprojekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker") ist.
@@ -19,13 +19,26 @@ Das Framework soll einen neuen Ansatz in die Entwicklung bringen.
 Anmerkung zur neuen Version
 ---------------------------
 
-???
+Die Version *sDDL 0.9 M1* ist die erste Version der Anwendung.
+Es werden alle notwendigen Scripte und Beispiele eingeführt. 
+
+Das in diesem Projekt beschriebene Vorgehen, Standardaufgaben bei der Datenmodelierung
+teilweise oder komplett zu generieren, hat seinen Ursprung in dem Projekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker").
+
+Mit ZABonline werden die Möglichkeiten von WaveMaker 6.7.x im speziellen, so wie der Aufbau einer Anwendung als SPA (Single-Page-Application) im Allgemeinen getestet. 
+
+Im Zuge dieser Entwicklung wurden diverse [`SQL-Scripte`](https://github.com/AlfredGerke/ZABonline/tree/master/source/script/script "SQL-Scripte vom ZABonline") angelegt um die Datenbasis für das Projekt festzulegen.
+Um die Arbeit zu vereinfachen wurden immer wiederkehrende Aufagaben vereinheitlicht, in einen Standard gebracht und von Hilfsroutinen teilweise oder komplett übernommen.
+
+Diese Hilfsroutinen befinden sich in den Scripten [`create_tools.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_tools.sql "create_tools.sql") und [`create_hibernate_workaround.sql`](https://github.com/AlfredGerke/ZABonline/blob/master/source/script/script/create_hibernate_workaround.sql "create_hibernate_workaround.sql"). 
+
+Dieses Projekt soll das in ZABonline eingeführte Verfahren zur Generierung von DDL-Inhalten generalisieren.
 
 Voraussetzungen
 ---------------
 
 ### Entwicklung unter Firebird
-*sDDl-Bootstrap* wendet sich an Modellentwickler für Firebird. 
+*sDDl.bootstrap* wendet sich an Modellentwickler für Firebird. 
 Wann immer es sinnvoll erscheint, werden Sprachelemente genutzt, die speziell von Firebird zur Verfügung gestellt 
 werden und nicht notwendigerweise in anderen Datenbanksystemen vorhanden sind.
 Eine Ausweitung auf andere Datenbanksysteme ist in dieser Entwicklungsphase nicht
@@ -90,18 +103,12 @@ Freeware und kann ohne Bedenken eingesetzt werden.
 Zielvorgabe
 -----------
 
-Bei *sDDl-Bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
+Bei *sDDl.bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
 eines Workflow um auf der Basis einer Tabelle notwendige DDL Syntax automatisch 
 erstellen zu können.
 
 Zu diesem Zweck wird ein Befehlssatz eingeführt, der in den Kommentaren einer Tabelle
 und deren Felder eingebettet wird.
-
-Diese Befehl werden ausgelesen, es wird ein Dictionary erstellt, auf der Grundlage des
-Dictionary wird ein Script mit der gewünschten DDL Syntax erstellt.
-
-Ziel ist es, beim Entwurf eines Datenbankmodells auf Skriptbasis, auf schnelle Art ein lauffähiges 
-Ergebnis zu erhalten, ohne sich dabei um Standardaufgaben kümmern zu müssen.
 
 **Standardaufgaben:**
 

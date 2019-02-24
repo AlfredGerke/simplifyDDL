@@ -19,10 +19,13 @@ goto END1
 
 :APPLICATION
 echo.
-echo    Das Batchprogramm zur Installation des sDDL Bootstrap, sowie wahlweise das Erstellen   
+echo    Das Batchprogramm zur Installation des sDDL.bootstrap, sowie wahlweise das Erstellen   
 echo    einer Entwicklungsdatenbank wird wie folgt aufgerufen:
 echo.
-echo    make {ISQL} {Ziel der Logdatei} [*]
+echo    make {Name und Pfad des ISQL} {Name und Pfad der Logdatei} [*]
+echo.
+echo    Der letzte Parameter [*] ist optional und wenn vorhanden wird eine Datenbank angelegt
+echo    (s. sddl.bootstrap.create.db.sql in .\sddl\)
 echo.
 
 goto END2

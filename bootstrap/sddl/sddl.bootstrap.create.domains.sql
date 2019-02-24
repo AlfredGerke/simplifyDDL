@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Es werden alle notwendigen Domains für das sDDL-Bootstrap angelegt    
+/* Description: Es werden alle notwendigen Domains für das sDDL.bootstrap angelegt    
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
 /* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
