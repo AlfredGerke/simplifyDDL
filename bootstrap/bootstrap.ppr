@@ -40,26 +40,14 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\_make.bat
-1=sddl\sddl.bootstrap.create.db.sql
-2=sddl\sddl.bootstrap.create.roles.sql
-3=README.md
-4=..\README.md
+0=sddl\sddl.bootstrap.create.package.body.sql
+1=sddl\sddl.bootstrap.create.package.header.sql
 [Selected Project Files]
 Main=
-Selected=README.md
-[make\_make.bat]
-TopLine=1
-Caret=94,27
-[sddl\sddl.bootstrap.create.db.sql]
-TopLine=3
-Caret=49,19
-[sddl\sddl.bootstrap.create.roles.sql]
-TopLine=7
-Caret=1,1
-[README.md]
-TopLine=76
-Caret=1,113
-[..\README.md]
-TopLine=7
-Caret=1,36
+Selected=sddl\sddl.bootstrap.create.package.header.sql
+[sddl\sddl.bootstrap.create.package.body.sql]
+TopLine=2054
+Caret=59,2080
+[sddl\sddl.bootstrap.create.package.header.sql]
+TopLine=42
+Caret=41,68

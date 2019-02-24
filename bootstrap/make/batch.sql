@@ -1,4 +1,20 @@
 /*------------------------------------------------------------------------------------------------*/
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-02-22                                                        
+/* Description: Verteiler-Script für das sDDL.bootstrap    
+/*                                                                              
+/*------------------------------------------------------------------------------------------------*/
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect wird über das Connect-Script eingeleitet
+/*  
+/*------------------------------------------------------------------------------------------------*/
+/* History: 2019-02-22
+/*          Script erstellen
+/*   
+/*------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------------------*/
 /* ### Description: 
 /*   * Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
 /*   * Das Script ist für die Ausführung im ISQL erstellt worden              

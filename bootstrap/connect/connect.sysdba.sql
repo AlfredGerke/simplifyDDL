@@ -1,15 +1,20 @@
 /*------------------------------------------------------------------------------------------------*/
-/* ### Description: Connectsript
-/*   * Die aufgerufenen Scripte arbeite mit Befehlen der SQL-Erweiterung für FireBird 3.0.x             
-/*   * Verbindungen zur Datenbank müssen geschlossen sein
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-02-22                                                        
+/* Description: Connect-Script für den SYSDBA    
+/*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/* Last modified: $Date:$
-/* Revision:      $Revision:$
-/* Author:        $Author:$
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
+/* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Ein Datenbank-Connect darf nicht vorhanden sein
+/* - IP, Port, Alias und Password nach Bedarf anpassen
+/*   
+/*------------------------------------------------------------------------------------------------*/
+/* History: 2019-02-22
+/*          Script erstellen
+/*   
 /*------------------------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------------------------*/
-/* Connect                                   
 /*------------------------------------------------------------------------------------------------*/          
          
 CONNECT '127.0.0.1/32303:SIMPLIFYDDL' 
