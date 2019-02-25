@@ -17,10 +17,10 @@
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;
-CREATE OR ALTER PACKAGE PKG$HISTORY_UPDATE
+CREATE OR ALTER PACKAGE PKG_HISTORY
 AS
 begin
-  PROCEDURE SP_SET_INFO (
+  PROCEDURE SP_SET_UPDATE_INFO (
     AMajorNumber DN_MAJOR_NO,
     AMinorNumber DN_MINOR_NO,
     AScript DN_FILENAME,

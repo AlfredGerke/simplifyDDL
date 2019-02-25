@@ -49,9 +49,9 @@ input '..\connect\connect.sysdba.sql';
 /* Input -----------------------------------------------------------------------------------------*/
 input '..\sddl\sddl.bootstrap.create.domains.sql';
 
-input '..\sddl\sddl.bootstrap.create.history.udate.model.sql';
-input '..\sddl\sddl.bootstrap.create.history.udate.package.header.sql';
-input '..\sddl\sddl.bootstrap.create.history.udate.package.body.sql';
+input '..\sddl\sddl.bootstrap.create.history.model.sql';
+input '..\sddl\sddl.bootstrap.create.history.package.header.sql';
+input '..\sddl\sddl.bootstrap.create.history.package.body.sql';
 
 input '..\sddl\sddl.bootstrap.create.setting.model.sql';
 input '..\sddl\sddl.bootstrap.create.setting.package.header.sql';

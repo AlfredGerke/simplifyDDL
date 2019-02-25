@@ -17,7 +17,7 @@
 /* ---------------------------------------------------------------------------------------------- */
 
 SET TERM ^ ;
-RECREATE PACKAGE BODY PKG$SETTINGS
+RECREATE PACKAGE BODY PKG_SETTINGS
 AS
 begin
   PROCEDURE SP_DELETE_BY_IDENT (
@@ -517,7 +517,7 @@ EXECUTE BLOCK AS
 BEGIN
   execute
   procedure
-  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
     'sddl.bootstrap.create.setting.package.body.sql',
     'Package-body der Settings installiert');

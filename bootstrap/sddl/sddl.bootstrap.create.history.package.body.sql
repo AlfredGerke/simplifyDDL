@@ -17,10 +17,10 @@
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;
-RECREATE PACKAGE BODY PKG$HISTORY_UPDATE
+RECREATE PACKAGE BODY PKG_HISTORY
 AS
 begin
-  PROCEDURE SP_SET_INFO (
+  PROCEDURE SP_SET_UPDATE_INFO (
     AMajorNumber DN_MAJOR_NO,
     AMinorNumber DN_MINOR_NO,
     AScript DN_FILENAME,
@@ -44,12 +44,28 @@ begin
           :AScript, 
           :ADescription
         );
-  end 
+  end
+  
+  PROCEDURE SET_INFO
+  AS
+  begin
+  end
+  
+  PROCEDURE SET_WARNING
+  AS
+  begin
+  end
+  
+  procedure SET_EXCEPTION
+  AS
+  begin
+  end
+   
 end^  
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
 
-COMMENT ON PROCEDURE PKG$HISTORY_UPDATE.SP_SET_INFO  
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_UPDATE_INFO  
 IS 'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE';    
 /*------------------------------------------------------------------------------------------------*/
 
@@ -64,24 +80,24 @@ EXECUTE BLOCK AS
 BEGIN
   execute
   procedure
-  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.update.model.sql',
-    'Model der Update-History installiert');
+    'sddl.bootstrap.create.history.model.sql',
+    'Model der History installiert');
 
   execute
   procedure
-  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.update.package.header.sql',
-    'Package-Header der Update-History installiert');
+    'sddl.bootstrap.create.history.package.header.sql',
+    'Package-Header der History installiert');
 
   execute
   procedure
-  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.update.package.body.sql',
-    'Package-body der Update-History installiert');
+    'sddl.bootstrap.create.history.package.body.sql',
+    'Package-body der History installiert');
 END^        
 SET TERM ; ^
 

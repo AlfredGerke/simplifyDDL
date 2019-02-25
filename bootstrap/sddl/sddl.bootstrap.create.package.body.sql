@@ -24,7 +24,7 @@
                                                 
 /* SPs */
 SET TERM ^ ;
-RECREATE PACKAGE BODY PKG$SDDL
+RECREATE PACKAGE BODY PKG_SDDL
 AS
 begin
   PROCEDURE SP_GET_CURRENT_USER
@@ -255,7 +255,7 @@ begin
     end
   end
   
-  PROCEDURE SP_COMPLETE_STD_TABLE_VIEW(
+  PROCEDURE SP_CREATE_STD_TABLE_VIEW(
     ATablename DN_DB_OBJECT,
     AOrderByPrim DN_BOOLEAN) /* wenn True dann USER_VIEW nur ReadOnly */
   RETURNS (
@@ -277,7 +277,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name;
         
     if (:AOrderByPrim = True) then
@@ -290,7 +290,7 @@ begin
     implementationlist = '';
   
     select Trim(columnlist) 
-    from PKG$SDDL.SP_GET_COLUMNLIST(:ATablename, ',', True) 
+    from PKG_SDDL.SP_GET_COLUMNLIST(:ATablename, ',', True) 
     into :columnlist;
     
     if (Trim(columnlist) <> '') then
@@ -311,7 +311,7 @@ begin
     if (:AOrderByPrim = True) then
     begin 
       select count_pk_fields, Trim(columnlist) 
-      from PKG$SDDL.SP_GET_PRIMKEYLIST(:ATablename, ',', True) 
+      from PKG_SDDL.SP_GET_PRIMKEYLIST(:ATablename, ',', True) 
       into :pk_columncount, :pk_columnlist;
       
       if (pk_columncount > 0) then
@@ -323,17 +323,17 @@ begin
     if (:AOrderByPrim = True) then
       sql_stmt = 'COMMENT ON VIEW ' || :relation_name || 
         ' IS ''Standard Readonly-View für die Tabelle ' || :ATablename || 
-        ' (created by SP_COMPLETE_STD_TABLE_VIEW)''';
+        ' (created by SP_CREATE_STD_TABLE_VIEW)''';
     else
       sql_stmt = 'COMMENT ON VIEW ' || :relation_name || 
         ' IS ''Standard Update-View für die Tabelle ' || :ATablename || 
-        ' (created by SP_COMPLETE_STD_TABLE_VIEW)''';
+        ' (created by SP_CREATE_STD_TABLE_VIEW)''';
   
     execute statement sql_stmt;
     
     execute
     procedure
-      PKG$SDDL.SP_CREATE_STD_TABLE_VIEW_CMT :ATablename,
+      PKG_SDDL.SP_CREATE_STD_TABLE_VIEW_CMT :ATablename,
         :relation_name;
        
     SUCCESS = True; 
@@ -341,7 +341,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_TRIGGER_BI (
+  PROCEDURE SP_CREATE_TRIGGER_BI (
     ATablename DN_DB_OBJECT)
   returns (
     SUCCESS DN_BOOLEAN)
@@ -358,7 +358,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
       
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -388,7 +388,7 @@ begin
     if (new.cre_user is null) then
     begin  
       select WRAPPED_USER_NAME
-      from PKG$SDDL.SP_GET_CURRENT_USER
+      from PKG_SDDL.SP_GET_CURRENT_USER
       into :curr_user;
        
       new.cre_user = curr_user;
@@ -399,7 +399,7 @@ begin
            
         sql_stmt = 'COMMENT ON TRIGGER ' || :relation_name || 
           ' IS ''Before-Insert-Trigger für die Tabelle ' || :ATablename || 
-          ' (created by SP_COMPLETE_TRIGGER_BI)''';
+          ' (created by SP_CREATE_TRIGGER_BI)''';
           
         execute statement sql_stmt;
           
@@ -428,7 +428,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
     
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -449,7 +449,7 @@ begin
   declare variable curr_user DN_DB_OBJECT;
   begin
     select WRAPPED_USER_NAME
-    from PKG$SDDL.SP_GET_CURRENT_USER
+    from PKG_SDDL.SP_GET_CURRENT_USER
     into :curr_user;
     
     new.chg_user = curr_user;
@@ -469,7 +469,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_SEQUNECE(
+  PROCEDURE SP_CREATE_SEQUNECE(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT Default 'ID',
     AComment DN_COMMENT Default '')
@@ -487,7 +487,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
       
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -509,11 +509,11 @@ begin
       if (Trim(AComment) = '') then
         sql_stmt = 'COMMENT ON SEQUENCE ' || :relation_name || 
           ' IS ''Sequence für das Feld ' || :AFieldname || ' der Tabelle ' || :ATablename || 
-          ' (created by SP_COMPLETE_SEQUNECE)''';
+          ' (created by SP_CREATE_SEQUNECE)''';
       else
         sql_stmt = 'COMMENT ON SEQUENCE ' || :relation_name || 
           ' IS ''' || :AComment || 
-          ' (created by SP_COMPLETE_SEQUNECE)''';     
+          ' (created by SP_CREATE_SEQUNECE)''';     
     
       execute statement sql_stmt;            
         
@@ -523,7 +523,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_TBL_CATALOG (
+  PROCEDURE SP_CREATE_TBL_CATALOG (
     ATablename DN_DB_OBJECT,
     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
     AComment DN_COMMENT DEFAULT '', 
@@ -566,7 +566,7 @@ begin
       execute statement sql_stmt;
       
       sql_stmt = 'COMMENT ON TABLE ' || :relation_name || ' IS ''Katalog: ' || :relation_name || 
-        ' für ' || :cat_comment || ' (created by SP_COMPLETE_CREATE_TBL_CATALOG)''';
+        ' für ' || :cat_comment || ' (created by SP_CREATE_TBL_CATALOG)''';
       execute statement sql_stmt;
       
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.ID IS ''Primärschlüssel''';
@@ -606,7 +606,7 @@ begin
           '(CAPTION)';        
         execute statement sql_stmt;
   
-        sql_stmt = 'COMMENT ON INDEX ALT_' || :cat_name || ' IS ''(created by SP_COMPLETE_CREATE_TBL_CATALOG)''';    
+        sql_stmt = 'COMMENT ON INDEX ALT_' || :cat_name || ' IS ''(created by SP_CREATE_TBL_CATALOG)''';    
         execute statement sql_stmt;             
       end  
            
@@ -619,7 +619,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_CATALOG (
+  PROCEDURE SP_CREATE_CATALOG (
     ACatalogname DN_DB_OBJECT,
     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
     AComment DN_COMMENT DEFAULT '')
@@ -642,36 +642,36 @@ begin
   
     /* Katalog anlegen */
     select SUCCESS, CATALOGNAME, TABLENAME 
-    from PKG$SDDL.SP_COMPLETE_CREATE_TBL_CATALOG(:relation_name, :domain_name, :cat_comment, True) 
+    from PKG_SDDL.SP_CREATE_TBL_CATALOG(:relation_name, :domain_name, :cat_comment, True) 
     into :SUCCESS, :cat_name, :table_name; 
    
     /* Standardview anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_STD_TABLE_VIEW(:table_name, False) 
+      from PKG_SDDL.SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
       into :SUCCESS;
     
     /* Sequence anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_SEQUNECE(:table_name) 
+      from PKG_SDDL.SP_CREATE_SEQUNECE(:table_name) 
       into :SUCCESS;
      
     /* Trigger anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_TRIGGER_BI(:table_name) 
+      from PKG_SDDL.SP_CREATE_TRIGGER_BI(:table_name) 
       into :SUCCESS;
     
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from PKG_SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend;
   end
   
-  PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_STAMP (
+  PROCEDURE PKG_SDDL.SP_CREATE_STAMP (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
@@ -715,7 +715,7 @@ begin
     suspend;
   end
   
-  PROCEDURE PKG$SDDL.SP_COMPLETE_FIELD_DESCRIPTION (
+  PROCEDURE PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
@@ -748,7 +748,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_TABLE_COMMENT (
+  PROCEDURE SP_CREATE_TABLE_COMMENT (
     ATablename DN_DB_OBJECT,
     AComment DN_COMMENT)
   RETURNS (
@@ -776,7 +776,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_PRIMARY_CONSTRAINT (
+  PROCEDURE SP_CREATE_PRIMARY_CONSTRAINT (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
@@ -800,7 +800,7 @@ begin
       relation_name = null;
   
       select DETERMINED, TABLENAME
-      from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :relation_name;
         
       if (:determined = False) then
@@ -819,7 +819,7 @@ begin
     suspend;
   end
   
-  PROCEDURE SP_COMPLETE_COMPLETE_TABLE (
+  PROCEDURE SP_COMPLETE_TABLE (
     ATablename DN_DB_OBJECT,
     ADoDescription DN_BOOLEAN,
     ADoStamp DN_BOOLEAN,
@@ -839,7 +839,7 @@ begin
     if (:ADoDescription = True) then
     begin
       select SUCCESS
-      from PKG$SDDL.SP_COMPLETE_FIELD_DESCRIPTION(:table_name)
+      from PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION(:table_name)
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -853,7 +853,7 @@ begin
     if (:ADoStamp = True) then
     begin
       select SUCCESS
-      from PKG$SDDL.SP_COMPLETE_CREATE_STAMP(:table_name) 
+      from PKG_SDDL.SP_CREATE_STAMP(:table_name) 
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -867,7 +867,7 @@ begin
     if ((:ADoComment = True) and (Trim(AComment) <> '')) then
     begin
       select SUCCESS
-      from PKG$SDDL.SP_COMPLETE_TABLE_COMMENT(:table_name, :AComment)
+      from PKG_SDDL.SP_CREATE_TABLE_COMMENT(:table_name, :AComment)
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -881,7 +881,7 @@ begin
     if (:ADoPK = True) then
     begin
       select SUCCESS
-      from PKG$SDDL.SP_COMPLETE_PRIMARY_CONSTRAINT(:table_name)
+      from PKG_SDDL.SP_CREATE_PRIMARY_CONSTRAINT(:table_name)
       into :SUCCESS;
   
       if (SUCCESS = False) then
@@ -894,30 +894,30 @@ begin
     /* Standardview anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_STD_TABLE_VIEW(:table_name, False) 
+      from PKG_SDDL.SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
       into :SUCCESS;
     
     /* Sequence anlegen */
     if ((SUCCESS = True) and (:ADoPK = True)) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_SEQUNECE(:table_name) 
+      from PKG_SDDL.SP_CREATE_SEQUNECE(:table_name) 
       into :SUCCESS;
      
     /* Trigger anlegen */
     if ((SUCCESS = True) and (:ADoPK = True)) then
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_TRIGGER_BI(:table_name) 
+      from PKG_SDDL.SP_CREATE_TRIGGER_BI(:table_name) 
       into :SUCCESS;
     
     if ((SUCCESS = True) and (:ADoStamp = True)) then  
       select SUCCESS 
-      from PKG$SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from PKG_SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend; 
   end
   
-  PROCEDURE SP_COMPLETE_CHECK_COMMAND (
+  PROCEDURE SP_CHECK_COMMAND (
     AGenCommand DN_GEN_COMMAND,
     AFieldDescription DN_DB_COMMENT)
   RETURNS (
@@ -1037,7 +1037,7 @@ begin
     Suspend;     
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_UNIQUE_KEY(
+  PROCEDURE SP_CREATE_UNIQUE_KEY(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
     AFieldDescription DN_DB_COMMENT)
@@ -1071,7 +1071,7 @@ begin
       table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :table_name;
         
       if (:determined = False) then
@@ -1125,7 +1125,7 @@ begin
     Suspend;
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_UNIQUE_IDX(
+  PROCEDURE SP_CREATE_UNIQUE_IDX(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
     AFieldDescription DN_DB_COMMENT)
@@ -1163,7 +1163,7 @@ begin
         DETERMINED,
         TABLENAME
       from
-        PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename,
+        PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename,
           'TB')
       into
         :determined,
@@ -1205,9 +1205,9 @@ begin
     Suspend;
   end
   
-  /* wird in PKG$SDDL.SP_COMPLETE_CREATE_FOREIGN_KEY für die Implementation benötigt, 
-     kann aber erst nach PKG$SDDL.SP_COMPLETE_CREATE_FOREIGN_KEY selber implementiert werden*/
-  PROCEDURE SP_COMPLETE_CREATE_CONSTRAINTS (
+  /* wird in PKG_SDDL.SP_CREATE_FOREIGN_KEY für die Implementation benötigt, 
+     kann aber erst nach PKG_SDDL.SP_CREATE_FOREIGN_KEY selber implementiert werden*/
+  PROCEDURE SP_CREATE_CONSTRAINTS (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN,
@@ -1220,7 +1220,7 @@ begin
     Suspend;
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_FOREIGN_KEY(
+  PROCEDURE SP_CREATE_FOREIGN_KEY(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
     AFieldDescription DN_DB_COMMENT,
@@ -1257,7 +1257,7 @@ begin
       table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG$SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :table_name;
         
       if (:determined = False) then
@@ -1267,7 +1267,7 @@ begin
       fk_table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG$SDDL.SP_EXTRACT_TABLENAME(:AFKTablename, 'TB')
+      from PKG_SDDL.SP_EXTRACT_TABLENAME(:AFKTablename, 'TB')
       into :determined, :fk_table_name;
         
       if (:determined = False) then
@@ -1285,7 +1285,7 @@ begin
         /* Wenn nicht, dann alle Constraints der Zieltabelle zuerst anlegen */
         for
         select SUCCESS, LOG_MESSAGE
-        from PKG$SDDL.SP_COMPLETE_CREATE_CONSTRAINTS(:AFKTablename)
+        from PKG_SDDL.SP_CREATE_CONSTRAINTS(:AFKTablename)
         into :SUCCESS, :LOG_MESSAGE
         do
         begin
@@ -1354,7 +1354,7 @@ begin
     Suspend;
   end
   
-  PROCEDURE SP_COMPLETE_CREATE_CONSTRAINTS (
+  PROCEDURE SP_CREATE_CONSTRAINTS (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN,
@@ -1409,13 +1409,13 @@ begin
           fk_table_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
-          from PKG$SDDL.SP_COMPLETE_CHECK_COMMAND (:gen_command, :field_description)
+          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_unique_key, :field_description, :fk_table_name, :fk_field_name;
     
           if (:found_command_unique_key = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG$SDDL.SP_COMPLETE_CREATE_UNIQUE_KEY(:table_name, :field_name, :field_description)
+            from PKG_SDDL.SP_CREATE_UNIQUE_KEY(:table_name, :field_name, :field_description)
             into :SUCCESS, :LOG_MESSAGE;
             
             SUSPEND;
@@ -1428,13 +1428,13 @@ begin
           fk_table_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
-          from PKG$SDDL.SP_COMPLETE_CHECK_COMMAND (:gen_command, :field_description)
+          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_unique_idx, :field_description, :fk_table_name, :fk_field_name;
     
           if (:found_command_unique_idx = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG$SDDL.SP_COMPLETE_CREATE_UNIQUE_IDX(:table_name, :field_name, :field_description)
+            from PKG_SDDL.SP_CREATE_UNIQUE_IDX(:table_name, :field_name, :field_description)
             into :SUCCESS, :LOG_MESSAGE;
             
             SUSPEND;
@@ -1447,13 +1447,13 @@ begin
           fk_field_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME, REQUIRED
-          from PKG$SDDL.SP_COMPLETE_CHECK_COMMAND (:gen_command, :field_description)
+          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_foreign_key, :field_description, :fk_table_name, :fk_field_name, :fk_condition;
             
           if (:found_command_foreign_key = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG$SDDL.SP_COMPLETE_CREATE_FOREIGN_KEY(:table_name,
+            from PKG_SDDL.SP_CREATE_FOREIGN_KEY(:table_name,
                    :field_name,
                    :field_description,
                    :fk_table_name,
@@ -1474,7 +1474,7 @@ begin
     end
   end  
   
-  PROCEDURE SP_COMPLETE_ALL_CONSTRAINTS
+  PROCEDURE SP_CREATE_ALL_CONSTRAINTS
   RETURNS (
     SUCCESS DN_BOOLEAN,
     LOG_MESSAGE DN_MESSAGE)
@@ -1495,7 +1495,7 @@ begin
     begin
       for
       select SUCCESS, LOG_MESSAGE
-      from PKG$SDDL.SP_COMPLETE_CREATE_CONSTRAINTS(:table_name)
+      from PKG_SDDL.SP_CREATE_CONSTRAINTS(:table_name)
       into :SUCCESS, :LOG_MESSAGE
       do
       begin
@@ -1504,7 +1504,7 @@ begin
     end 
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_VIEW (
+  PROCEDURE SP_GRANT_VIEW (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     ADeleteRole DN_DB_OBJECT DEFAULT 'SDDL_DELETE',
@@ -1564,7 +1564,7 @@ begin
     end  
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_SEQ (
+  PROCEDURE SP_GRANT_SEQ (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC')
@@ -1578,7 +1578,7 @@ begin
     execute statement sql_stmt;  
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_EXC (
+  PROCEDURE SP_GRANT_EXC (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC')
@@ -1592,7 +1592,7 @@ begin
     execute statement sql_stmt;    
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_SP (
+  PROCEDURE SP_GRANT_SP (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
@@ -1627,19 +1627,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$HISTORY.SP_LOG_HISTORY TO PROCEDURE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO PROCEDURE ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$DEBUG.SP_LOG_DEBUG TO PROCEDURE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO PROCEDURE ' || :ADBObject;
         execute statement sql_stmt;
       end
     end
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_SF (
+  PROCEDURE SP_GRANT_SF (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
@@ -1674,19 +1674,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$HISTORY.SP_LOG_HISTORY TO FUNCTION ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO FUNCTION ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$DEBUG.SP_LOG_DEBUG TO FUNCTION ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO FUNCTION ' || :ADBObject;
         execute statement sql_stmt;
       end
     end
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_PKG (
+  PROCEDURE SP_GRANT_PKG (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
@@ -1721,19 +1721,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$HISTORY.SP_LOG_HISTORY TO PACKAGE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO PACKAGE ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG$DEBUG.SP_LOG_DEBUG TO PACKAGE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO PACKAGE ' || :ADBObject;
         execute statement sql_stmt;
       end
     end  
   end
   
-  PROCEDURE SP_COMPLETE_GRANT_ALL
+  PROCEDURE SP_GRANT_ALL
   AS
   declare variable relation_name DN_DB_OBJECT;
   begin
@@ -1746,7 +1746,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SP (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SP (Trim(:relation_name));
     end
     
     for
@@ -1758,7 +1758,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SF (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SF (Trim(:relation_name));
     end
     
     for
@@ -1770,7 +1770,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_PKG (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_PKG (Trim(:relation_name));
     end            
     
     for
@@ -1781,7 +1781,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_VIEW (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_VIEW (Trim(:relation_name));
     end      
     
     for
@@ -1793,7 +1793,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SEQ (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SEQ (Trim(:relation_name));
         
       /* Exit scheint hier fehl am Platz */  
       /* Exit; */  
@@ -1808,14 +1808,14 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_EXC (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_EXC (Trim(:relation_name));
         
       /* Exit scheint hier fehl am Platz */  
       /* Exit; */    
     end       
   end
   
-  PROCEDURE SP_COMPLETE_GRANT (
+  PROCEDURE SP_GRANT (
     ADBObject DN_DB_OBJECT)
   AS
   declare variable relation_name DN_DB_OBJECT;
@@ -1829,7 +1829,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SP (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SP (Trim(:relation_name));
         
       Exit;  
     end    
@@ -1843,7 +1843,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SF (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SF (Trim(:relation_name));
         
       Exit;  
     end
@@ -1857,7 +1857,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_PKG (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_PKG (Trim(:relation_name));
         
       Exit;  
     end            
@@ -1871,7 +1871,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_VIEW (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_VIEW (Trim(:relation_name));
         
       Exit;  
     end   
@@ -1885,7 +1885,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_SEQ (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_SEQ (Trim(:relation_name));
         
       Exit;  
     end   
@@ -1899,7 +1899,7 @@ begin
     begin
       execute
       procedure
-        PKG$SDDL.SP_COMPLETE_GRANT_EXC (Trim(:relation_name));
+        PKG_SDDL.SP_GRANT_EXC (Trim(:relation_name));
         
       Exit;  
     end     
@@ -2065,94 +2065,94 @@ end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_GET_CURRENT_USER
+COMMENT ON PROCEDURE PKG_SDDL.SP_GET_CURRENT_USER
 IS 'Wrapper SP für den CURRENT_USER';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_EXTRACT_TABLENAME IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_EXTRACT_TABLENAME IS
 'Entfernt den Prefix aus einem Tabellennamen';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_GET_COLUMNLIST IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GET_COLUMNLIST IS
 'Ermittelt die Spaltenliste zu einem Tabellenamen';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_GET_PRIMKEYLIST IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GET_PRIMKEYLIST IS
 'Ermittelt eine Spaltenliste der Primärschlüssel';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_CREATE_STD_TABLE_VIEW_CMT 
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_STD_TABLE_VIEW_CMT 
 IS 'Erstellt anhand der Tabellenkommentare, die Standardviewkommentare';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_STD_TABLE_VIEW IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_STD_TABLE_VIEW IS
 'Erstellt eine Standardview zu einem Tabellennamen';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_TRIGGER_BU IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_COMPLETE_TRIGGER_BU IS
 'Erstellt den ersten Before-Update-Trigger (BU0) zu einem Tabellennamen um den Stempel zu aktualisieren';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_SEQUNECE IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_SEQUNECE IS
 'Erstellt eine Sequence zu einem Tabellennamen um ein beliebiges Feld zu erhöhen';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_TBL_CATALOG IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_TBL_CATALOG IS
 'Erstellt einen Katalog';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_CATALOG IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_CATALOG IS
 'Legt einen Katalog mit all seinen Datenbankobjekten an';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_STAMP IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_STAMP IS
 'Erstellt eine Stempel für eine Tabelle';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_FIELD_DESCRIPTION IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION IS
 'Erstellt das Standardfeld: DESCRIPTION';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_TABLE_COMMENT IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_TABLE_COMMENT IS
 'Erstellt einen Kommentar zur Tabelle';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_PRIMARY_CONSTRAINT IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_PRIMARY_CONSTRAINT IS
 'Erstellt einen Primärschlüssel zur Tabelle';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_COMPLETE_TABLE IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_COMPLETE_TABLE IS
 'Ergänzt ein Grundschema um Standards: Constraints, Sequences, Triggers, Standardviews, etc.';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CHECK_COMMAND IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CHECK_COMMAND IS
 'Prüft ob in einer Feldbeschreibung ein Gencode-Kommand vorhanden ist';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_UNIQUE_KEY IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_UNIQUE_KEY IS
 'Erstellt einen Unique-Key';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_UNIQUE_IDX IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_UNIQUE_IDX IS
 'Erstellt einen eindeutigen Einspalten-Index';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_FOREIGN_KEY IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_FOREIGN_KEY IS
 'Erstellt einen Foreign-Key';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_CREATE_CONSTRAINTS IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_CONSTRAINTS IS
 'Erstellt für eine Tabelle alle über ein Gencommande angeforderten Constraints';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_ALL_CONSTRAINTS IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_ALL_CONSTRAINTS IS
 'Erstellt für alle Tabellen alle über ein Gencommande angeforderten Constraints';   
     
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_VIEW IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_VIEW IS
 'Erstellt Grants für Views';   
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_SEQ IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_SEQ IS
 'Erstellt Grants für Sequences';  
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_EXC IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_EXC IS
 'Erstellt Grants für Exceptions'; 
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_SP IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_SP IS
 'Erstellt Grants für SPs';   
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_SF IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_SF IS
 'Erstellt Grants für SFs';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_PKG IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_PKG IS
 'Erstellt Grants für PKGs';
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT_ALL IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_ALL IS
 'Erstellt alle Grants für alle Views und SPs';   
 
-COMMENT ON PROCEDURE PKG$SDDL.SP_COMPLETE_GRANT IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT IS
 'Erstellt Grants für eine beliebige View oder SP';   
     
-COMMENT ON PROCEDURE PKG$SDDL.SP_CHECK_STYLEGUIDE_KEYW IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CHECK_STYLEGUIDE_KEYW IS
 'Prüft Datenmodell auf Abweichungen im StyleGuide anhand eines Schlüsselwortes';
 
 COMMIT WORK;
@@ -2165,7 +2165,7 @@ EXECUTE BLOCK AS
 BEGIN
   execute
   procedure
-  PKG$HISTORY_UPDATE.SP_SET_INFO (0,
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
     'sddl.bootstrap.create.package.body.sql',
     'Package-Body des sDDL-Bootstrap installiert');

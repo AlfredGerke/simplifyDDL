@@ -206,6 +206,15 @@ NOT NULL;
 COMMENT ON DOMAIN DN_MINOR_NO
 IS 'Unternummer';
 
+CREATE DOMAIN DN_WARN_LEVEL
+AS INTEGER
+DEFAULT 0
+NOT NULL
+CHECK (VALUE IN (0, 1, 2));
+
+COMMENT ON DOMAIN DN_WARN_LEVEL
+IS 'Warnlevel: 0=Exception / 1=Warning / 2=Info';
+
 /* Domains für TB_SETTINGS -----------------------------------------------------------------------*/
 
 CREATE DOMAIN DN_CATEGORY AS
