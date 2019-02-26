@@ -1,12 +1,12 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Setup für einzelnen Testfall    
+/* Description: Erstellt den Benutzer SYSDBA in der leeren Security-DB    
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
-/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
-/* - Das Script ist für die Ausführung im ISQL erstellt worden
-/* - Datenbank-Connect wird vorausgesetzt
+/* - Das Script arbeitet mit Befehlen der SQL-Erweiterung fÃ¼r FB 3.0x   
+/* - Das Script ist fÃ¼r die AusfÃ¼hrung im ISQL erstellt worden
+/* - Password nach Bedarf anpassen
 /*   
 /*------------------------------------------------------------------------------------------------*/
 /* History: 2019-02-22
@@ -14,8 +14,9 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/* Setup: Testfall einrichten --------------------------------------------------------------------*/                                   
-                                                                                  
+/* Passwort nach belieben wÃ¤hlen, hier nur ein Beispiel ------------------------------------------*/
+CREATE OR ALTER USER SYSDBA PASSWORD 'masterkey';
+
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/

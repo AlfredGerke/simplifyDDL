@@ -20,30 +20,5 @@ create_sysdba
 		createSysdba32.bat
 		createSysdba32.log
 [Open project files]
-0=database.security.create.sql
-1=createSysdba64.bat
-2=createSysdba64.log
-3=_createSysdba.bat
-4=createSysdba32.bat
-5=createSysdba32.log
 [Selected Project Files]
 Main=
-Selected=_createSysdba.bat
-[database.security.create.sql]
-TopLine=1
-Caret=1,1
-[createSysdba64.bat]
-TopLine=1
-Caret=1,1
-[createSysdba64.log]
-TopLine=1
-Caret=1,1
-[_createSysdba.bat]
-TopLine=1
-Caret=1,1
-[createSysdba32.bat]
-TopLine=1
-Caret=1,1
-[createSysdba32.log]
-TopLine=1
-Caret=1,1

@@ -18,7 +18,7 @@ goto ENDE1
 echo.
 echo    Das Batchprogramm zur Erstellung des SYSDBA wird wie folgt aufgerufen:  
 echo.
-echo    createSysdba {FB3 Rootdir} {Logdatei}
+echo    createSysdba?? {FB3 Rootdir mit abschlieﬂendem \} {Pfad u. Name der Logdatei}
 echo.
 
 goto ENDE2

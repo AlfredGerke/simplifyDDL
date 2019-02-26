@@ -1,0 +1,48 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+[Project tree]
+test
+	+log
+		test.log
+	+connect
+		..\connect\connect.sysdba.sql
+	+dispatcher
+		test.sql
+	+teardown
+		test.db.teardown.sql
+		test.example.1.teardown.sql
+	+setup
+		test.db.setup.sql
+		test.example.1.setup.sql
+		test.isql.setup.sql
+	+execute
+		test.example.1.execute.sql
+	+make
+		_test.bat
+		test.bat
+[Open project files]
+0=..\connect\connect.sysdba.sql
+1=test.log
+2=test.sql
+[Selected Project Files]
+Main=
+Selected=test.sql
+[..\connect\connect.sysdba.sql]
+TopLine=1
+Caret=1,23
+[test.log]
+TopLine=1
+Caret=1,1
+[test.sql]
+TopLine=1
+Caret=1,1
