@@ -49,6 +49,10 @@ input '..\connect\connect.sysdba.sql';
 /* Input -----------------------------------------------------------------------------------------*/
 input '..\sddl\sddl.bootstrap.create.domains.sql';
 
+
+input '..\sddl\sddl.bootstrap.create.common.package.header.sql';
+input '..\sddl\sddl.bootstrap.create.common.package.body.sql';
+
 input '..\sddl\sddl.bootstrap.create.history.model.sql';
 input '..\sddl\sddl.bootstrap.create.history.package.header.sql';
 input '..\sddl\sddl.bootstrap.create.history.package.body.sql';

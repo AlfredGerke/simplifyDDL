@@ -163,7 +163,7 @@ CREATE TRIGGER TRG_HISTORY_LOG_BU0 FOR TB_HISTORY_LOG ACTIVE
 BEFORE UPDATE POSITION 0
 AS
 begin
-  new.chg_user = current_user;
+  new.chg_user = PKG_COMMON.SF_GET_CURRENT_USER;
   new.chg_date = current_timestamp;
 end^
 SET TERM ; ^

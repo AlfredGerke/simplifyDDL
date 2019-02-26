@@ -388,7 +388,7 @@ begin
     if (new.cre_user is null) then
     begin  
       select WRAPPED_USER_NAME
-      from PKG_SDDL.SP_GET_CURRENT_USER
+      from PKG_COMMON.SP_GET_CURRENT_USER
       into :curr_user;
        
       new.cre_user = curr_user;
@@ -449,7 +449,7 @@ begin
   declare variable curr_user DN_DB_OBJECT;
   begin
     select WRAPPED_USER_NAME
-    from PKG_SDDL.SP_GET_CURRENT_USER
+    from PKG_COMMON.SP_GET_CURRENT_USER
     into :curr_user;
     
     new.chg_user = curr_user;
@@ -2064,9 +2064,6 @@ begin
 end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
-
-COMMENT ON PROCEDURE PKG_SDDL.SP_GET_CURRENT_USER
-IS 'Wrapper SP für den CURRENT_USER';
 
 COMMENT ON PROCEDURE PKG_SDDL.SP_EXTRACT_TABLENAME IS
 'Entfernt den Prefix aus einem Tabellennamen';

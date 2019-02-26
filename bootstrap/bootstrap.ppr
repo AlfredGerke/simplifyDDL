@@ -49,7 +49,7 @@ bootstrap
 	-log
 		make\make.log
 		test\test.log
-	-sddl
+	+sddl
 		sddl\sddl.bootstrap.create.db.sql
 		sddl\sddl.bootstrap.create.domains.sql
 		sddl\sddl.bootstrap.create.history.model.sql
@@ -61,6 +61,8 @@ bootstrap
 		sddl\sddl.bootstrap.create.setting.model.sql
 		sddl\sddl.bootstrap.create.setting.package.body.sql
 		sddl\sddl.bootstrap.create.setting.package.header.sql
+		sddl\sddl.bootstrap.create.common.package.body.sql
+		sddl\sddl.bootstrap.create.common.package.header.sql
 	-connect
 		connect\connect.sysdba.sql
 	-make
@@ -69,5 +71,34 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
+0=make\batch.sql
+1=sddl\sddl.bootstrap.create.history.model.sql
+2=sddl\sddl.bootstrap.create.history.package.body.sql
+3=sddl\sddl.bootstrap.create.common.package.header.sql
+4=sddl\sddl.bootstrap.create.common.package.body.sql
+5=make\make.log
+6=sddl\sddl.bootstrap.create.package.body.sql
 [Selected Project Files]
 Main=
+Selected=sddl\sddl.bootstrap.create.common.package.header.sql
+[make\batch.sql]
+TopLine=23
+Caret=63,55
+[sddl\sddl.bootstrap.create.history.model.sql]
+TopLine=147
+Caret=48,166
+[sddl\sddl.bootstrap.create.history.package.body.sql]
+TopLine=79
+Caret=15,114
+[sddl\sddl.bootstrap.create.common.package.header.sql]
+TopLine=11
+Caret=53,30
+[sddl\sddl.bootstrap.create.common.package.body.sql]
+TopLine=23
+Caret=10,44
+[make\make.log]
+TopLine=611
+Caret=34,641
+[sddl\sddl.bootstrap.create.package.body.sql]
+TopLine=2049
+Caret=1,2068

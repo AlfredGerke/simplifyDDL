@@ -82,6 +82,20 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
+    'sddl.bootstrap.create.common.package.header.sql',
+    'Package-Header der Common -Procedures/-Function installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.create.common.package.body.sql',
+    'Package-Body der Common -Procedures/-Function installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
     'sddl.bootstrap.create.history.model.sql',
     'Model der History installiert');
 
@@ -97,7 +111,7 @@ BEGIN
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
     'sddl.bootstrap.create.history.package.body.sql',
-    'Package-body der History installiert');
+    'Package-Body der History installiert');
 END^        
 SET TERM ; ^
 
