@@ -35,13 +35,14 @@ begin
     Suspend;
   end
   
-  FUNCTION SF_GET_CURRENT_USER
+  FUNCTION SF_GET_CURRENT_USER(
+    )
   RETURNS DN_DB_OBJECT
   AS
-  declare variable wrapped_user_name DN_DB_OBJECT;
+  declare wrapped_user_name DN_DB_OBJECT;
   begin
     select WRAPPED_USER_NAME
-    from SP_GET_CURRENT_USER
+    from PKG_COMMON.SP_GET_CURRENT_USER
     into :wrapped_user_name;
     
     RETURN wrapped_user_name;

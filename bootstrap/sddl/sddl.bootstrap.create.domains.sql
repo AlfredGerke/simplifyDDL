@@ -188,6 +188,14 @@ INTEGER;
 CREATE DOMAIN DN_STRING AS
 VARCHAR(4000);        
 
+CREATE DOMAIN DN_DEBUG_ITEM
+AS VARCHAR(4000)
+DEFAULT 'keine Information'
+NOT NULL;
+
+COMMENT ON DOMAIN DN_DEBUG_ITEM
+IS 'Debug-Info';  
+
 /* Domains für TB_HISTORY_UPDATE -----------------------------------------------------------------*/
 
 CREATE DOMAIN DN_MAJOR_NO
@@ -210,10 +218,10 @@ CREATE DOMAIN DN_WARN_LEVEL
 AS INTEGER
 DEFAULT 0
 NOT NULL
-CHECK (VALUE IN (0, 1, 2));
+CHECK (VALUE IN (0, 1, 2, 3));
 
 COMMENT ON DOMAIN DN_WARN_LEVEL
-IS 'Warnlevel: 0=Exception / 1=Warning / 2=Info';
+IS 'Warnlevel: 0=Unknown / 1=Exception / 2=Warning / 3=Info';
 
 /* Domains für TB_SETTINGS -----------------------------------------------------------------------*/
 

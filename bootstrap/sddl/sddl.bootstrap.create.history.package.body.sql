@@ -46,27 +46,144 @@ begin
         );
   end
   
-  PROCEDURE SET_INFO
+  PROCEDURE SP_SET_LOG_INFO (ADescription DN_DESCRIPTION,
+    AWarnLevel DN_WARN_LEVEL)
   AS
   begin
+    if (Trim(ADescription) <> '') then
+      if (exists(select 1 from RDB$RELATIONS where RDB$RELATION_NAME='VW_HISTORY_LOG')) then
+        in autonomous transaction do
+          insert
+          into VW_HISTORY_LOG 
+          ( 
+            WARN_LEVEL,
+            DESCRIPTION
+          ) 
+          values 
+          ( 
+            :AWarnLevel, 
+            :ADescription
+          );    
   end
   
-  PROCEDURE SET_WARNING
+  PROCEDURE SP_SET_WARN_LEVEL_IN_CONTEXT(AWarnLevel DN_WARN_LEVEL)
   AS
   begin
+    RDB$SET_CONTEXT('LOG', 'WARN_LEVEL', cast(AWarnLevel as varchar(1)));  
   end
   
-  procedure SET_EXCEPTION
+  FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
+    )
+  RETURNS DN_WARN_LEVEL
   AS
+  declare warn_level_as_str varchar(10);
+  declare warn_level_as_int integer;
   begin
-  end
+    warn_level_as_str = RDB$GET_CONTEXT('LOG', 'WARN_LEVEL');
+    warn_level_as_int = cast(warn_level_as_str as integer);
+    
+    if ((warn_level_as_int > 0) and (warn_level_as_int < 4)) then
+      RETURN cast(warn_level_as_int as DN_WARN_LEVEL);
+    else
+      RETURN 0;
    
+   when any do
+   begin
+     execute 
+     procedure SP_SET_LOG_INFO SQLSTATE,
+       0;
+       
+     RETURN 0;   
+   end   
+  end   
+  
+  PROCEDURE SP_SET_LOG_INFORMATION (
+    ADescription DN_DESCRIPTION)
+  AS
+  declare warn_level DN_WARN_LEVEL;
+  begin    
+    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+  
+    if (warn_level > 2) then
+      execute
+      procedure SP_SET_LOG_INFO :ADescription, 3;      
+  end
+  
+  
+  PROCEDURE SP_SET_LOG_WARNING (
+    ADescription DN_DESCRIPTION)
+  AS
+  declare warn_level DN_WARN_LEVEL;
+  begin    
+    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+  
+    if (warn_level > 1) then
+      execute
+      procedure SP_SET_LOG_INFO :ADescription, 2;        
+  end
+  
+  procedure SP_SET_LOG_ERROR (
+    ADescription DN_DESCRIPTION)
+  AS
+  declare warn_level DN_WARN_LEVEL;
+  begin    
+    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+  
+    if (warn_level > 0) then
+      execute
+      procedure SP_SET_LOG_INFO :ADescription, 1;          
+  end   
+    
+  procedure SP_SET_DEBUG (
+    ACaption DN_CAPTION,
+    ADescription DN_DESCRIPTION)
+  AS
+  begin
+    if (Trim(ACaption) <> '')  then
+    begin  
+      if ((Trim(ADescription) = '') or (ADescription is null)) then
+        ADescription = 'keine Informationen';
+      
+      if (exists(select 1 from RDB$RELATIONS where RDB$RELATION_NAME='VW_HISTORY_DEUG')) then
+        in autonomous transaction do
+          insert
+          into VW_HISTORY_DEBUG
+          ( 
+            CAPTION,
+            DESCRIPTION
+          ) 
+          values 
+          ( 
+            :ACaption, 
+            :ADescription
+          );
+    end    
+  end 
 end^  
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
 
 COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_UPDATE_INFO  
-IS 'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE';    
+IS 'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE';
+
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_WARN_LEVEL_IN_CONTEXT
+IS 'Setzt den WarnLevel für die Log-Routinen';
+  
+COMMENT ON FUNCTION PKG_HISTORY.SF_GET_WARN_LEVEL_BY_CONTEXT
+IS 'Ermittelt den WarnLevel für die Log-Routinen';
+
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION  
+IS 'Logeinträge mit dem WarnLevel 2 -> Information';    
+
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING  
+IS 'Logeinträge mit dem WarnLevel 1 -> Warnung';    
+
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR  
+IS 'Logeinträge mit dem WarnLevel 0 -> Error';    
+
+COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_DEBUG
+IS 'Setzt Debug-Einträge';
+    
 /*------------------------------------------------------------------------------------------------*/
 
 COMMIT WORK;

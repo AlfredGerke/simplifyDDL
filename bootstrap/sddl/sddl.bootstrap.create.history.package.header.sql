@@ -25,6 +25,26 @@ begin
     AMinorNumber DN_MINOR_NO,
     AScript DN_FILENAME,
     ADescription DN_DESCRIPTION);
+
+  PROCEDURE SP_SET_WARN_LEVEL_IN_CONTEXT(
+    AWarnLevel DN_WARN_LEVEL Default 0);
+  
+  FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
+    )
+  RETURNS DN_WARN_LEVEL;
+      
+  PROCEDURE SP_SET_LOG_INFORMATION (
+    ADescription DN_DESCRIPTION);
+  
+  PROCEDURE SP_SET_LOG_WARNING (
+    ADescription DN_DESCRIPTION);
+  
+  PROCEDURE SP_SET_LOG_ERROR (
+    ADescription DN_DESCRIPTION);    
+        
+  PROCEDURE SP_SET_DEBUG (
+    ACaption DN_CAPTION,
+    ADescription DN_DESCRIPTION = 'keine Information');    
 end^
 SET TERM ; ^
 

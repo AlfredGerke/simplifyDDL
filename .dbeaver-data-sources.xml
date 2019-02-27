@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
 	<data-source id="935DE3C2-98B6-570B-ED4D-B7999941718E-15c6fcb28b1-1d796d77e2237999" provider="generic" driver="935DE3C2-98B6-570B-ED4D-B7999941718E" name="Firebird 3 - SIMPLIFYDDL" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
-		<connection host="localhost" port="32303" server="" database="SIMPLIFYDDL" url="jdbc:firebirdsql://localhost:32303/SIMPLIFYDDL" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
+		<connection host="localhost" port="32304" server="" database="SIMPLIFYDDL" url="jdbc:firebirdsql://localhost:32304/SIMPLIFYDDL" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
 			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
 				<property name="sshConnectTimeout" value="10000"/>
 				<property name="port" value="22"/>

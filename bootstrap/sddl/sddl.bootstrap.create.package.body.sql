@@ -27,16 +27,6 @@ SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_SDDL
 AS
 begin
-  PROCEDURE SP_GET_CURRENT_USER
-  RETURNS (
-    WRAPPED_USER_NAME DN_DB_OBJECT)
-  AS
-  begin
-    WRAPPED_USER_NAME = current_user;
-    
-    Suspend;
-  end
-  
   PROCEDURE SP_SHOW_INFO(
     AInfo DN_MESSAGE)
   RETURNS (
@@ -387,11 +377,7 @@ begin
   
     if (new.cre_user is null) then
     begin  
-      select WRAPPED_USER_NAME
-      from PKG_COMMON.SP_GET_CURRENT_USER
-      into :curr_user;
-       
-      new.cre_user = curr_user;
+      new.cre_user = PKG_COMMON.SF_GET_CURRENT_USER();
     end  
   end ';       
         
@@ -448,11 +434,7 @@ begin
   as
   declare variable curr_user DN_DB_OBJECT;
   begin
-    select WRAPPED_USER_NAME
-    from PKG_COMMON.SP_GET_CURRENT_USER
-    into :curr_user;
-    
-    new.chg_user = curr_user;
+    new.chg_user = PKG_COMMON.SF_GET_CURRENT_USER();
     new.chg_date = current_timestamp;
   end ';
       execute statement sql_stmt;
@@ -1627,13 +1609,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO PROCEDURE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO PROCEDURE ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO PROCEDURE ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO PROCEDURE ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO PROCEDURE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO PROCEDURE ' || :ADBObject;
         execute statement sql_stmt;
       end
     end
@@ -1674,13 +1662,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO FUNCTION ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO FUNCTION ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO FUNCTION ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO FUNCTION ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO FUNCTION ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO FUNCTION ' || :ADBObject;
         execute statement sql_stmt;
       end
     end
@@ -1721,13 +1715,19 @@ begin
       
       if (:AAllowLog = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_LOG_HISTORY TO PACKAGE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO PACKAGE ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO PACKAGE ' || :ADBObject;
+        execute statement sql_stmt;    
+      
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO PACKAGE ' || :ADBObject;
         execute statement sql_stmt;    
       end
       
       if (:AAllowDebug = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_LOG_DEBUG TO PACKAGE ' || :ADBObject;
+        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO PACKAGE ' || :ADBObject;
         execute statement sql_stmt;
       end
     end  
