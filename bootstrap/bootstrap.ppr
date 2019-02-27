@@ -72,9 +72,13 @@ bootstrap
 		make\make.log
 [Open project files]
 0=make\make.log
+1=sddl\sddl.bootstrap.create.history.package.body.sql
 [Selected Project Files]
 Main=
-Selected=make\make.log
+Selected=sddl\sddl.bootstrap.create.history.package.body.sql
 [make\make.log]
-TopLine=1
-Caret=1,1
+TopLine=1799
+Caret=40,17
+[sddl\sddl.bootstrap.create.history.package.body.sql]
+TopLine=155
+Caret=54,169
