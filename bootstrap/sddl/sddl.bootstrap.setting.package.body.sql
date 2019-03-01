@@ -314,7 +314,7 @@ begin
                  and IDENT = :IDENT))
       then
         update VW_T_SETTING 
-        set STRING_VALUE = cast(:FLOAT_VALUE as varchar(255))
+        set STRING_VALUE = Trim(cast(:FLOAT_VALUE as DN_CATEGORY_STRING_VALUE))
         where CATEGORY_NAME = :CATEGORY_NAME
         and SECTION_NAME = :SECTION_NAME
         and IDENT = :IDENT;
@@ -332,7 +332,7 @@ begin
           :CATEGORY_NAME,
           :SECTION_NAME,
           :IDENT,
-          cast(:FLOAT_VALUE as varchar(255))
+          Trim(cast(:FLOAT_VALUE as DN_CATEGORY_STRING_VALUE))
         );
     end
     else
@@ -343,7 +343,7 @@ begin
                  and IDENT = :IDENT))
       then
         update VW_SETTING 
-        set STRING_VALUE = cast(:FLOAT_VALUE as varchar(255))
+        set STRING_VALUE = Trim(cast(:FLOAT_VALUE as DN_CATEGORY_STRING_VALUE))
         where CATEGORY_NAME = :CATEGORY_NAME
         and SECTION_NAME = :SECTION_NAME
         and IDENT = :IDENT;
@@ -361,7 +361,7 @@ begin
           :CATEGORY_NAME,
           :SECTION_NAME,
           :IDENT,
-          cast(:FLOAT_VALUE as varchar(255))
+          Trim(cast(:FLOAT_VALUE as DN_CATEGORY_STRING_VALUE))
         );
     end
   end
@@ -383,7 +383,7 @@ begin
                  and IDENT = :IDENT))
       then
         update VW_T_SETTING 
-        set STRING_VALUE = cast(:INT_VALUE as varchar(255))
+        set STRING_VALUE = Trim(cast(:INT_VALUE as DN_CATEGORY_STRING_VALUE))
         where CATEGORY_NAME = :CATEGORY_NAME
         and SECTION_NAME = :SECTION_NAME
         and IDENT = :IDENT;
@@ -401,7 +401,7 @@ begin
           :CATEGORY_NAME,
           :SECTION_NAME,
           :IDENT,
-          cast(:INT_VALUE as varchar(255))
+          Trim(cast(:INT_VALUE as DN_CATEGORY_STRING_VALUE))
         );  
     end
     else
@@ -412,7 +412,7 @@ begin
                  and IDENT = :IDENT))
       then
         update VW_SETTING 
-        set STRING_VALUE = cast(:INT_VALUE as varchar(255))
+        set STRING_VALUE = Trim(cast(:INT_VALUE as DN_CATEGORY_STRING_VALUE))
         where CATEGORY_NAME = :CATEGORY_NAME
         and SECTION_NAME = :SECTION_NAME
         and IDENT = :IDENT;
@@ -430,7 +430,7 @@ begin
           :CATEGORY_NAME,
           :SECTION_NAME,
           :IDENT,
-          cast(:INT_VALUE as varchar(255))
+          Trim(cast(:INT_VALUE as DN_CATEGORY_STRING_VALUE))
         );
     end
   end
@@ -519,7 +519,7 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.setting.package.body.sql',
+    'sddl.bootstrap.setting.package.body.sql',
     'Package-body der Settings installiert');
 END^        
 SET TERM ; ^

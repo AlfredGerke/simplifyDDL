@@ -46,39 +46,63 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	+log
+	-log
 		make\make.log
 		test\test.log
 	+sddl
-		sddl\sddl.bootstrap.create.common.package.body.sql
-		sddl\sddl.bootstrap.create.common.package.header.sql
-		sddl\sddl.bootstrap.create.db.sql
-		sddl\sddl.bootstrap.create.domains.sql
-		sddl\sddl.bootstrap.create.history.model.sql
-		sddl\sddl.bootstrap.create.history.package.body.sql
-		sddl\sddl.bootstrap.create.history.package.header.sql
-		sddl\sddl.bootstrap.create.package.body.sql
-		sddl\sddl.bootstrap.create.package.header.sql
-		sddl\sddl.bootstrap.create.roles.sql
-		sddl\sddl.bootstrap.create.setting.model.sql
-		sddl\sddl.bootstrap.create.setting.package.body.sql
-		sddl\sddl.bootstrap.create.setting.package.header.sql
+		sddl\sddl.bootstrap.common.package.body.sql
+		sddl\sddl.bootstrap.common.package.header.sql
+		sddl\sddl.bootstrap.domains.create.sql
+		sddl\sddl.bootstrap.execute.sddl.sql
+		sddl\sddl.bootstrap.history.model.create.sql
+		sddl\sddl.bootstrap.history.package.body.sql
+		sddl\sddl.bootstrap.history.package.header.sql
+		sddl\sddl.bootstrap.package.body.sql
+		sddl\sddl.bootstrap.package.header.sql
+		sddl\sddl.bootstrap.roles.create.sql
+		sddl\sddl.bootstrap.setting.model.create.sql
+		sddl\sddl.bootstrap.setting.package.body.sql
+		sddl\sddl.bootstrap.setting.package.header.sql
+		sddl\sddl.bootstrap.styleguide.model.create.sql
+		sddl\sddl.bootstrap.styleguide.package.body.sql
+		sddl\sddl.bootstrap.styleguide.package.header.sql
 	+connect
 		connect\connect.sysdba.sql
-	-make
+	+make
 		make\_make.bat
-		make\batch.sql
+		make\sddl.bootstrap.install.sql
+		make\sddl.bootstrap.test-db.create.sql
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\make.log
-1=sddl\sddl.bootstrap.create.history.package.body.sql
+0=sddl\sddl.bootstrap.common.package.body.sql
+1=sddl\sddl.bootstrap.common.package.header.sql
+2=sddl\sddl.bootstrap.domains.create.sql
+3=sddl\sddl.bootstrap.execute.sddl.sql
+4=sddl\sddl.bootstrap.history.model.create.sql
+5=sddl\sddl.bootstrap.history.package.body.sql
+6=make\sddl.bootstrap.install.sql
 [Selected Project Files]
 Main=
-Selected=sddl\sddl.bootstrap.create.history.package.body.sql
-[make\make.log]
-TopLine=1799
-Caret=40,17
-[sddl\sddl.bootstrap.create.history.package.body.sql]
-TopLine=155
-Caret=54,169
+Selected=make\sddl.bootstrap.install.sql
+[sddl\sddl.bootstrap.common.package.body.sql]
+TopLine=55
+Caret=1,1
+[sddl\sddl.bootstrap.common.package.header.sql]
+TopLine=1
+Caret=1,1
+[sddl\sddl.bootstrap.domains.create.sql]
+TopLine=1
+Caret=1,1
+[sddl\sddl.bootstrap.execute.sddl.sql]
+TopLine=1
+Caret=1,1
+[sddl\sddl.bootstrap.history.model.create.sql]
+TopLine=208
+Caret=1,1
+[sddl\sddl.bootstrap.history.package.body.sql]
+TopLine=207
+Caret=1,213
+[make\sddl.bootstrap.install.sql]
+TopLine=23
+Caret=3,53

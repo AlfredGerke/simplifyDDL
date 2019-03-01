@@ -24,6 +24,25 @@ begin
              where SEC$USER_NAME = 'SDDL_USER')) 
   then
     execute statement 'DROP USER SDDL_USER';
+    
+  if (exists(select 1
+             from RDB$ROLES 
+             where RDB$ROLE_NAME = 'SDDL_DELETE')) 
+  then
+    execute statement 'DROP ROLE SDDL_DELETE';    
+    
+  if (exists(select 1
+             from RDB$ROLES 
+             where RDB$ROLE_NAME = 'SDDL_PUBLIC')) 
+  then
+    execute statement 'DROP ROLE SDDL_PUBLIC';
+        
+  if (exists(select 1
+             from RDB$ROLES 
+             where RDB$ROLE_NAME = 'SDDL_ALL')) 
+  then
+    execute statement 'DROP ROLE SDDL_ALL';
+   
 end^
 SET TERM ; ^
 

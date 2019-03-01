@@ -14,22 +14,6 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------------------------*/
-/* ### Description: 
-/*   * Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
-/*   * Das Script ist für die Ausführung im ISQL erstellt worden              
-/*   * Der Connect der Datenbank sowie die Zuweisung von Context-Inhalten wird nur in diesem Script 
-/*     vorgenommen   
-/*   
-/* Initial Developer: AGE
-/*
-/*------------------------------------------------------------------------------------------------*/
-/*
-/* Last modified: $Date:$
-/* Revision:      $Revision:$
-/* Author:        $Author:$
-/*------------------------------------------------------------------------------------------------*/
-
 /* ISQL-SET --------------------------------------------------------------------------------------*/
 SET SQL DIALECT 3;
 
@@ -47,23 +31,32 @@ SET LIST on;
 input '..\connect\connect.sysdba.sql';
 
 /* Input -----------------------------------------------------------------------------------------*/
-input '..\sddl\sddl.bootstrap.create.domains.sql';
+input '..\sddl\sddl.bootstrap.roles.create.sql';
 
+input '..\sddl\sddl.bootstrap.domains.create.sql';
 
-input '..\sddl\sddl.bootstrap.create.common.package.header.sql';
-input '..\sddl\sddl.bootstrap.create.common.package.body.sql';
+input '..\sddl\sddl.bootstrap.common.package.header.sql';
+input '..\sddl\sddl.bootstrap.common.package.body.sql';
 
-input '..\sddl\sddl.bootstrap.create.history.model.sql';
-input '..\sddl\sddl.bootstrap.create.history.package.header.sql';
-input '..\sddl\sddl.bootstrap.create.history.package.body.sql';
+input '..\sddl\sddl.bootstrap.history.model.create.sql';
+input '..\sddl\sddl.bootstrap.history.package.header.sql';
+input '..\sddl\sddl.bootstrap.history.package.body.sql';
 
-input '..\sddl\sddl.bootstrap.create.setting.model.sql';
-input '..\sddl\sddl.bootstrap.create.setting.package.header.sql';
-input '..\sddl\sddl.bootstrap.create.setting.package.body.sql';
+input '..\sddl\sddl.bootstrap.setting.model.create.sql';
+input '..\sddl\sddl.bootstrap.setting.package.header.sql';
+input '..\sddl\sddl.bootstrap.setting.package.body.sql';
 
 /*
-input '..\sddl\sddl.bootstrap.create.package.header.sql';
-input '..\sddl\sddl.bootstrap.create.package.body.sql';
+input '..\sddl\sddl.bootstrap.styleguide.model.create.sql';
+input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
+input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
+*/
+
+input '..\sddl\sddl.bootstrap.package.header.sql';
+/*
+input '..\sddl\sddl.bootstrap.package.body.sql';
+input '..\sddl\sddl.bootstrap.sddl.execute.sql';
+
 */
 
 /*------------------------------------------------------------------------------------------------*/

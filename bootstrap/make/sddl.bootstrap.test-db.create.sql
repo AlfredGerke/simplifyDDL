@@ -23,8 +23,8 @@ CREATE DATABASE '127.0.0.1/32304:SIMPLIFYDDL'
 USER 'SYSDBA' 
 PASSWORD 'masterkey' 
 PAGE_SIZE 4096 
-DEFAULT CHARACTER 
-SET WIN1252 
+SET NAMES 'WIN1252'
+DEFAULT CHARACTER SET WIN1252 
 COLLATION WIN1252;
 
 /*------------------------------------------------------------------------------------------------*/

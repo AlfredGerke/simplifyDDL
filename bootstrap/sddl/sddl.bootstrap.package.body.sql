@@ -27,6 +27,7 @@ SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_SDDL
 AS
 begin
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SHOW_INFO(
     AInfo DN_MESSAGE)
   RETURNS (
@@ -37,6 +38,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_RESTRUCTURE_TABLE (
     ATablename DN_DB_OBJECT,
     AColumn DN_DB_OBJECT,
@@ -56,6 +58,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_EXTRACT_TABLENAME (
     ATablename DN_DB_OBJECT,
     APrefix DN_PREFIX)
@@ -114,6 +117,7 @@ begin
     suspend;      
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GET_COLUMNLIST(
     ATablename DN_DB_OBJECT,
     ASeparator DN_COLUMNLIST_SEPARATOR,
@@ -150,6 +154,7 @@ begin
     suspend; 
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GET_PRIMKEYLIST (
     ATablename DN_DB_OBJECT,
     ASeparator DN_COLUMNLIST_SEPARATOR,
@@ -204,6 +209,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_STD_TABLE_VIEW_CMT (
     ATablename DN_DB_OBJECT,
     AViewname DN_DB_OBJECT)  
@@ -245,6 +251,7 @@ begin
     end
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_STD_TABLE_VIEW(
     ATablename DN_DB_OBJECT,
     AOrderByPrim DN_BOOLEAN) /* wenn True dann USER_VIEW nur ReadOnly */
@@ -331,6 +338,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_TRIGGER_BI (
     ATablename DN_DB_OBJECT)
   returns (
@@ -451,6 +459,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_SEQUNECE(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT Default 'ID',
@@ -505,6 +514,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_TBL_CATALOG (
     ATablename DN_DB_OBJECT,
     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
@@ -601,6 +611,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_CATALOG (
     ACatalogname DN_DB_OBJECT,
     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
@@ -653,6 +664,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE PKG_SDDL.SP_CREATE_STAMP (
     ATablename DN_DB_OBJECT)
   RETURNS (
@@ -697,6 +709,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION (
     ATablename DN_DB_OBJECT)
   RETURNS (
@@ -730,6 +743,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_TABLE_COMMENT (
     ATablename DN_DB_OBJECT,
     AComment DN_COMMENT)
@@ -758,6 +772,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_PRIMARY_CONSTRAINT (
     ATablename DN_DB_OBJECT)
   RETURNS (
@@ -801,6 +816,7 @@ begin
     suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_COMPLETE_TABLE (
     ATablename DN_DB_OBJECT,
     ADoDescription DN_BOOLEAN,
@@ -899,6 +915,7 @@ begin
     suspend; 
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CHECK_COMMAND (
     AGenCommand DN_GEN_COMMAND,
     AFieldDescription DN_DB_COMMENT)
@@ -1019,6 +1036,7 @@ begin
     Suspend;     
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_UNIQUE_KEY(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
@@ -1107,6 +1125,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_UNIQUE_IDX(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
@@ -1187,6 +1206,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   /* wird in PKG_SDDL.SP_CREATE_FOREIGN_KEY für die Implementation benötigt, 
      kann aber erst nach PKG_SDDL.SP_CREATE_FOREIGN_KEY selber implementiert werden*/
   PROCEDURE SP_CREATE_CONSTRAINTS (
@@ -1202,6 +1222,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_FOREIGN_KEY(
     ATablename DN_DB_OBJECT,
     AFieldname DN_DB_OBJECT,
@@ -1336,6 +1357,7 @@ begin
     Suspend;
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_CONSTRAINTS (
     ATablename DN_DB_OBJECT)
   RETURNS (
@@ -1456,6 +1478,7 @@ begin
     end
   end  
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_ALL_CONSTRAINTS
   RETURNS (
     SUCCESS DN_BOOLEAN,
@@ -1486,6 +1509,7 @@ begin
     end 
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_VIEW (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1546,6 +1570,7 @@ begin
     end  
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_SEQ (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1560,6 +1585,7 @@ begin
     execute statement sql_stmt;  
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_EXC (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1574,6 +1600,7 @@ begin
     execute statement sql_stmt;    
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_SP (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1627,6 +1654,7 @@ begin
     end
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_SF (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1680,6 +1708,7 @@ begin
     end
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_PKG (
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
@@ -1733,6 +1762,7 @@ begin
     end  
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_ALL
   AS
   declare variable relation_name DN_DB_OBJECT;
@@ -1815,6 +1845,7 @@ begin
     end       
   end
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT (
     ADBObject DN_DB_OBJECT)
   AS
@@ -1905,6 +1936,7 @@ begin
     end     
   end         
       
+  /*----------------------------------------------------------------------------------------------*/      
   PROCEDURE SP_CHECK_STYLEGUIDE_KEYW(
     AKeyWordToCheck DN_DB_OBJECT = '') 
   RETURNS (

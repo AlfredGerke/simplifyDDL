@@ -195,39 +195,54 @@ COMMIT WORK;
 SET TERM ^ ;
 EXECUTE BLOCK AS
 BEGIN
+
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.common.package.header.sql',
+    'sddl.bootstrap.roles.create.sql',
+    'Standard-Benutzer und -Rollen für das Bootstrap installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.domains.create.sql',
+    'Domains für das Bootstrap installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.common.package.header.sql',
     'Package-Header der Common -Procedures/-Function installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.common.package.body.sql',
+    'sddl.bootstrap.common.package.body.sql',
     'Package-Body der Common -Procedures/-Function installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.model.sql',
+    'sddl.bootstrap.history.model.create.sql',
     'Model der History installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.package.header.sql',
+    'sddl.bootstrap.history.package.header.sql',
     'Package-Header der History installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.history.package.body.sql',
+    'sddl.bootstrap.history.package.body.sql',
     'Package-Body der History installiert');
 END^        
 SET TERM ; ^
