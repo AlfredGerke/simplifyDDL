@@ -53,7 +53,7 @@ bootstrap
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.domains.create.sql
-		sddl\sddl.bootstrap.execute.sddl.sql
+		sddl\sddl.bootstrap.execute.sql
 		sddl\sddl.bootstrap.history.model.create.sql
 		sddl\sddl.bootstrap.history.package.body.sql
 		sddl\sddl.bootstrap.history.package.header.sql
@@ -75,34 +75,14 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=sddl\sddl.bootstrap.common.package.body.sql
-1=sddl\sddl.bootstrap.common.package.header.sql
-2=sddl\sddl.bootstrap.domains.create.sql
-3=sddl\sddl.bootstrap.execute.sddl.sql
-4=sddl\sddl.bootstrap.history.model.create.sql
-5=sddl\sddl.bootstrap.history.package.body.sql
-6=make\sddl.bootstrap.install.sql
+0=make\make.log
+1=sddl\sddl.bootstrap.setting.package.body.sql
 [Selected Project Files]
 Main=
-Selected=make\sddl.bootstrap.install.sql
-[sddl\sddl.bootstrap.common.package.body.sql]
-TopLine=55
-Caret=1,1
-[sddl\sddl.bootstrap.common.package.header.sql]
-TopLine=1
-Caret=1,1
-[sddl\sddl.bootstrap.domains.create.sql]
-TopLine=1
-Caret=1,1
-[sddl\sddl.bootstrap.execute.sddl.sql]
-TopLine=1
-Caret=1,1
-[sddl\sddl.bootstrap.history.model.create.sql]
-TopLine=208
-Caret=1,1
-[sddl\sddl.bootstrap.history.package.body.sql]
-TopLine=207
-Caret=1,213
-[make\sddl.bootstrap.install.sql]
-TopLine=23
-Caret=3,53
+Selected=sddl\sddl.bootstrap.setting.package.body.sql
+[make\make.log]
+TopLine=1837
+Caret=64,1850
+[sddl\sddl.bootstrap.setting.package.body.sql]
+TopLine=369
+Caret=1,390

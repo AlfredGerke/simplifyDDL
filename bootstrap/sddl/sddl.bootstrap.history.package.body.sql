@@ -20,6 +20,7 @@ SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_HISTORY
 AS
 begin
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_UPDATE_INFO (
     AMajorNumber DN_MAJOR_NO,
     AMinorNumber DN_MINOR_NO,
@@ -46,6 +47,7 @@ begin
         );
   end
   
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_LOG_INFO (ADescription DN_DESCRIPTION,
     AWarnLevel DN_WARN_LEVEL)
   AS
@@ -66,12 +68,14 @@ begin
           );    
   end
   
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_WARN_LEVEL_TO_CONTEXT(AWarnLevel DN_WARN_LEVEL)
   AS
   begin
     RDB$SET_CONTEXT('LOG', 'WARN_LEVEL', cast(AWarnLevel as varchar(1)));  
   end
   
+  /*----------------------------------------------------------------------------------------------*/
   FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
     )
   RETURNS DN_WARN_LEVEL
@@ -97,6 +101,7 @@ begin
    end   
   end   
   
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_LOG_INFORMATION (
     ADescription DN_DESCRIPTION)
   AS
@@ -109,7 +114,7 @@ begin
       procedure SP_SET_LOG_INFO :ADescription, 3;      
   end
   
-  
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_LOG_WARNING (
     ADescription DN_DESCRIPTION)
   AS
@@ -122,6 +127,7 @@ begin
       procedure SP_SET_LOG_INFO :ADescription, 2;        
   end
   
+  /*----------------------------------------------------------------------------------------------*/
   procedure SP_SET_LOG_ERROR (
     ADescription DN_DESCRIPTION)
   AS
@@ -134,6 +140,7 @@ begin
       procedure SP_SET_LOG_INFO :ADescription, 1;          
   end   
     
+  /*----------------------------------------------------------------------------------------------*/  
   procedure SP_SET_DEBUG (
     ACaption DN_CAPTION,
     ADescription DN_DESCRIPTION)
@@ -187,9 +194,6 @@ IS 'Setzt Debug-Einträge';
 /*------------------------------------------------------------------------------------------------*/
 
 COMMIT WORK;
-
-/*------------------------------------------------------------------------------------------------*/
-/* Updatehistory                                   
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;

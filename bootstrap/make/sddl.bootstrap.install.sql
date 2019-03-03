@@ -46,17 +46,16 @@ input '..\sddl\sddl.bootstrap.setting.model.create.sql';
 input '..\sddl\sddl.bootstrap.setting.package.header.sql';
 input '..\sddl\sddl.bootstrap.setting.package.body.sql';
 
-/*
-input '..\sddl\sddl.bootstrap.styleguide.model.create.sql';
-input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
-input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
-*/
-
 input '..\sddl\sddl.bootstrap.package.header.sql';
 /*
 input '..\sddl\sddl.bootstrap.package.body.sql';
-input '..\sddl\sddl.bootstrap.sddl.execute.sql';
 
+input '..\sddl\sddl.bootstrap.styleguide.model.create.sql';
+input '..\sddl\sddl.bootstrap.styleguide.model.data.sql';
+input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
+input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
+
+input '..\sddl\sddl.bootstrap.execute.sql';
 */
 
 /*------------------------------------------------------------------------------------------------*/

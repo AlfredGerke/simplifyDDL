@@ -16,22 +16,40 @@
 /*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/
-/* Create                                   
-/*------------------------------------------------------------------------------------------------*/
-
                                                 
 /* SPs */
 SET TERM ^ ;
 CREATE OR ALTER PACKAGE PKG_STYLEGUIDE
 AS
 begin
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK_KEYWORD(
+    AKeyWordToCheck DN_DB_OBJECT = '') 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT);
 
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT,
+    STYLE_GUIDE_KEYW DN_DB_OBJECT,
+    TO_DO DN_DESCRIPTION);
+
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK_RESERVED(
+    AKeyWordToCheck DN_DB_OBJECT = '') 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    RESERVED DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT);
 end^
 SET TERM ; ^
 
 COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
-/* Updatehistory                                   
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;

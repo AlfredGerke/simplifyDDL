@@ -16,22 +16,551 @@
 /*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/
-/* Create                                   
-/*------------------------------------------------------------------------------------------------*/
-
                                                 
 /* SPs */
 SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_STYLEGUIDE
 AS
 begin
+
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK_KEYWORD(
+    AKeyWordToCheck DN_DB_OBJECT) 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT)
+  AS
+  declare relation_name DN_DB_OBJECT;
+  begin
+    HIT = 0;
+    OBJECT_NAME = null;
+    FOUND_IN = null;
+    
+    /* Felder in Tabellen und Views */
+    for
+    select distinct RDB$FIELD_NAME 
+    from RDB$RELATION_FIELDS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Felder';
+        
+        Suspend;
+      end
+    end  
+    
+    /* Alle Domains */
+    for  
+    select distinct RDB$FIELD_NAME 
+    from RDB$FIELDS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Domains';
+        
+        Suspend;
+      end  
+    end  
+    
+    /* Alle Sequencen */
+    for
+    select distinct RDB$GENERATOR_NAME 
+    from RDB$GENERATORS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Sequences';
+        
+        Suspend;
+      end    
+    end
+  
+    /* Alle SPs */
+    for
+    select distinct RDB$PROCEDURE_NAME 
+    from RDB$PROCEDURES 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'StoredProcedures';
+        
+        Suspend;
+      end  
+    end
+    
+    for
+    select distinct RDB$PARAMETER_NAME 
+    from RDB$PROCEDURE_PARAMETERS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Parameters/Returns (SP)';
+        
+        Suspend;
+      end  
+    end  
+    
+    /* Alle SFs */
+    for
+    select distinct RDB$FUNCTION_NAME 
+    from RDB$FUNCTIONS 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'StoredFunction';
+        
+        Suspend;
+      end  
+    end
+    
+    for
+    select distinct RDB$FIELD_NAME 
+    from RDB$FUNCTION_ARGUMENTS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Arguments (SF)';
+        
+        Suspend;
+      end  
+    end  
+        
+    /* Packages */
+    for
+    select distinct RDB$PACKAGE_NAME
+    from RDB$PACKAGES
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Packages';
+        
+        Suspend;
+      end  
+    end           
+        
+    /* Relations */
+    for
+    select distinct RDB$RELATION_NAME 
+    from RDB$RELATIONS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Tabellen/Views';
+        
+        Suspend;
+      end  
+    end
+    
+    /* Constraints */
+    for
+    select RDB$CONSTRAINT_NAME
+    from RDB$RELATION_CONSTRAINTS 
+    into :relation_name
+    do
+    begin  
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Constraints';
+        
+        Suspend;
+      end
+    end
+    
+    /* Indexe */
+    for
+    select RDB$INDEX_NAME 
+    from RDB$INDICES 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Indices';
+        
+        Suspend;
+      end 
+    end
+  end
+  
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT,
+    STYLE_GUIDE_KEYW DN_DB_OBJECT,
+    TO_DO DN_DESCRIPTION)
+  AS
+  begin
+    HIT = 0;  
+    OBJECT_NAME = '';
+    FOUND_IN = '';
+    STYLE_GUIDE_KEYW = '';
+    TO_DO = '';    
+  
+    for
+    select CAPTION, DESCRIPTION 
+    from VW_L_INVALID_STYLEGUIDE
+    into :STYLE_GUIDE_KEYW, :TO_DO
+    do
+    begin
+      for
+      select HIT, OBJECT_NAME, FOUND_IN
+      from SP_CHECK_KEYWORD(:STYLE_GUIDE_KEYW)
+      into :HIT, :OBJECT_NAME, :FOUND_IN
+      do
+      begin  
+        if (HIT=1) then
+          suspend;  
+      end    
+      
+      HIT = 0;  
+      OBJECT_NAME = '';
+      FOUND_IN = '';
+      STYLE_GUIDE_KEYW = '';
+      TO_DO = '';    
+    end      
+  end
+  
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_CHECK_RESERVED(
+    AKeyWordToCheck DN_DB_OBJECT) 
+  RETURNS (
+    HIT DN_BOOLEAN,  
+    RESERVED DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT)
+  AS
+  declare variable relation_name DN_DB_OBJECT;
+  begin
+    HIT = 0;
+    RESERVED = null;
+    FOUND_IN = null;
+    
+    if (Trim(AKeyWordToCheck) = '') then
+    begin
+      /* Felder in Tabellen und Views */
+      for
+      select distinct RDB$FIELD_NAME 
+      from RDB$RELATION_FIELDS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Felder';
+          
+          Suspend;
+        end
+        else
+        begin
+          if (exists(select 1 
+                     from RDB$TYPES 
+                     where Upper(Trim(RDB$TYPE_NAME))=Upper(Trim(:relation_name)))) 
+          then
+          begin
+            HIT = 1;
+            RESERVED = relation_name; 
+            FOUND_IN = 'Felder';
+            
+            Suspend;     
+          end
+        end
+      end  
+      
+      /* Alle Domains */
+      for  
+      select distinct RDB$FIELD_NAME 
+      from RDB$FIELDS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Domains';
+          
+          Suspend;
+        end  
+      end  
+      
+      /* Alle Sequencen */
+      for
+      select distinct RDB$GENERATOR_NAME 
+      from RDB$GENERATORS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Sequences';
+          
+          Suspend;
+        end    
+      end
+    
+      /* Alle SPs */
+      for
+      select distinct RDB$PROCEDURE_NAME 
+      from RDB$PROCEDURES 
+      where RDB$SYSTEM_FLAG = 0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'StoredProcedures';
+          
+          Suspend;
+        end  
+      end
+      
+      for
+      select distinct RDB$PARAMETER_NAME 
+      from RDB$PROCEDURE_PARAMETERS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Parameters/Returns';
+          
+          Suspend;
+        end  
+      end  
+      
+      /* Alle SFs */
+      for
+      select distinct RDB$FUNCTION_NAME 
+      from RDB$FUNCTIONS 
+      where RDB$SYSTEM_FLAG = 0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'StoredFunctions';
+          
+          Suspend;
+        end    
+      end
+      
+      for
+      select distinct RDB$FIELD_NAME 
+      from RDB$FUNCTION_ARGUMENTS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Arguments (SF)';
+          
+          Suspend;
+        end  
+      end  
+          
+      /* Packages */
+      for
+      select distinct RDB$PACKAGE_NAME
+      from RDB$PACKAGES
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Packages';
+          
+          Suspend;
+        end        
+      end           
+        
+      /* Relations */
+      for
+      select distinct RDB$RELATION_NAME 
+      from RDB$RELATIONS 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Tabellen/Views';
+          
+          Suspend;
+        end  
+      end
+      
+      /* Constraints */
+      for
+      select RDB$CONSTRAINT_NAME
+      from RDB$RELATION_CONSTRAINTS 
+      into
+        :relation_name
+      do
+      begin  
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Constraints';
+          
+          Suspend;
+        end
+      end
+      
+      /* Indexe */
+      for
+      select RDB$INDEX_NAME 
+      from RDB$INDICES 
+      where RDB$SYSTEM_FLAG=0
+      into :relation_name
+      do
+      begin
+        if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = relation_name; 
+          FOUND_IN = 'Indices';
+          
+          Suspend;
+        end 
+      end
+    end
+    else
+    begin
+       if (exists(select 1 
+                   from VW_L_RESERVED_WORDS 
+                   where Upper(Trim(CAPTION))=Upper(Trim(:AKeyWordToCheck)))) 
+        then
+        begin
+          HIT = 1;
+          RESERVED = AKeyWordToCheck; 
+          FOUND_IN = 'OnDemand';
+          
+          Suspend;
+        end   
+    end  
+  end
 end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
 
+COMMENT ON PROCEDURE SP_CHECK_RESERVED IS
+'Überprüft Felder, Parameter und Ausgabefelder auf reservierte Wörter'^
+
+COMMENT ON PROCEDURE SP_CHECK IS
+'Überprüft Felder, Parameter und Ausgabefelder auf ausgeschlossene StyleGuide-Elemente'^
+
+COMMENT ON PROCEDURE SP_CHECK_KEYWORD IS
+'Prüft Datenmodell auf Abweichungen im StyleGuide anhand eines Schlüsselwortes'^
+
 COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
-/* Updatehistory                                   
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;
