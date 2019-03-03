@@ -26,6 +26,12 @@ execute
 procedure PKG_SDDL.GRANT_ALL;
 
 COMMIT WORK;
+/* PREFIX --------------------------------------------------------------------------------------*/
+
+select HIT, OBJECT_NAME, FOUND_IN, MISSING_PREFIX
+from PKG_STYLEGUIDE.SP_CHECK_PREFIX; 
+    
+COMMIT WORK;    
 /* KeyWords --------------------------------------------------------------------------------------*/
 
 select HIT, RESERVED, FOUND_IN

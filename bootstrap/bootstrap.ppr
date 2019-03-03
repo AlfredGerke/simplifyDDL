@@ -64,6 +64,7 @@ bootstrap
 		sddl\sddl.bootstrap.setting.package.body.sql
 		sddl\sddl.bootstrap.setting.package.header.sql
 		sddl\sddl.bootstrap.styleguide.model.create.sql
+		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
 	+connect
@@ -75,14 +76,22 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\make.log
-1=sddl\sddl.bootstrap.setting.package.body.sql
+0=sddl\sddl.bootstrap.styleguide.package.body.sql
+1=sddl\sddl.bootstrap.styleguide.package.header.sql
+2=sddl\sddl.bootstrap.package.body.sql
+3=sddl\sddl.bootstrap.execute.sql
 [Selected Project Files]
 Main=
-Selected=sddl\sddl.bootstrap.setting.package.body.sql
-[make\make.log]
-TopLine=1837
-Caret=64,1850
-[sddl\sddl.bootstrap.setting.package.body.sql]
-TopLine=369
-Caret=1,390
+Selected=sddl\sddl.bootstrap.execute.sql
+[sddl\sddl.bootstrap.styleguide.package.body.sql]
+TopLine=267
+Caret=46,322
+[sddl\sddl.bootstrap.styleguide.package.header.sql]
+TopLine=11
+Caret=32,56
+[sddl\sddl.bootstrap.package.body.sql]
+TopLine=1120
+Caret=81,1171
+[sddl\sddl.bootstrap.execute.sql]
+TopLine=1
+Caret=38,38

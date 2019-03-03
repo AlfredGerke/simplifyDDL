@@ -46,6 +46,14 @@ begin
     HIT DN_BOOLEAN,  
     RESERVED DN_DB_OBJECT,
     FOUND_IN DN_COMMENT);
+    
+  /*----------------------------------------------------------------------------------------------*/    
+  PROCEDURE SP_CHECK_PREFIX
+  RETURNS (
+    HIT DN_BOOLEAN,
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT,
+    MISSING_PREFIX DN_COMMENT);  
 end^
 SET TERM ; ^
 

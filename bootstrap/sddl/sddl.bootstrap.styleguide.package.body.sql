@@ -304,7 +304,7 @@ begin
         begin
           HIT = 1;
           RESERVED = relation_name; 
-          FOUND_IN = 'Felder';
+          FOUND_IN = 'Felder (VW_L_RESERVED_WORDS)';
           
           Suspend;
         end
@@ -317,7 +317,7 @@ begin
           begin
             HIT = 1;
             RESERVED = relation_name; 
-            FOUND_IN = 'Felder';
+            FOUND_IN = 'Felder (RDB$TYPE_NAME)';
             
             Suspend;     
           end
@@ -547,6 +547,252 @@ begin
         end   
     end  
   end
+  
+  /*----------------------------------------------------------------------------------------------*/  
+  PROCEDURE SP_CHECK_PREFIX
+  RETURNS (
+    HIT DN_BOOLEAN,
+    OBJECT_NAME DN_DB_OBJECT,
+    FOUND_IN DN_COMMENT,
+    MISSING_PREFIX DN_COMMENT)
+  AS
+  begin
+    HIT = 0;
+    OBJECT_NAME = null;
+    FOUND_IN = null;
+    
+    /* Tabellen und Views */
+    MISSING_PREFIX = 'TB_';
+    for
+    select distinct RDB$RELATION_NAME 
+    from RDB$RELATIONS 
+    where RDB$SYSTEM_FLAG=0
+    and RDB$RELATION_TYPE=0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Tables';        
+        
+        Suspend;
+      end
+    end
+    
+    MISSING_PREFIX = 'TBT_';
+    for
+    select distinct RDB$RELATION_NAME 
+    from RDB$RELATIONS 
+    where RDB$SYSTEM_FLAG=0
+    and RDB$RELATION_TYPE=5
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Temporary Tables';        
+        
+        Suspend;
+      end
+    end    
+    
+    MISSING_PREFIX = 'VW_';
+    for
+    select distinct RDB$RELATION_NAME 
+    from RDB$RELATIONS 
+    where RDB$SYSTEM_FLAG=0
+    and RDB$RELATION_TYPE=1
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        MISSING_PREFIX = 'VR_';
+        if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+        begin        
+          HIT = 1;
+          OBJECT_NAME = relation_name; 
+          FOUND_IN = 'Views';
+          
+          MISSING_PREFIX = 'VR_ / VW_';        
+          
+          Suspend;
+        end
+      end  
+    end  
+          
+    /* Alle Domains */
+    MISSING_PREFIX = 'DN_';
+    for  
+    select distinct RDB$FIELD_NAME 
+    from RDB$FIELDS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Domains';        
+        
+        Suspend;
+      end  
+    end  
+    
+    /* Alle Sequencen */
+    MISSING_PREFIX = 'SEQ_';
+    for
+    select distinct RDB$GENERATOR_NAME 
+    from RDB$GENERATORS 
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Sequences';        
+        
+        Suspend;
+      end      
+    end
+  
+    /* Alle SPs */
+    MISSING_PREFIX = 'SP_';
+    for
+    select distinct RDB$PROCEDURE_NAME 
+    from RDB$PROCEDURES 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Stored Procedures';        
+        
+        Suspend;
+      end        
+    end
+    
+    MISSING_PREFIX = 'A';    
+    for
+    select distinct RDB$PARAMETER_NAME 
+    from RDB$PROCEDURE_PARAMETERS 
+    where RDB$SYSTEM_FLAG=0
+    and RDB$PARAMETER_TYPE=0 
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Stored Procedure Parameters';        
+        
+        Suspend;
+      end          
+    end  
+    
+    /* Alle SFs */
+    MISSING_PREFIX = 'SF_';
+    for
+    select distinct RDB$FUNCTION_NAME 
+    from RDB$FUNCTIONS 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Stored Functions';        
+        
+        Suspend;
+      end            
+    end
+
+--     /* Muss noch geprüft werden wie Results von Parametern unterschieden werden */    
+--     for
+--     select distinct RDB$FIELD_NAME 
+--     from RDB$FUNCTION_ARGUMENTS 
+--     where RDB$SYSTEM_FLAG=0
+--     into :relation_name
+--     do
+--     begin
+--       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+--       begin
+--         HIT = 1;
+--         OBJECT_NAME = relation_name; 
+--         FOUND_IN = 'Arguments (SF)';
+--         
+--         Suspend;
+--       end  
+--     end  
+        
+    /* Packages */
+    MISSING_PREFIX = 'PKG_';    
+    for
+    select distinct RDB$PACKAGE_NAME
+    from RDB$PACKAGES
+    where RDB$SYSTEM_FLAG=0
+    into :relation_name
+    do
+    begin
+      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      begin
+        HIT = 1;
+        OBJECT_NAME = relation_name; 
+        FOUND_IN = 'Packages';        
+        
+        Suspend;
+      end              
+    end           
+           
+--     /* Muss eingehend geprüft werden wie die Indexe unterschieden werden können         
+--     /* Constraints */
+--     for
+--     select RDB$CONSTRAINT_NAME
+--     from RDB$RELATION_CONSTRAINTS 
+--     into :relation_name
+--     do
+--     begin  
+--       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+--       begin
+--         HIT = 1;
+--         OBJECT_NAME = relation_name; 
+--         FOUND_IN = 'Constraints';
+--         
+--         Suspend;
+--       end
+--     end
+--     
+--     /* Indexe */
+--     for
+--     select RDB$INDEX_NAME 
+--     from RDB$INDICES 
+--     where RDB$SYSTEM_FLAG=0
+--     into :relation_name
+--     do
+--     begin
+--       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
+--       begin
+--         HIT = 1;
+--         OBJECT_NAME = relation_name; 
+--         FOUND_IN = 'Indices';
+--         
+--         Suspend;
+--       end 
+--     end  
+--   end  
 end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
