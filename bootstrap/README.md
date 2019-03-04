@@ -1,6 +1,6 @@
 ***(in Progress: Zielversion sDDL 0.9 M1)***
 
-sDDl.bootstrap
+sDDL.bootstrap
 ==============
 
 Framework, welches näher am Ursprungsprojekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker") ist.
@@ -38,7 +38,7 @@ Voraussetzungen
 ---------------
 
 ### Entwicklung unter Firebird
-*sDDl.bootstrap* wendet sich an Modellentwickler für Firebird. 
+*sDDL.bootstrap* wendet sich an Modellentwickler für Firebird. 
 Wann immer es sinnvoll erscheint, werden Sprachelemente genutzt, die speziell von Firebird zur Verfügung gestellt 
 werden und nicht notwendigerweise in anderen Datenbanksystemen vorhanden sind.
 Eine Ausweitung auf andere Datenbanksysteme ist in dieser Entwicklungsphase nicht
@@ -103,7 +103,7 @@ Freeware und kann ohne Bedenken eingesetzt werden.
 Zielvorgabe
 -----------
 
-Bei *sDDl.bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
+Bei *sDDL.bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
 eines Workflow um auf der Basis einer Tabelle notwendige DDL Syntax automatisch 
 erstellen zu können.
 

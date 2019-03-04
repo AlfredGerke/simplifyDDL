@@ -48,6 +48,15 @@ begin
   PROCEDURE SP_SET_LOG_ERROR (
     ADescription DN_DESCRIPTION);    
         
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_SET_DEBUG_STATE_TO_CONTEXT(
+    AState DN_BOOLEAN Default False);   
+    
+  /*----------------------------------------------------------------------------------------------*/
+  FUNCTION SF_GET_DEBUG_STATE_BY_CONTEXT(
+    )
+  RETURNS DN_BOOLEAN;                
+        
   /*----------------------------------------------------------------------------------------------*/      
   PROCEDURE SP_SET_DEBUG (
     ACaption DN_CAPTION,

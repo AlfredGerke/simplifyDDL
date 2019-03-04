@@ -33,7 +33,7 @@ begin
   AS
   declare relation_name DN_DB_OBJECT;
   begin
-    HIT = 0;
+    HIT = False;
     OBJECT_NAME = null;
     FOUND_IN = null;
     
@@ -47,7 +47,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Felder';
         
@@ -65,7 +65,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Domains';
         
@@ -83,7 +83,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Sequences';
         
@@ -101,7 +101,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'StoredProcedures';
         
@@ -118,7 +118,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Parameters/Returns (SP)';
         
@@ -136,7 +136,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'StoredFunction';
         
@@ -153,7 +153,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Arguments (SF)';
         
@@ -171,7 +171,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Packages';
         
@@ -189,7 +189,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Tabellen/Views';
         
@@ -206,7 +206,7 @@ begin
     begin  
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Constraints';
         
@@ -224,7 +224,7 @@ begin
     begin
       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Indices';
         
@@ -243,7 +243,7 @@ begin
     TO_DO DN_DESCRIPTION)
   AS
   begin
-    HIT = 0;  
+    HIT = False;  
     OBJECT_NAME = '';
     FOUND_IN = '';
     STYLE_GUIDE_KEYW = '';
@@ -261,11 +261,11 @@ begin
       into :HIT, :OBJECT_NAME, :FOUND_IN
       do
       begin  
-        if (HIT=1) then
+        if (HIT = True) then
           suspend;  
       end    
       
-      HIT = 0;  
+      HIT = False;  
       OBJECT_NAME = '';
       FOUND_IN = '';
       STYLE_GUIDE_KEYW = '';
@@ -283,7 +283,7 @@ begin
   AS
   declare variable relation_name DN_DB_OBJECT;
   begin
-    HIT = 0;
+    HIT = False;
     RESERVED = null;
     FOUND_IN = null;
     
@@ -302,7 +302,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Felder (VW_L_RESERVED_WORDS)';
           
@@ -315,7 +315,7 @@ begin
                      where Upper(Trim(RDB$TYPE_NAME))=Upper(Trim(:relation_name)))) 
           then
           begin
-            HIT = 1;
+            HIT = True;
             RESERVED = relation_name; 
             FOUND_IN = 'Felder (RDB$TYPE_NAME)';
             
@@ -337,7 +337,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Domains';
           
@@ -358,7 +358,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Sequences';
           
@@ -379,7 +379,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'StoredProcedures';
           
@@ -399,7 +399,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Parameters/Returns';
           
@@ -420,7 +420,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'StoredFunctions';
           
@@ -440,7 +440,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Arguments (SF)';
           
@@ -461,7 +461,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Packages';
           
@@ -482,7 +482,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Tabellen/Views';
           
@@ -503,7 +503,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Constraints';
           
@@ -524,7 +524,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = relation_name; 
           FOUND_IN = 'Indices';
           
@@ -539,7 +539,7 @@ begin
                    where Upper(Trim(CAPTION))=Upper(Trim(:AKeyWordToCheck)))) 
         then
         begin
-          HIT = 1;
+          HIT = True;
           RESERVED = AKeyWordToCheck; 
           FOUND_IN = 'OnDemand';
           
@@ -556,13 +556,16 @@ begin
     FOUND_IN DN_COMMENT,
     MISSING_PREFIX DN_COMMENT)
   AS
+  declare relation_name DN_DB_OBJECT;
+  declare prefix_to_check DN_COMMENT;
   begin
-    HIT = 0;
+    HIT = False;
+    
     OBJECT_NAME = null;
     FOUND_IN = null;
     
     /* Tabellen und Views */
-    MISSING_PREFIX = 'TB_';
+    prefix_to_check = 'TB';
     for
     select distinct RDB$RELATION_NAME 
     from RDB$RELATIONS 
@@ -571,17 +574,38 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      execute
+      procedure PKG_HISTORY.SP_SET_DEBUG(:relation_name, 
+        :prefix_to_check);
+    
+      if (position(Upper(:prefix_to_check) in Upper(Trim(:relation_name))) = 1) then
       begin
-        HIT = 1;
+        if ((not (position(Upper('_') in Upper(Trim(:relation_name))) = 3)) and 
+            (not (position(Upper('L_') in Upper(Trim(:relation_name))) = 3)))        
+        then
+        begin
+          HIT = True;
+          OBJECT_NAME = relation_name; 
+          FOUND_IN = 'Tables'; 
+          
+          MISSING_PREFIX = 'TB_ / TBL_';         
+          
+          Suspend;         
+        end
+      end
+      else      
+      begin
+        HIT = True;
         OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Tables';        
+        FOUND_IN = 'Tables'; 
         
-        Suspend;
+        MISSING_PREFIX = 'TB';         
+        
+        Suspend; 
       end
     end
     
-    MISSING_PREFIX = 'TBT_';
+    prefix_to_check = 'TBT_';
     for
     select distinct RDB$RELATION_NAME 
     from RDB$RELATIONS 
@@ -590,9 +614,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Temporary Tables';        
         
@@ -600,7 +624,7 @@ begin
       end
     end    
     
-    MISSING_PREFIX = 'VW_';
+    prefix_to_check = 'VW_';
     for
     select distinct RDB$RELATION_NAME 
     from RDB$RELATIONS 
@@ -609,12 +633,12 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
         MISSING_PREFIX = 'VR_';
-        if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+        if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
         begin        
-          HIT = 1;
+          HIT = True;
           OBJECT_NAME = relation_name; 
           FOUND_IN = 'Views';
           
@@ -626,7 +650,7 @@ begin
     end  
           
     /* Alle Domains */
-    MISSING_PREFIX = 'DN_';
+    prefix_to_check = 'DN_';
     for  
     select distinct RDB$FIELD_NAME 
     from RDB$FIELDS 
@@ -634,9 +658,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Domains';        
         
@@ -645,7 +669,7 @@ begin
     end  
     
     /* Alle Sequencen */
-    MISSING_PREFIX = 'SEQ_';
+    prefix_to_check = 'SEQ_';
     for
     select distinct RDB$GENERATOR_NAME 
     from RDB$GENERATORS 
@@ -653,9 +677,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Sequences';        
         
@@ -664,7 +688,7 @@ begin
     end
   
     /* Alle SPs */
-    MISSING_PREFIX = 'SP_';
+    prefix_to_check = 'SP_';
     for
     select distinct RDB$PROCEDURE_NAME 
     from RDB$PROCEDURES 
@@ -672,9 +696,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Procedures';        
         
@@ -682,7 +706,7 @@ begin
       end        
     end
     
-    MISSING_PREFIX = 'A';    
+    prefix_to_check = 'A';    
     for
     select distinct RDB$PARAMETER_NAME 
     from RDB$PROCEDURE_PARAMETERS 
@@ -691,9 +715,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Procedure Parameters';        
         
@@ -702,7 +726,7 @@ begin
     end  
     
     /* Alle SFs */
-    MISSING_PREFIX = 'SF_';
+    prefix_to_check = 'SF_';
     for
     select distinct RDB$FUNCTION_NAME 
     from RDB$FUNCTIONS 
@@ -710,9 +734,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Functions';        
         
@@ -730,7 +754,7 @@ begin
 --     begin
 --       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
 --       begin
---         HIT = 1;
+--         HIT = True;
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Arguments (SF)';
 --         
@@ -739,7 +763,7 @@ begin
 --     end  
         
     /* Packages */
-    MISSING_PREFIX = 'PKG_';    
+    prefix_to_check = 'PKG_';    
     for
     select distinct RDB$PACKAGE_NAME
     from RDB$PACKAGES
@@ -747,9 +771,9 @@ begin
     into :relation_name
     do
     begin
-      if not (position(Upper(:MISSING_PREFIX) in Upper(:relation_name)) = 1) then
+      if (not (position(Upper(:prefix_to_check) in Upper(:relation_name)) = 1)) then
       begin
-        HIT = 1;
+        HIT = True;
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Packages';        
         
@@ -767,7 +791,7 @@ begin
 --     begin  
 --       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
 --       begin
---         HIT = 1;
+--         HIT = True;
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Constraints';
 --         
@@ -785,26 +809,29 @@ begin
 --     begin
 --       if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
 --       begin
---         HIT = 1;
+--         HIT = True;
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Indices';
 --         
 --         Suspend;
 --       end 
 --     end  
---   end  
+  end  
 end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
 
-COMMENT ON PROCEDURE SP_CHECK_RESERVED IS
-'Überprüft Felder, Parameter und Ausgabefelder auf reservierte Wörter'^
+COMMENT ON PROCEDURE PKG_STYLEGUIDE.SP_CHECK_RESERVED IS
+'Überprüft Felder, Parameter und Ausgabefelder auf reservierte Wörter';
 
-COMMENT ON PROCEDURE SP_CHECK IS
-'Überprüft Felder, Parameter und Ausgabefelder auf ausgeschlossene StyleGuide-Elemente'^
+COMMENT ON PROCEDURE PKG_STYLEGUIDE.SP_CHECK IS
+'Überprüft Felder, Parameter und Ausgabefelder auf ausgeschlossene StyleGuide-Elemente';
 
-COMMENT ON PROCEDURE SP_CHECK_KEYWORD IS
-'Prüft Datenmodell auf Abweichungen im StyleGuide anhand eines Schlüsselwortes'^
+COMMENT ON PROCEDURE PKG_STYLEGUIDE.SP_CHECK_KEYWORD IS
+'Prüft Datenmodell auf Abweichungen im StyleGuide anhand eines Schlüsselwortes';
+
+COMMENT ON PROCEDURE PKG_STYLEGUIDE.SP_CHECK_PREFIX IS
+'Prüft Datenmodell auf Abweichungen im vorgeschriebenem Prefix';
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

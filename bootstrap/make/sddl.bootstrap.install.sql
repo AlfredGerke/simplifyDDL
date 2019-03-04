@@ -31,6 +31,8 @@ SET LIST on;
 input '..\connect\connect.sysdba.sql';
 
 /* Input -----------------------------------------------------------------------------------------*/
+input '..\sddl\sddl.bootstrap.context.sql';
+
 input '..\sddl\sddl.bootstrap.roles.create.sql';
 
 input '..\sddl\sddl.bootstrap.domains.create.sql';
@@ -47,16 +49,16 @@ input '..\sddl\sddl.bootstrap.setting.package.header.sql';
 input '..\sddl\sddl.bootstrap.setting.package.body.sql';
 
 input '..\sddl\sddl.bootstrap.package.header.sql';
-/*
 input '..\sddl\sddl.bootstrap.package.body.sql';
+
 
 input '..\sddl\sddl.bootstrap.styleguide.model.create.sql';
 input '..\sddl\sddl.bootstrap.styleguide.model.data.sql';
+
 input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
 input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
 
 input '..\sddl\sddl.bootstrap.execute.sql';
-*/
 
 /*------------------------------------------------------------------------------------------------*/
 /* Das wars... 

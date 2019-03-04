@@ -17,7 +17,7 @@ Extensions=*.*
 [Project tree]
 bootstrap
 	-pattern
-		-test
+		+test
 			pattern\test\_test.bat
 			pattern\test\test.bat
 			pattern\test\test.db.setup.sql
@@ -27,12 +27,12 @@ bootstrap
 			pattern\test\test.example.1.teardown.sql
 			pattern\test\test.isql.setup.sql
 			pattern\test\test.sql
-		-create_sysdba
+		+create_sysdba
 			pattern\create_sysdba\_createSysdba.bat
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		-connect
+		+connect
 			pattern\connect\connect.sysdba.sql
 	-test
 		test\_test.bat
@@ -46,12 +46,14 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	-log
+	+log
 		make\make.log
 		test\test.log
 	+sddl
+		bootstrap.ppr
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
+		sddl\sddl.bootstrap.context.sql
 		sddl\sddl.bootstrap.domains.create.sql
 		sddl\sddl.bootstrap.execute.sql
 		sddl\sddl.bootstrap.history.model.create.sql
@@ -67,7 +69,7 @@ bootstrap
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	+connect
+	-connect
 		connect\connect.sysdba.sql
 	+make
 		make\_make.bat
@@ -76,22 +78,18 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=sddl\sddl.bootstrap.styleguide.package.body.sql
-1=sddl\sddl.bootstrap.styleguide.package.header.sql
-2=sddl\sddl.bootstrap.package.body.sql
-3=sddl\sddl.bootstrap.execute.sql
+0=make\make.log
+1=sddl\sddl.bootstrap.package.body.sql
+2=sddl\sddl.bootstrap.execute.sql
 [Selected Project Files]
 Main=
-Selected=sddl\sddl.bootstrap.execute.sql
-[sddl\sddl.bootstrap.styleguide.package.body.sql]
-TopLine=267
-Caret=46,322
-[sddl\sddl.bootstrap.styleguide.package.header.sql]
-TopLine=11
-Caret=32,56
+Selected=make\make.log
+[make\make.log]
+TopLine=6091
+Caret=32,4027
 [sddl\sddl.bootstrap.package.body.sql]
-TopLine=1120
-Caret=81,1171
+TopLine=1651
+Caret=36,1677
 [sddl\sddl.bootstrap.execute.sql]
-TopLine=1
-Caret=38,38
+TopLine=13
+Caret=8,52

@@ -16,12 +16,15 @@
 
 /*------------------------------------------------------------------------------------------------*/
 select SUCCESS
-from SP_SDDL.SP_CREATE_CATALOG ('RESERVED_WORDS',
+from PKG_SDDL.SP_CREATE_CATALOG ('RESERVED_WORDS',
   'DN_DB_OBJECT',
   'Reservierte Wörter');
+  
+COMMIT WORK;  
+/*------------------------------------------------------------------------------------------------*/
 
 select SUCCESS
-from SP_DDL.SP_CREATE_CATALOG ('INVALID_STYLEGUIDE',
+from PKG_SDDL.SP_CREATE_CATALOG ('INVALID_STYLEGUIDE',
   'DN_DB_OBJECT',
   'Ausgeschlossene StyleGuide-Elemente');
 

@@ -34,7 +34,7 @@ goto END2
 
 CLS
 echo.
-echo    Die Datenbank wurde erstellt 
+echo    Die sDDL.bootstrap wurde erstellt 
 echo.
 
 :END2

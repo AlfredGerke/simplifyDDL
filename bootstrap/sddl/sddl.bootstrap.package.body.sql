@@ -24,22 +24,12 @@ SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_SDDL
 AS
 begin
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SHOW_INFO(
-    AInfo DN_MESSAGE)
-  RETURNS (
-    INFO DN_MESSAGE)
-  AS
-  begin
-    INFO = Trim(AInfo);
-    Suspend;
-  end
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_RESTRUCTURE_TABLE (
     ATablename DN_DB_OBJECT,
     AColumn DN_DB_OBJECT,
-    APosition DN_INDEX = 1)
+    APosition DN_INDEX)
   RETURNS (
     SUCCESS DN_BOOLEAN)
   AS
@@ -271,7 +261,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name;
         
     if (:AOrderByPrim = True) then
@@ -284,7 +274,7 @@ begin
     implementationlist = '';
   
     select Trim(columnlist) 
-    from PKG_SDDL.SP_GET_COLUMNLIST(:ATablename, ',', True) 
+    from SP_GET_COLUMNLIST(:ATablename, ',', True) 
     into :columnlist;
     
     if (Trim(columnlist) <> '') then
@@ -305,7 +295,7 @@ begin
     if (:AOrderByPrim = True) then
     begin 
       select count_pk_fields, Trim(columnlist) 
-      from PKG_SDDL.SP_GET_PRIMKEYLIST(:ATablename, ',', True) 
+      from SP_GET_PRIMKEYLIST(:ATablename, ',', True) 
       into :pk_columncount, :pk_columnlist;
       
       if (pk_columncount > 0) then
@@ -327,7 +317,7 @@ begin
     
     execute
     procedure
-      PKG_SDDL.SP_CREATE_STD_TABLE_VIEW_CMT :ATablename,
+      SP_CREATE_STD_TABLE_VIEW_CMT :ATablename,
         :relation_name;
        
     SUCCESS = True; 
@@ -353,7 +343,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
       
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -419,7 +409,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
     
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -475,7 +465,7 @@ begin
     table_name = null;
     
     select DETERMINED, TABLENAME
-    from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+    from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
     into :determined, :table_name; 
       
     table_name = Trim(substring(:table_name from 1 for 24));  
@@ -516,7 +506,7 @@ begin
     ATablename DN_DB_OBJECT,
     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
     AComment DN_COMMENT DEFAULT '', 
-    ACreateUniqueKey DN_BOOLEAN DEFAULT 1)
+    ACreateUniqueKey DN_BOOLEAN DEFAULT True)
   RETURNS (
     SUCCESS DN_BOOLEAN,
     CATALOGNAME DN_DB_OBJECT,
@@ -611,8 +601,8 @@ begin
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_CATALOG (
     ACatalogname DN_DB_OBJECT,
-    ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
-    AComment DN_COMMENT DEFAULT '')
+    ADomain DN_DB_OBJECT,
+    AComment DN_COMMENT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
   AS
@@ -632,37 +622,37 @@ begin
   
     /* Katalog anlegen */
     select SUCCESS, CATALOGNAME, TABLENAME 
-    from PKG_SDDL.SP_CREATE_TBL_CATALOG(:relation_name, :domain_name, :cat_comment, True) 
+    from SP_CREATE_TBL_CATALOG(:relation_name, :domain_name, :cat_comment, True) 
     into :SUCCESS, :cat_name, :table_name; 
    
     /* Standardview anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
+      from SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
       into :SUCCESS;
     
     /* Sequence anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_SEQUNECE(:table_name) 
+      from SP_CREATE_SEQUNECE(:table_name) 
       into :SUCCESS;
      
     /* Trigger anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_TRIGGER_BI(:table_name) 
+      from SP_CREATE_TRIGGER_BI(:table_name) 
       into :SUCCESS;
     
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG_SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from SP_COMPLETE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend;
   end
   
   /*----------------------------------------------------------------------------------------------*/  
-  PROCEDURE PKG_SDDL.SP_CREATE_STAMP (
+  PROCEDURE SP_CREATE_STAMP (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
@@ -707,7 +697,7 @@ begin
   end
   
   /*----------------------------------------------------------------------------------------------*/  
-  PROCEDURE PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION (
+  PROCEDURE SP_CREATE_FIELD_DESCRIPTION (
     ATablename DN_DB_OBJECT)
   RETURNS (
     SUCCESS DN_BOOLEAN)  
@@ -794,7 +784,7 @@ begin
       relation_name = null;
   
       select DETERMINED, TABLENAME
-      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :relation_name;
         
       if (:determined = False) then
@@ -834,7 +824,7 @@ begin
     if (:ADoDescription = True) then
     begin
       select SUCCESS
-      from PKG_SDDL.SP_CREATE_FIELD_DESCRIPTION(:table_name)
+      from SP_CREATE_FIELD_DESCRIPTION(:table_name)
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -848,7 +838,7 @@ begin
     if (:ADoStamp = True) then
     begin
       select SUCCESS
-      from PKG_SDDL.SP_CREATE_STAMP(:table_name) 
+      from SP_CREATE_STAMP(:table_name) 
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -862,7 +852,7 @@ begin
     if ((:ADoComment = True) and (Trim(AComment) <> '')) then
     begin
       select SUCCESS
-      from PKG_SDDL.SP_CREATE_TABLE_COMMENT(:table_name, :AComment)
+      from SP_CREATE_TABLE_COMMENT(:table_name, :AComment)
       into :SUCCESS;
         
       if (SUCCESS = False) then
@@ -876,7 +866,7 @@ begin
     if (:ADoPK = True) then
     begin
       select SUCCESS
-      from PKG_SDDL.SP_CREATE_PRIMARY_CONSTRAINT(:table_name)
+      from SP_CREATE_PRIMARY_CONSTRAINT(:table_name)
       into :SUCCESS;
   
       if (SUCCESS = False) then
@@ -889,24 +879,24 @@ begin
     /* Standardview anlegen */
     if (SUCCESS = True) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
+      from SP_CREATE_STD_TABLE_VIEW(:table_name, False) 
       into :SUCCESS;
     
     /* Sequence anlegen */
     if ((SUCCESS = True) and (:ADoPK = True)) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_SEQUNECE(:table_name) 
+      from SP_CREATE_SEQUNECE(:table_name) 
       into :SUCCESS;
      
     /* Trigger anlegen */
     if ((SUCCESS = True) and (:ADoPK = True)) then
       select SUCCESS 
-      from PKG_SDDL.SP_CREATE_TRIGGER_BI(:table_name) 
+      from SP_CREATE_TRIGGER_BI(:table_name) 
       into :SUCCESS;
     
     if ((SUCCESS = True) and (:ADoStamp = True)) then  
       select SUCCESS 
-      from PKG_SDDL.SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from SP_COMPLETE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend; 
@@ -1068,7 +1058,7 @@ begin
       table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :table_name;
         
       if (:determined = False) then
@@ -1161,7 +1151,7 @@ begin
         DETERMINED,
         TABLENAME
       from
-        PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename,
+        SP_EXTRACT_TABLENAME(:ATablename,
           'TB')
       into
         :determined,
@@ -1203,21 +1193,21 @@ begin
     Suspend;
   end
   
-  /*----------------------------------------------------------------------------------------------*/  
-  /* wird in PKG_SDDL.SP_CREATE_FOREIGN_KEY für die Implementation benötigt, 
-     kann aber erst nach PKG_SDDL.SP_CREATE_FOREIGN_KEY selber implementiert werden*/
-  PROCEDURE SP_CREATE_CONSTRAINTS (
-    ATablename DN_DB_OBJECT)
-  RETURNS (
-    SUCCESS DN_BOOLEAN,
-    LOG_MESSAGE DN_MESSAGE)
-  AS
-  begin
-    SUCCESS = False;
-    LOG_MESSAGE = 'DUMMY';
-    
-    Suspend;
-  end
+--   /*----------------------------------------------------------------------------------------------*/  
+--   /* wird in SP_CREATE_FOREIGN_KEY für die Implementation benötigt, 
+--      kann aber erst nach SP_CREATE_FOREIGN_KEY selber implementiert werden*/
+--   PROCEDURE SP_CREATE_CONSTRAINTS (
+--     ATablename DN_DB_OBJECT)
+--   RETURNS (
+--     SUCCESS DN_BOOLEAN,
+--     LOG_MESSAGE DN_MESSAGE)
+--   AS
+--   begin
+--     SUCCESS = False;
+--     LOG_MESSAGE = 'DUMMY';
+--     
+--     Suspend;
+--   end
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_FOREIGN_KEY(
@@ -1257,7 +1247,7 @@ begin
       table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG_SDDL.SP_EXTRACT_TABLENAME(:ATablename, 'TB')
+      from SP_EXTRACT_TABLENAME(:ATablename, 'TB')
       into :determined, :table_name;
         
       if (:determined = False) then
@@ -1267,7 +1257,7 @@ begin
       fk_table_name = null;
       
       select DETERMINED, TABLENAME
-      from PKG_SDDL.SP_EXTRACT_TABLENAME(:AFKTablename, 'TB')
+      from SP_EXTRACT_TABLENAME(:AFKTablename, 'TB')
       into :determined, :fk_table_name;
         
       if (:determined = False) then
@@ -1285,7 +1275,7 @@ begin
         /* Wenn nicht, dann alle Constraints der Zieltabelle zuerst anlegen */
         for
         select SUCCESS, LOG_MESSAGE
-        from PKG_SDDL.SP_CREATE_CONSTRAINTS(:AFKTablename)
+        from SP_CREATE_CONSTRAINTS(:AFKTablename)
         into :SUCCESS, :LOG_MESSAGE
         do
         begin
@@ -1410,13 +1400,13 @@ begin
           fk_table_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
-          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
+          from SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_unique_key, :field_description, :fk_table_name, :fk_field_name;
     
           if (:found_command_unique_key = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG_SDDL.SP_CREATE_UNIQUE_KEY(:table_name, :field_name, :field_description)
+            from SP_CREATE_UNIQUE_KEY(:table_name, :field_name, :field_description)
             into :SUCCESS, :LOG_MESSAGE;
             
             SUSPEND;
@@ -1429,13 +1419,13 @@ begin
           fk_table_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
-          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
+          from SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_unique_idx, :field_description, :fk_table_name, :fk_field_name;
     
           if (:found_command_unique_idx = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG_SDDL.SP_CREATE_UNIQUE_IDX(:table_name, :field_name, :field_description)
+            from SP_CREATE_UNIQUE_IDX(:table_name, :field_name, :field_description)
             into :SUCCESS, :LOG_MESSAGE;
             
             SUSPEND;
@@ -1448,13 +1438,13 @@ begin
           fk_field_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME, REQUIRED
-          from PKG_SDDL.SP_CHECK_COMMAND (:gen_command, :field_description)
+          from SP_CHECK_COMMAND (:gen_command, :field_description)
           into :found_command_foreign_key, :field_description, :fk_table_name, :fk_field_name, :fk_condition;
             
           if (:found_command_foreign_key = True) then
           begin         
             select SUCCESS, LOG_MESSAGE
-            from PKG_SDDL.SP_CREATE_FOREIGN_KEY(:table_name,
+            from SP_CREATE_FOREIGN_KEY(:table_name,
                    :field_name,
                    :field_description,
                    :fk_table_name,
@@ -1497,7 +1487,7 @@ begin
     begin
       for
       select SUCCESS, LOG_MESSAGE
-      from PKG_SDDL.SP_CREATE_CONSTRAINTS(:table_name)
+      from SP_CREATE_CONSTRAINTS(:table_name)
       into :SUCCESS, :LOG_MESSAGE
       do
       begin
@@ -1599,11 +1589,10 @@ begin
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_SP (
-    ADBObject DN_DB_OBJECT,  
+    ADBObject DN_DB_OBJECT_EXT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
-    AAllowLog DN_BOOLEAN = True,
-    AAllowDebug DN_BOOLEAN = True)
+    AAllowHistory DN_BOOLEAN = True)
   AS
   declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
@@ -1631,33 +1620,20 @@ begin
           
       execute statement sql_stmt;  
       
-      if (:AAllowLog = True) then
+      if (:AAllowHistory = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO PROCEDURE ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO PROCEDURE ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO PROCEDURE ' || :ADBObject;
-        execute statement sql_stmt;    
-      end
-      
-      if (:AAllowDebug = True) then
-      begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO PROCEDURE ' || :ADBObject;
-        execute statement sql_stmt;
+        sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PROCEDURE ' || :ADBObject;
+        execute statement sql_stmt;          
       end
     end
   end
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_SF (
-    ADBObject DN_DB_OBJECT,  
+    ADBObject DN_DB_OBJECT_EXT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
-    AAllowLog DN_BOOLEAN = True,
-    AAllowDebug DN_BOOLEAN = True)
+    AAllowHistory DN_BOOLEAN = True)
   AS
   declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
@@ -1685,22 +1661,10 @@ begin
           
       execute statement sql_stmt;  
       
-      if (:AAllowLog = True) then
+      if (:AAllowHistory = True) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO FUNCTION ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO FUNCTION ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO FUNCTION ' || :ADBObject;
-        execute statement sql_stmt;    
-      end
-      
-      if (:AAllowDebug = True) then
-      begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO FUNCTION ' || :ADBObject;
-        execute statement sql_stmt;
+        sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO FUNCTION ' || :ADBObject;
+        execute statement sql_stmt;          
       end
     end
   end
@@ -1710,23 +1674,37 @@ begin
     ADBObject DN_DB_OBJECT,  
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
-    AAllowLog DN_BOOLEAN = True,
-    AAllowDebug DN_BOOLEAN = True)
+    AAllowHistory DN_BOOLEAN = True)
   AS
   declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
-  begin 
+  begin
+
+  execute
+  procedure PKG_HISTORY.SP_SET_DEBUG :ADBObject, 
+    'Package';  
+  
     sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :AAllRole;
+
+  execute
+  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
+   :sql_stmt;
+    
     execute statement sql_stmt;
     
     sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :APublicRole;
+    
+  execute
+  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
+   :sql_stmt;
+      
     execute statement sql_stmt;    
     
     for
-    select a.RDB$DEPENDED_ON_NAME
-    from RDB$DEPENDENCIES a 
+    select distinct RDB$DEPENDED_ON_NAME
+    from RDB$DEPENDENCIES 
     where RDB$DEPENDENT_NAME = :ADBObject
-    and a.RDB$DEPENDED_ON_NAME like 'V%'  
+    and RDB$DEPENDED_ON_NAME like 'V%'  
     into :relation_name
     do
     begin
@@ -1737,24 +1715,16 @@ begin
       else
         sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject;
           
+  execute
+  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
+   :sql_stmt;
+            
       execute statement sql_stmt;  
       
-      if (:AAllowLog = True) then
+      if ((:AAllowHistory = True) and (Upper(Trim(:ADBOBject)) <> 'PKG_HISTORY')) then
       begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION TO PACKAGE ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_WARNING TO PACKAGE ' || :ADBObject;
-        execute statement sql_stmt;    
-      
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_HISTORY.SP_SET_LOG_ERROR TO PACKAGE ' || :ADBObject;
-        execute statement sql_stmt;    
-      end
-      
-      if (:AAllowDebug = True) then
-      begin
-        sql_stmt = 'GRANT EXECUTE ON PROCEDURE PKG_DEBUG.SP_SET_DEBUG TO PACKAGE ' || :ADBObject;
-        execute statement sql_stmt;
+        sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PACKAGE ' || :ADBObject;
+        execute statement sql_stmt;          
       end
     end  
   end
@@ -1762,53 +1732,56 @@ begin
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_ALL
   AS
-  declare variable relation_name DN_DB_OBJECT;
+  declare relation_name DN_DB_OBJECT;
+  declare package_name DN_DB_OBJECT;
   begin
     for
-    select distinct a.RDB$PROCEDURE_NAME 
-    from RDB$PROCEDURES a 
-    where a.RDB$SYSTEM_FLAG = 0
-    into :relation_name
+    select distinct RDB$PROCEDURE_NAME, RDB$PACKAGE_NAME 
+    from RDB$PROCEDURES 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name, :package_name
     do
     begin
-      execute
-      procedure
-        PKG_SDDL.SP_GRANT_SP (Trim(:relation_name));
+      if ((Trim(package_name) = '') or (package_name is null)) then
+        execute
+        procedure
+          SP_GRANT_SP (Trim(:relation_name));
     end
-    
+     
     for
-    select distinct a.RDB$FUNCTION_NAME 
-    from RDB$FUNCTIONS a 
-    where a.RDB$SYSTEM_FLAG = 0
-    into :relation_name
+    select distinct RDB$FUNCTION_NAME, RDB$PACKAGE_NAME  
+    from RDB$FUNCTIONS 
+    where RDB$SYSTEM_FLAG = 0
+    into :relation_name, :package_name 
     do
     begin
-      execute
-      procedure
-        PKG_SDDL.SP_GRANT_SF (Trim(:relation_name));
+      if ((Trim(package_name) = '') or (package_name is null)) then    
+        execute
+        procedure
+          SP_GRANT_SF (Trim(:relation_name));
     end
-    
+  
     for
-    select distinct a.RDB$PACKAGE_NAME 
-    from RDB$PACKAGES a 
-    where a.RDB$SYSTEM_FLAG = 0
+    select distinct RDB$PACKAGE_NAME 
+    from RDB$PACKAGES 
+    where RDB$SYSTEM_FLAG = 0
     into :relation_name
     do
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_PKG (Trim(:relation_name));
+        SP_GRANT_PKG (Trim(:relation_name));
     end            
     
     for
-    select distinct a.RDB$VIEW_NAME 
-    from RDB$VIEW_RELATIONS a 
+    select distinct RDB$VIEW_NAME 
+    from RDB$VIEW_RELATIONS 
     into :relation_name
     do
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_VIEW (Trim(:relation_name));
+        SP_GRANT_VIEW (Trim(:relation_name));
     end      
     
     for
@@ -1820,7 +1793,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_SEQ (Trim(:relation_name));
+        SP_GRANT_SEQ (Trim(:relation_name));
         
       /* Exit scheint hier fehl am Platz */  
       /* Exit; */  
@@ -1835,7 +1808,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_EXC (Trim(:relation_name));
+        SP_GRANT_EXC (Trim(:relation_name));
         
       /* Exit scheint hier fehl am Platz */  
       /* Exit; */    
@@ -1857,7 +1830,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_SP (Trim(:relation_name));
+        SP_GRANT_SP (Trim(:relation_name));
         
       Exit;  
     end    
@@ -1871,7 +1844,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_SF (Trim(:relation_name));
+        SP_GRANT_SF (Trim(:relation_name));
         
       Exit;  
     end
@@ -1885,7 +1858,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_PKG (Trim(:relation_name));
+        SP_GRANT_PKG (Trim(:relation_name));
         
       Exit;  
     end            
@@ -1899,7 +1872,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_VIEW (Trim(:relation_name));
+        SP_GRANT_VIEW (Trim(:relation_name));
         
       Exit;  
     end   
@@ -1913,7 +1886,7 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_SEQ (Trim(:relation_name));
+        SP_GRANT_SEQ (Trim(:relation_name));
         
       Exit;  
     end   
@@ -1927,169 +1900,11 @@ begin
     begin
       execute
       procedure
-        PKG_SDDL.SP_GRANT_EXC (Trim(:relation_name));
+        SP_GRANT_EXC (Trim(:relation_name));
         
       Exit;  
     end     
-  end         
-      
-  /*----------------------------------------------------------------------------------------------*/      
-  PROCEDURE SP_CHECK_STYLEGUIDE_KEYW(
-    AKeyWordToCheck DN_DB_OBJECT = '') 
-  RETURNS (
-    HIT DN_BOOLEAN,  
-    OBJECT_NAME DN_DB_OBJECT,
-    FOUND_IN DN_COMMENT)
-  AS
-  declare variable relation_name DN_DB_OBJECT;
-  begin
-    HIT = False;
-    OBJECT_NAME = null;
-    FOUND_IN = null;
-    
-    /* 1. Felder in Tabellen und Views */
-    for
-    select distinct a.RDB$FIELD_NAME 
-    from  RDB$RELATION_FIELDS a
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Felder';
-        
-        Suspend;
-      end
-    end  
-    
-    /* 2. Alle Domains */
-    for  
-    select distinct a.RDB$FIELD_NAME 
-    from RDB$FIELDS a
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Domains';
-        
-        Suspend;
-      end  
-    end  
-    
-    /* 3. Alle Sequencen */
-    for
-    select distinct a.RDB$GENERATOR_NAME 
-    from RDB$GENERATORS a 
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Sequences';
-        
-        Suspend;
-      end    
-    end
-  
-    /* 4. Alle SPs */
-    for
-    select distinct a.RDB$PROCEDURE_NAME 
-    from RDB$PROCEDURES a 
-    where a.RDB$SYSTEM_FLAG = 0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'StoredProcedures';
-        
-        Suspend;
-      end  
-    end
-    
-    /* 5. Parameter aller SPs */  
-    for
-    select distinct a.RDB$PARAMETER_NAME 
-    from RDB$PROCEDURE_PARAMETERS a 
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Parameters/Returns';
-        
-        Suspend;
-      end  
-    end  
-    
-    /* Relations */
-    for
-    select distinct a.RDB$RELATION_NAME 
-    from RDB$RELATIONS a 
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Tabellen/Views';
-        
-        Suspend;
-      end  
-    end
-    
-    /* Constraints */
-    for
-    select a.RDB$CONSTRAINT_NAME
-    from RDB$RELATION_CONSTRAINTS a 
-    into :relation_name
-    do
-    begin  
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Constraints';
-        
-        Suspend;
-      end
-    end
-    
-    /* Indexe */
-    for
-    select a.RDB$INDEX_NAME 
-    from RDB$INDICES a 
-    where a.RDB$SYSTEM_FLAG=0
-    into :relation_name
-    do
-    begin
-      if (position(Upper(:AKeyWordToCheck) in Upper(:relation_name)) > 0) then
-      begin
-        HIT = True;
-        OBJECT_NAME = relation_name; 
-        FOUND_IN = 'Indices';
-        
-        Suspend;
-      end 
-    end
-  end
+  end              
 end^
 SET TERM ; ^
 /*------------------------------------------------------------------------------------------------*/
@@ -2178,9 +1993,6 @@ COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT_ALL IS
 COMMENT ON PROCEDURE PKG_SDDL.SP_GRANT IS
 'Erstellt Grants für eine beliebige View oder SP';   
     
-COMMENT ON PROCEDURE PKG_SDDL.SP_CHECK_STYLEGUIDE_KEYW IS
-'Prüft Datenmodell auf Abweichungen im StyleGuide anhand eines Schlüsselwortes';
-
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
 

@@ -72,7 +72,7 @@ begin
   PROCEDURE SP_SET_WARN_LEVEL_TO_CONTEXT(AWarnLevel DN_WARN_LEVEL)
   AS
   begin
-    RDB$SET_CONTEXT('LOG', 'WARN_LEVEL', cast(AWarnLevel as varchar(1)));  
+    RDB$SET_CONTEXT('USER_SESSION', 'LOG.WARN_LEVEL', cast(AWarnLevel as varchar(1)));  
   end
   
   /*----------------------------------------------------------------------------------------------*/
@@ -83,8 +83,12 @@ begin
   declare warn_level_as_str varchar(10);
   declare warn_level_as_int integer;
   begin
-    warn_level_as_str = RDB$GET_CONTEXT('LOG', 'WARN_LEVEL');
-    warn_level_as_int = cast(warn_level_as_str as integer);
+    warn_level_as_str = RDB$GET_CONTEXT('USER_SESSION', 'LOG.WARN_LEVEL');
+    
+    if ((Trim(warn_level_as_str) <> '') and (warn_level_as_str is not null)) then
+      warn_level_as_int = cast(warn_level_as_str as integer);
+    else
+      warn_level_as_int = 0;      
     
     if ((warn_level_as_int > 0) and (warn_level_as_int < 4)) then
       RETURN cast(warn_level_as_int as DN_WARN_LEVEL);
@@ -95,7 +99,7 @@ begin
    begin
      execute 
      procedure SP_SET_LOG_INFO SQLSTATE,
-       0;
+       1;
        
      RETURN 0;   
    end   
@@ -140,31 +144,70 @@ begin
       procedure SP_SET_LOG_INFO :ADescription, 1;          
   end   
     
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_SET_DEBUG_STATE_TO_CONTEXT(
+    AState DN_BOOLEAN)
+  AS
+  begin
+    RDB$SET_CONTEXT('USER_SESSION', 'DEBUG.ACTIVE', cast(AState as varchar(10)));  
+  end   
+    
+  /*----------------------------------------------------------------------------------------------*/    
+  FUNCTION SF_GET_DEBUG_STATE_BY_CONTEXT(
+    )
+  RETURNS DN_BOOLEAN
+  AS
+   declare state_as_str varchar(10);
+   declare state_as_bool DN_BOOLEAN;  
+  begin
+     state_as_str = RDB$GET_CONTEXT('USER_SESSION', 'DEBUG.ACTIVE');  
+     
+     if ((Trim(state_as_str) <> '') and (state_as_str is not null)) then
+       state_as_bool = cast(state_as_str as DN_BOOLEAN);
+     else
+       state_as_bool = False;      
+     
+     RETURN state_as_bool;
+     
+     when any do
+     begin
+       execute 
+       procedure SP_SET_LOG_INFO SQLSTATE,
+         1;
+       
+       RETURN False;   
+     end        
+  end        
+    
   /*----------------------------------------------------------------------------------------------*/  
   procedure SP_SET_DEBUG (
     ACaption DN_CAPTION,
     ADescription DN_DESCRIPTION)
   AS
+  declare debug_flag DN_BOOLEAN;
   begin
-    if (Trim(ACaption) <> '')  then
-    begin  
-      if ((Trim(ADescription) = '') or (ADescription is null)) then
-        ADescription = 'keine Informationen';
-      
-      if (exists(select 1 from RDB$RELATIONS where RDB$RELATION_NAME='VW_HISTORY_DEUG')) then
-        in autonomous transaction do
-          insert
-          into VW_HISTORY_DEBUG
-          ( 
-            CAPTION,
-            DESCRIPTION
-          ) 
-          values 
-          ( 
-            :ACaption, 
-            :ADescription
-          );
-    end    
+    debug_flag = SF_GET_DEBUG_STATE_BY_CONTEXT();
+    
+    if (debug_flag = True) then
+      if (Trim(ACaption) <> '')  then
+      begin  
+        if ((Trim(ADescription) = '') or (ADescription is null)) then
+          ADescription = 'keine Informationen';
+        
+        if (exists(select 1 from RDB$RELATIONS where RDB$RELATION_NAME='VW_HISTORY_DEBUG')) then
+          in autonomous transaction do
+            insert
+            into VW_HISTORY_DEBUG
+            ( 
+              CAPTION,
+              DESCRIPTION
+            ) 
+            values 
+            ( 
+              :ACaption, 
+              :ADescription
+            );
+      end    
   end 
 end^  
 SET TERM ; ^

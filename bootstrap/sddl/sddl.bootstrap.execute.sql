@@ -23,7 +23,7 @@ COMMIT WORK;
 /* Grants ----------------------------------------------------------------------------------------*/
 
 execute
-procedure PKG_SDDL.GRANT_ALL;
+procedure PKG_SDDL.SP_GRANT_ALL;
 
 COMMIT WORK;
 /* PREFIX --------------------------------------------------------------------------------------*/
@@ -41,7 +41,15 @@ COMMIT WORK;
 /* Styleguid -------------------------------------------------------------------------------------*/
 
 select HIT, OBJECT_NAME, FOUND_IN, STYLE_GUIDE_KEYW, TO_DO
-from SP_STYLEGUID.PKG_STYLEGUIDE;    
+from PKG_STYLEGUIDE.SP_CHECK;    
+
+COMMIT WORK;
+/* Debugs ----------------------------------------------------------------------------------------*/
+
+select CAPTION, DESCRIPTION
+from VW_HISTORY_DEBUG
+order by
+ID DESC;
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
