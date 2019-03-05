@@ -11,7 +11,10 @@
 /*------------------------------------------------------------------------------------------------*/
 /* History: 2019-02-22
 /*          Script erstellen
-/*   
+/*          ---
+/*          Der Standard-User für das Bootstrap muss wie beschreiben bestehen erhalten bleiben
+/*          Das Passwort sollte natürlich hier oder zu einem späteren Zeitpunkt geändert werden
+/*
 /*------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------------------*/

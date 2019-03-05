@@ -33,7 +33,7 @@ input '..\connect\connect.sysdba.sql';
 /* Input -----------------------------------------------------------------------------------------*/
 input '..\sddl\sddl.bootstrap.context.sql';
 
-input '..\sddl\sddl.bootstrap.roles.create.sql';
+input '..\sddl\sddl.bootstrap.roles.standard.sql';
 
 input '..\sddl\sddl.bootstrap.domains.create.sql';
 
@@ -44,6 +44,8 @@ input '..\sddl\sddl.bootstrap.setting.model.create.sql';
 input '..\sddl\sddl.bootstrap.setting.model.data.sql';  
 input '..\sddl\sddl.bootstrap.setting.package.header.sql';
 input '..\sddl\sddl.bootstrap.setting.package.body.sql';
+
+input '..\sddl\sddl.bootstrap.roles.custom.sql';
 
 input '..\sddl\sddl.bootstrap.history.model.create.sql';
 input '..\sddl\sddl.bootstrap.history.package.header.sql';
@@ -57,7 +59,7 @@ input '..\sddl\sddl.bootstrap.styleguide.model.data.sql';
 input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
 input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
 
-input '..\sddl\sddl.bootstrap.execute.sql';
+input '..\sddl\sddl.bootstrap.complete.sql';
 
 /*------------------------------------------------------------------------------------------------*/
 /* Das wars... 

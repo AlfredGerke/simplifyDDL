@@ -581,14 +581,15 @@ begin
       if (position(Upper(:prefix_to_check) in Upper(Trim(:relation_name))) = 1) then
       begin
         if ((not (position(Upper('_') in Upper(Trim(:relation_name))) = 3)) and 
-            (not (position(Upper('L_') in Upper(Trim(:relation_name))) = 3)))        
+            (not (position(Upper('L_') in Upper(Trim(:relation_name))) = 3)) and
+            (not (position(Upper('R_') in Upper(Trim(:relation_name))) = 3)))        
         then
         begin
           HIT = True;
           OBJECT_NAME = relation_name; 
           FOUND_IN = 'Tables'; 
           
-          MISSING_PREFIX = 'TB_ / TBL_';         
+          MISSING_PREFIX = 'TB_ / TBL_ / TBR_';         
           
           Suspend;         
         end

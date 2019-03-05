@@ -393,7 +393,7 @@ begin
     suspend;
   end    
   
-  PROCEDURE SP_COMPLETE_TRIGGER_BU (
+  PROCEDURE SP_CREATE_TRIGGER_BU (
     ATablename DN_DB_OBJECT)
   returns (
     SUCCESS DN_BOOLEAN)
@@ -436,7 +436,7 @@ begin
          
       sql_stmt = 'COMMENT ON TRIGGER ' || :relation_name || 
         ' IS ''Before-Update-Trigger für die Tabelle ' || :ATablename || 
-        ' (created by SP_COMPLETE_TRIGGER_BU)''';
+        ' (created by SP_CREATE_TRIGGER_BU)''';
         
       execute statement sql_stmt;
         
@@ -645,7 +645,7 @@ begin
     
     if (SUCCESS = True) then
       select SUCCESS 
-      from SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from SP_CREATE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend;
@@ -896,7 +896,7 @@ begin
     
     if ((SUCCESS = True) and (:ADoStamp = True)) then  
       select SUCCESS 
-      from SP_COMPLETE_TRIGGER_BU(:table_name) 
+      from SP_CREATE_TRIGGER_BU(:table_name) 
       into :SUCCESS;
     
     suspend; 
@@ -904,7 +904,7 @@ begin
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CHECK_COMMAND (
-    AGenCommand DN_GEN_COMMAND,
+    AGenCommand DN_SDDL_COMMAND,
     AFieldDescription DN_DB_COMMENT)
   RETURNS (
     DETERMINED DN_BOOLEAN,
@@ -913,7 +913,7 @@ begin
     FIELDNAME DN_DB_OBJECT,
     REQUIRED DN_SQL_STMT)
   AS
-  declare variable gen_command DN_GEN_COMMAND;
+  declare variable gen_command DN_SDDL_COMMAND;
   declare variable idx DN_COUNT;
   declare variable idx2 DN_COUNT;
   declare variable idx3 DN_COUNT;
@@ -921,7 +921,7 @@ begin
   declare variable idx5 DN_COUNT;
   declare variable len DN_DIMENSION;
   declare variable field_description DN_DB_COMMENT;
-  declare variable field_name DN_GEN_COMMAND;
+  declare variable field_name DN_SDDL_COMMAND;
   begin
     DETERMINED = False;
     FIELDDESCRIPTION = AFieldDescription;
@@ -1035,9 +1035,9 @@ begin
   declare variable determined DN_BOOLEAN;
   declare variable table_name DN_DB_OBJECT;
   declare variable index_name DN_DB_OBJECT;
-  declare variable index_name_fix DN_GEN_COMMAND;
+  declare variable index_name_fix DN_SDDL_COMMAND;
   declare variable constraint_name DN_DB_OBJECT;
-  declare variable constraint_name_fix DN_GEN_COMMAND;
+  declare variable constraint_name_fix DN_SDDL_COMMAND;
   declare variable sql_stmt DN_SQL_STMT;
   declare variable counter DN_COUNT;
   begin
@@ -1124,7 +1124,7 @@ begin
   declare variable determined DN_BOOLEAN;
   declare variable table_name DN_DB_OBJECT;
   declare variable index_name DN_DB_OBJECT;
-  declare variable index_name_fix DN_GEN_COMMAND;
+  declare variable index_name_fix DN_SDDL_COMMAND;
   declare variable sql_stmt DN_SQL_STMT;
   declare variable counter DN_COUNT;
   begin
@@ -1222,7 +1222,7 @@ begin
     LOG_MESSAGE DN_MESSAGE)
   AS
   declare variable constraint_name DN_DB_OBJECT;
-  declare variable constraint_name_fix DN_GEN_COMMAND;
+  declare variable constraint_name_fix DN_SDDL_COMMAND;
   declare variable table_name DN_DB_OBJECT;
   declare variable fk_table_name DN_DB_OBJECT;
   declare variable short_relation_name DN_DB_OBJECT;
@@ -1354,7 +1354,7 @@ begin
   declare variable table_name DN_DB_OBJECT;
   declare variable field_description DN_DB_COMMENT;
   declare variable field_name DN_DB_OBJECT;
-  declare variable gen_command DN_GEN_COMMAND;
+  declare variable gen_command DN_SDDL_COMMAND;
   declare variable idx DN_COUNT;
   declare variable len DN_DIMENSION;
   declare variable fk_table_name DN_DB_OBJECT;
@@ -1734,7 +1734,31 @@ begin
   AS
   declare relation_name DN_DB_OBJECT;
   declare package_name DN_DB_OBJECT;
+  declare role_all DN_DB_OBJECT;
+  declare role_public DN_DB_OBJECT;
+  declare role_delete DN_DB_OBJECT; 
   begin
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.ALL',
+      'SDDL_ALL')
+    into :role_all;
+    
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.PUBLIC',
+      'SDDL_PUBLIC')
+    into :role_public;  
+
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.DELETE',
+      'SDDL_DELET')
+    into :role_delete;
+ 
     for
     select distinct RDB$PROCEDURE_NAME, RDB$PACKAGE_NAME 
     from RDB$PROCEDURES 
@@ -1745,7 +1769,7 @@ begin
       if ((Trim(package_name) = '') or (package_name is null)) then
         execute
         procedure
-          SP_GRANT_SP (Trim(:relation_name));
+          SP_GRANT_SP (Trim(:relation_name), :role_all, :role_public);
     end
      
     for
@@ -1758,7 +1782,7 @@ begin
       if ((Trim(package_name) = '') or (package_name is null)) then    
         execute
         procedure
-          SP_GRANT_SF (Trim(:relation_name));
+          SP_GRANT_SF (Trim(:relation_name), :role_all, :role_public);
     end
   
     for
@@ -1770,7 +1794,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_PKG (Trim(:relation_name));
+        SP_GRANT_PKG (Trim(:relation_name), :role_all, :role_public);
     end            
     
     for
@@ -1781,7 +1805,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_VIEW (Trim(:relation_name));
+        SP_GRANT_VIEW (Trim(:relation_name), :role_all, :role_delete, :role_public);
     end      
     
     for
@@ -1793,10 +1817,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_SEQ (Trim(:relation_name));
-        
-      /* Exit scheint hier fehl am Platz */  
-      /* Exit; */  
+        SP_GRANT_SEQ (Trim(:relation_name), :role_all, :role_public);
     end   
   
     for
@@ -1808,10 +1829,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_EXC (Trim(:relation_name));
-        
-      /* Exit scheint hier fehl am Platz */  
-      /* Exit; */    
+        SP_GRANT_EXC (Trim(:relation_name), :role_all, :role_public);
     end       
   end
   
@@ -1819,8 +1837,33 @@ begin
   PROCEDURE SP_GRANT (
     ADBObject DN_DB_OBJECT)
   AS
-  declare variable relation_name DN_DB_OBJECT;
+  declare relation_name DN_DB_OBJECT;
+  declare package_name DN_DB_OBJECT;
+  declare role_all DN_DB_OBJECT;
+  declare role_public DN_DB_OBJECT;
+  declare role_delete DN_DB_OBJECT; 
   begin
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.ALL',
+      'SDDL_ALL')
+    into :role_all;
+    
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.PUBLIC',
+      'SDDL_PUBLIC')
+    into :role_public;  
+
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.DELETE',
+      'SDDL_DELET')
+    into :role_delete;
+ 
     for
     select distinct a.RDB$PROCEDURE_NAME 
     from RDB$PROCEDURES a 
@@ -1830,7 +1873,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_SP (Trim(:relation_name));
+        SP_GRANT_SP (Trim(:relation_name), :role_all, :role_public);
         
       Exit;  
     end    
@@ -1844,7 +1887,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_SF (Trim(:relation_name));
+        SP_GRANT_SF (Trim(:relation_name), :role_all, :role_public);
         
       Exit;  
     end
@@ -1858,7 +1901,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_PKG (Trim(:relation_name));
+        SP_GRANT_PKG (Trim(:relation_name), :role_all, :role_public);
         
       Exit;  
     end            
@@ -1872,7 +1915,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_VIEW (Trim(:relation_name));
+        SP_GRANT_VIEW (Trim(:relation_name), :role_all, :role_delete, :role_public);
         
       Exit;  
     end   
@@ -1886,7 +1929,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_SEQ (Trim(:relation_name));
+        SP_GRANT_SEQ (Trim(:relation_name), :role_all, :role_public);
         
       Exit;  
     end   
@@ -1900,7 +1943,7 @@ begin
     begin
       execute
       procedure
-        SP_GRANT_EXC (Trim(:relation_name));
+        SP_GRANT_EXC (Trim(:relation_name), :role_all, :role_public);
         
       Exit;  
     end     
@@ -1924,7 +1967,7 @@ IS 'Erstellt anhand der Tabellenkommentare, die Standardviewkommentare';
 COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_STD_TABLE_VIEW IS
 'Erstellt eine Standardview zu einem Tabellennamen';
 
-COMMENT ON PROCEDURE PKG_SDDL.SP_COMPLETE_TRIGGER_BU IS
+COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_TRIGGER_BU IS
 'Erstellt den ersten Before-Update-Trigger (BU0) zu einem Tabellennamen um den Stempel zu aktualisieren';
 
 COMMENT ON PROCEDURE PKG_SDDL.SP_CREATE_SEQUNECE IS

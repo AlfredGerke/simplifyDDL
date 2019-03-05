@@ -229,7 +229,7 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.roles.create.sql',
+    'sddl.bootstrap.roles.standard.sql',
     'Standard-Benutzer und -Rollen für das Bootstrap installiert');
 
   execute
@@ -280,6 +280,13 @@ BEGIN
     0,
     'sddl.bootstrap.create.setting.package.body.sql',
     'Package-Body für die Settings installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.roles.custom.sql',
+    'Custom-Benutzer und -Rollen für das Bootstrap installiert');
 
   execute
   procedure

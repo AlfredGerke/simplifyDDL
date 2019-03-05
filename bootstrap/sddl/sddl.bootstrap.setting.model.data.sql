@@ -11,6 +11,8 @@
 /*------------------------------------------------------------------------------------------------*/
 /* History: 2019-03-05
 /*          Script erstellen
+/*          ---
+/*          Der Custom-User für das Bootstrap kann hier frei gewählt werden
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
@@ -104,6 +106,118 @@ begin
   
     suspend;
   end
+END^        
+SET TERM ; ^
+
+COMMIT WORK;
+/* Custom-User definieren für das Bootstrap ------------------------------------------------------*/
+
+SET TERM ^ ;
+EXECUTE BLOCK
+RETURNS (
+  SQL_STATE DN_SQLSTATE,
+  SUCCESS DN_BOOLEAN)
+AS
+declare project_name DN_STRING;
+declare user_name DN_FIREBIRD_USER;
+declare project_role_all DN_DB_OBJECT;
+declare project_role_public DN_DB_OBJECT;
+declare project_role_delete DN_DB_OBJECT;
+begin
+  project_name = 'Custom';
+  user_name = Trim(project_name) || '_' || 'USER';  
+  project_role_all = Trim(project_name) || '_' || 'ALL';
+  project_role_public = Trim(project_name) || '_' || 'PUBLIC';
+  project_role_delete = Trim(project_name) || '_' || 'DELETE';
+             
+  /*----------------------------------------------------------------------------------------------*/             
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'PROJECT.NAME',
+    :project_name
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);             
+             
+  /*----------------------------------------------------------------------------------------------*/             
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'USER.NAME',
+    Upper(:user_name)
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);
+
+  /*----------------------------------------------------------------------------------------------*/  
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'ROLE.ALL',
+    Upper(:project_role_all)
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);    
+
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'ROLE.PUBLIC',
+    Upper(:project_role_public)
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);
+  
+  /*----------------------------------------------------------------------------------------------*/  
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'ROLE.DELETE',
+    Upper(:project_role_delete)
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);  
 END^        
 SET TERM ; ^
 
