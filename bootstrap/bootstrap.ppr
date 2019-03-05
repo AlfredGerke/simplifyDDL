@@ -50,7 +50,6 @@ bootstrap
 		make\make.log
 		test\test.log
 	+sddl
-		bootstrap.ppr
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.context.sql
@@ -63,13 +62,14 @@ bootstrap
 		sddl\sddl.bootstrap.package.header.sql
 		sddl\sddl.bootstrap.roles.create.sql
 		sddl\sddl.bootstrap.setting.model.create.sql
+		sddl\sddl.bootstrap.setting.model.data.sql
 		sddl\sddl.bootstrap.setting.package.body.sql
 		sddl\sddl.bootstrap.setting.package.header.sql
 		sddl\sddl.bootstrap.styleguide.model.create.sql
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	-connect
+	+connect
 		connect\connect.sysdba.sql
 	+make
 		make\_make.bat
@@ -78,18 +78,5 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\make.log
-1=sddl\sddl.bootstrap.package.body.sql
-2=sddl\sddl.bootstrap.execute.sql
 [Selected Project Files]
 Main=
-Selected=make\make.log
-[make\make.log]
-TopLine=6091
-Caret=32,4027
-[sddl\sddl.bootstrap.package.body.sql]
-TopLine=1651
-Caret=36,1677
-[sddl\sddl.bootstrap.execute.sql]
-TopLine=13
-Caret=8,52

@@ -40,21 +40,20 @@ input '..\sddl\sddl.bootstrap.domains.create.sql';
 input '..\sddl\sddl.bootstrap.common.package.header.sql';
 input '..\sddl\sddl.bootstrap.common.package.body.sql';
 
+input '..\sddl\sddl.bootstrap.setting.model.create.sql';
+input '..\sddl\sddl.bootstrap.setting.model.data.sql';  
+input '..\sddl\sddl.bootstrap.setting.package.header.sql';
+input '..\sddl\sddl.bootstrap.setting.package.body.sql';
+
 input '..\sddl\sddl.bootstrap.history.model.create.sql';
 input '..\sddl\sddl.bootstrap.history.package.header.sql';
 input '..\sddl\sddl.bootstrap.history.package.body.sql';
 
-input '..\sddl\sddl.bootstrap.setting.model.create.sql';
-input '..\sddl\sddl.bootstrap.setting.package.header.sql';
-input '..\sddl\sddl.bootstrap.setting.package.body.sql';
-
 input '..\sddl\sddl.bootstrap.package.header.sql';
 input '..\sddl\sddl.bootstrap.package.body.sql';
 
-
 input '..\sddl\sddl.bootstrap.styleguide.model.create.sql';
 input '..\sddl\sddl.bootstrap.styleguide.model.data.sql';
-
 input '..\sddl\sddl.bootstrap.styleguide.package.header.sql';
 input '..\sddl\sddl.bootstrap.styleguide.package.body.sql';
 

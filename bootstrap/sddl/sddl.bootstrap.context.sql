@@ -14,15 +14,15 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-
-COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
 
 SET TERM ^ ;
 EXECUTE BLOCK AS
 BEGIN
-  RDB$SET_CONTEXT('USER_SESSION', 'LOG.WARN_LEVEL', '1');
-  RDB$SET_CONTEXT('USER_SESSION', 'DEBUG.ACTIVE', True); 
+  /* 
+    Nur Werte in den Context aufnehmen welche, noch vor dem sddl.bootstrap.setting.model.data.sql 
+    vorhanden sein müssen
+  */   
 END^        
 SET TERM ; ^
 

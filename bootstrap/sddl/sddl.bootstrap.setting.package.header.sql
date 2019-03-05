@@ -52,6 +52,16 @@ begin
     AUseTemp DN_BOOLEAN DEFAULT False)
   RETURNS (
       RESULT_VALUE DN_INTEGER);      
+      
+  /*----------------------------------------------------------------------------------------------*/      
+  PROCEDURE SP_READ_BOOLEAN (
+    ACategoryName DN_CATEGORY,
+    ASectionName DN_CATEGORY_SECTION,
+    AIdent DN_CATEGORY_IDENT,
+    ADefault DN_BOOLEAN,
+    AUseTemp DN_BOOLEAN DEFAULT False)
+  RETURNS (
+      RESULT_VALUE DN_BOOLEAN);
     
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_READ_SECTION (
@@ -104,6 +114,14 @@ begin
     AInteger DN_INTEGER,
     AUseTemp DN_BOOLEAN DEFAULT False);
     
+  /*----------------------------------------------------------------------------------------------*/    
+  PROCEDURE SP_WRITE_BOOLEAN (
+    ACategoryName DN_CATEGORY,
+    ASectionName DN_CATEGORY_SECTION,
+    AIdent DN_CATEGORY_IDENT,
+    ABoolean DN_BOOLEAN,
+    AUseTemp DN_BOOLEAN DEFAULT False);    
+    
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_WRITE_STRING (
     ACategoryName DN_CATEGORY,
@@ -112,28 +130,6 @@ begin
     AString DN_STRING,
     AUseTemp DN_BOOLEAN DEFAULT False);  
 end^
-SET TERM ; ^
-
-COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
-
-SET TERM ^ ;
-EXECUTE BLOCK AS
-BEGIN
-  execute
-  procedure
-  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
-    0,
-    'sddl.bootstrap.create.setting.model.sql',
-    'Model der Settings installiert');
-
-  execute
-  procedure
-  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
-    0,
-    'sddl.bootstrap.create.setting.package.header.sql',
-    'Package-Header der Settings installiert');
-END^        
 SET TERM ; ^
 
 COMMIT WORK;

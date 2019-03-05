@@ -27,15 +27,6 @@ begin
     AScript DN_FILENAME,
     ADescription DN_DESCRIPTION);
 
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET_WARN_LEVEL_TO_CONTEXT(
-    AWarnLevel DN_WARN_LEVEL Default 0);
-  
-  /*----------------------------------------------------------------------------------------------*/
-  FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
-    )
-  RETURNS DN_WARN_LEVEL;
-      
   /*----------------------------------------------------------------------------------------------*/    
   PROCEDURE SP_SET_LOG_INFORMATION (
     ADescription DN_DESCRIPTION);
@@ -47,15 +38,6 @@ begin
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_LOG_ERROR (
     ADescription DN_DESCRIPTION);    
-        
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET_DEBUG_STATE_TO_CONTEXT(
-    AState DN_BOOLEAN Default False);   
-    
-  /*----------------------------------------------------------------------------------------------*/
-  FUNCTION SF_GET_DEBUG_STATE_BY_CONTEXT(
-    )
-  RETURNS DN_BOOLEAN;                
         
   /*----------------------------------------------------------------------------------------------*/      
   PROCEDURE SP_SET_DEBUG (

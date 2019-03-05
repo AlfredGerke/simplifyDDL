@@ -68,27 +68,17 @@ begin
           );    
   end
   
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET_WARN_LEVEL_TO_CONTEXT(AWarnLevel DN_WARN_LEVEL)
-  AS
-  begin
-    RDB$SET_CONTEXT('USER_SESSION', 'LOG.WARN_LEVEL', cast(AWarnLevel as varchar(1)));  
-  end
-  
-  /*----------------------------------------------------------------------------------------------*/
+  /*----------------------------------------------------------------------------------------------*/  
   FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
     )
   RETURNS DN_WARN_LEVEL
   AS
-  declare warn_level_as_str varchar(10);
   declare warn_level_as_int integer;
   begin
-    warn_level_as_str = RDB$GET_CONTEXT('USER_SESSION', 'LOG.WARN_LEVEL');
-    
-    if ((Trim(warn_level_as_str) <> '') and (warn_level_as_str is not null)) then
-      warn_level_as_int = cast(warn_level_as_str as integer);
-    else
-      warn_level_as_int = 0;      
+    warn_level_as_int = 0;
+    select RESULT_VALUE 
+    from PKG_SETTINGS.SP_READ_INTEGER ('HISTORY', 'LOG', 'WARN_LEVEL', 0)
+    into :warn_level_as_int;
     
     if ((warn_level_as_int > 0) and (warn_level_as_int < 4)) then
       RETURN cast(warn_level_as_int as DN_WARN_LEVEL);
@@ -102,15 +92,15 @@ begin
        1;
        
      RETURN 0;   
-   end   
-  end   
+   end         
+  end  
   
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET_LOG_INFORMATION (
     ADescription DN_DESCRIPTION)
   AS
   declare warn_level DN_WARN_LEVEL;
-  begin    
+  begin      
     warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
   
     if (warn_level > 2) then
@@ -143,31 +133,20 @@ begin
       execute
       procedure SP_SET_LOG_INFO :ADescription, 1;          
   end   
-    
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET_DEBUG_STATE_TO_CONTEXT(
-    AState DN_BOOLEAN)
-  AS
-  begin
-    RDB$SET_CONTEXT('USER_SESSION', 'DEBUG.ACTIVE', cast(AState as varchar(10)));  
-  end   
-    
+          
   /*----------------------------------------------------------------------------------------------*/    
   FUNCTION SF_GET_DEBUG_STATE_BY_CONTEXT(
     )
   RETURNS DN_BOOLEAN
   AS
-   declare state_as_str varchar(10);
-   declare state_as_bool DN_BOOLEAN;  
+   declare debug_state DN_BOOLEAN;  
   begin
-     state_as_str = RDB$GET_CONTEXT('USER_SESSION', 'DEBUG.ACTIVE');  
+     debug_state = False;
+     select RESULT_VALUE
+     from PKG_SETTINGS.SP_READ_BOOLEAN ('HISTORY', 'DEBUG', 'ACTIVE', False)
+     into :debug_state;      
      
-     if ((Trim(state_as_str) <> '') and (state_as_str is not null)) then
-       state_as_bool = cast(state_as_str as DN_BOOLEAN);
-     else
-       state_as_bool = False;      
-     
-     RETURN state_as_bool;
+     RETURN debug_state;
      
      when any do
      begin
@@ -178,7 +157,7 @@ begin
        RETURN False;   
      end        
   end        
-    
+          
   /*----------------------------------------------------------------------------------------------*/  
   procedure SP_SET_DEBUG (
     ACaption DN_CAPTION,
@@ -215,10 +194,7 @@ SET TERM ; ^
 
 COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_UPDATE_INFO  
 IS 'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE';
-
-COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_WARN_LEVEL_TO_CONTEXT
-IS 'Setzt den WarnLevel für die Log-Routinen';
-  
+ 
 COMMENT ON FUNCTION PKG_HISTORY.SF_GET_WARN_LEVEL_BY_CONTEXT
 IS 'Ermittelt den WarnLevel für die Log-Routinen';
 
@@ -242,6 +218,12 @@ COMMIT WORK;
 SET TERM ^ ;
 EXECUTE BLOCK AS
 BEGIN
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.context.sql',
+    'Conetxt-Variablen eingetragen');
 
   execute
   procedure
@@ -270,6 +252,34 @@ BEGIN
     0,
     'sddl.bootstrap.common.package.body.sql',
     'Package-Body der Common -Procedures/-Function installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.create.setting.model.sql',
+    'Model für die Settings installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.create.setting.data.sql',
+    'Daten für die Settings eingetrage');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.create.setting.package.header.sql',
+    'Package-Header für die Settings installiert');
+
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.create.setting.package.body.sql',
+    'Package-Body für die Settings installiert');
 
   execute
   procedure

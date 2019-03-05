@@ -160,6 +160,57 @@ begin
   end
   
   /* ---------------------------------------------------------------------------------------------- */
+  PROCEDURE SP_READ_BOOLEAN (
+    ACategoryName DN_CATEGORY,
+    ASectionName DN_CATEGORY_SECTION,
+    AIdent DN_CATEGORY_IDENT,
+    ADefault DN_BOOLEAN,
+    AUseTemp DN_BOOLEAN)
+  RETURNS (
+      RESULT_VALUE DN_BOOLEAN)
+  AS
+  begin
+    if (AUseTemp = True) then  
+    begin
+      if (exists(select 1 from VW_T_SETTING
+                 where CATEGORY_NAME = :ACategoryName
+                 and SECTION_NAME = :ASectionName
+                 and IDENT = :AIdent))
+      then
+      begin
+        select cast(STRING_VALUE as DN_BOOLEAN)
+        from VW_T_SETTING
+        where CATEGORY_NAME = :ACategoryName
+        and SECTION_NAME = :ASectionName
+        and IDENT = :AIdent
+        into :RESULT_VALUE;
+      end
+      else
+        RESULT_VALUE = :ADefault;  
+    end
+    else
+    begin
+      if (exists(select 1 from VW_SETTING
+                 where CATEGORY_NAME = :ACategoryName
+                 and SECTION_NAME = :ASectionName
+                 and IDENT = :AIdent))
+      then
+      begin
+        select cast(STRING_VALUE as DN_BOOLEAN)
+        from VW_SETTING
+        where CATEGORY_NAME = :ACategoryName
+        and SECTION_NAME = :ASectionName
+        and IDENT = :AIdent
+        into :RESULT_VALUE;
+      end
+      else
+        RESULT_VALUE = :ADefault;
+    end  
+  
+    suspend;
+  end
+  
+  /* ---------------------------------------------------------------------------------------------- */
   PROCEDURE SP_READ_SECTION (
     ACategoryName DN_CATEGORY,
     ASectionName DN_CATEGORY_SECTION,
@@ -386,6 +437,51 @@ begin
         Trim(cast(:AInteger as DN_CATEGORY_STRING_VALUE))
       )
       matching (CATEGORY_NAME, SECTION_NAME, IDENT);  
+  end 
+  
+  /* ---------------------------------------------------------------------------------------------- */
+  PROCEDURE SP_WRITE_BOOLEAN (
+    ACategoryName DN_CATEGORY,
+    ASectionName DN_CATEGORY_SECTION,
+    AIdent DN_CATEGORY_IDENT,
+    ABoolean DN_BOOLEAN,
+    AUseTemp DN_BOOLEAN)
+  AS
+  begin
+    if (AUseTemp = True) then  
+      update or insert 
+      into VW_T_SETTING
+      (
+        CATEGORY_NAME,
+        SECTION_NAME,
+        IDENT,
+        STRING_VALUE        
+      )         
+      values
+      (
+        :ACategoryName,
+        :ASectionName,
+        :AIdent,
+        Trim(cast(:ABoolean as DN_CATEGORY_STRING_VALUE))
+      )
+      matching (CATEGORY_NAME, SECTION_NAME, IDENT);           
+    else
+      update or insert 
+      into VW_SETTING
+      (
+        CATEGORY_NAME,
+        SECTION_NAME,
+        IDENT,
+        STRING_VALUE        
+      )         
+      values
+      (
+        :ACategoryName,
+        :ASectionName,
+        :AIdent,
+        Trim(cast(:ABoolean as DN_CATEGORY_STRING_VALUE))
+      )
+      matching (CATEGORY_NAME, SECTION_NAME, IDENT);  
   end
 
   /* ---------------------------------------------------------------------------------------------- */
@@ -433,22 +529,6 @@ begin
       matching (CATEGORY_NAME, SECTION_NAME, IDENT);                  
   end
 end^  
-SET TERM ; ^
-
-COMMIT WORK;
-
-/*------------------------------------------------------------------------------------------------*/
-
-SET TERM ^ ;
-EXECUTE BLOCK AS
-BEGIN
-  execute
-  procedure
-  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
-    0,
-    'sddl.bootstrap.setting.package.body.sql',
-    'Package-body der Settings installiert');
-END^        
 SET TERM ; ^
 
 COMMIT WORK;
