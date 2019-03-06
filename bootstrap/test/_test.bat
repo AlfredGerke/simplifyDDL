@@ -6,8 +6,8 @@ if "%2"=="" goto Anwendung
 del %2
 
 echo Bentuzer und Passwort für Test angeben
-SET ISC_USER={USERNAME}
-SET ISC_PASSWORD={PASSWORD}
+SET ISC_USER=SYSDBA
+SET ISC_PASSWORD=masterkey
 
 %1isql -b -e -i test.sql -m -o %2
 

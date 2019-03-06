@@ -16,7 +16,7 @@
 
 /*------------------------------------------------------------------------------------------------*/
 select SUCCESS
-from PKG_SDDL.SP_CREATE_CATALOG ('RESERVED_WORDS',
+from PKG_SDDL.SP_CREATE_CATALOG ('STYLEGUIDE_CHECK',
   'DN_DB_OBJECT',
   'Reservierte Wörter');
   
@@ -24,7 +24,7 @@ COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
 
 select SUCCESS
-from PKG_SDDL.SP_CREATE_CATALOG ('INVALID_STYLEGUIDE',
+from PKG_SDDL.SP_CREATE_CATALOG ('STYLEGUIDE_KEYWORD',
   'DN_DB_OBJECT',
   'Ausgeschlossene StyleGuide-Elemente');
 

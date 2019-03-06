@@ -46,7 +46,7 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	-log
+	+log
 		make\make.log
 		test\test.log
 	+sddl
@@ -70,14 +70,31 @@ bootstrap
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	+connect
+	-connect
 		connect\connect.sysdba.sql
-	+make
+	-make
 		make\_make.bat
 		make\sddl.bootstrap.install.sql
 		make\sddl.bootstrap.test-db.create.sql
 		make\make.bat
 		make\make.log
 [Open project files]
+0=sddl\sddl.bootstrap.common.package.body.sql
+1=sddl\sddl.bootstrap.roles.custom.sql
+2=sddl\sddl.bootstrap.package.body.sql
+3=make\make.log
 [Selected Project Files]
 Main=
+Selected=make\make.log
+[sddl\sddl.bootstrap.common.package.body.sql]
+TopLine=23
+Caret=15,39
+[sddl\sddl.bootstrap.roles.custom.sql]
+TopLine=137
+Caret=5,151
+[sddl\sddl.bootstrap.package.body.sql]
+TopLine=1697
+Caret=31,1634
+[make\make.log]
+TopLine=7060
+Caret=1,1

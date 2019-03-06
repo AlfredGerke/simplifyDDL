@@ -51,7 +51,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Felder';
         
-        Suspend;
+        suspend;
       end
     end  
     
@@ -69,7 +69,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Domains';
         
-        Suspend;
+        suspend;
       end  
     end  
     
@@ -87,7 +87,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Sequences';
         
-        Suspend;
+        suspend;
       end    
     end
   
@@ -105,7 +105,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'StoredProcedures';
         
-        Suspend;
+        suspend;
       end  
     end
     
@@ -122,7 +122,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Parameters/Returns (SP)';
         
-        Suspend;
+        suspend;
       end  
     end  
     
@@ -140,7 +140,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'StoredFunction';
         
-        Suspend;
+        suspend;
       end  
     end
     
@@ -157,7 +157,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Arguments (SF)';
         
-        Suspend;
+        suspend;
       end  
     end  
         
@@ -175,7 +175,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Packages';
         
-        Suspend;
+        suspend;
       end  
     end           
         
@@ -193,7 +193,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Tabellen/Views';
         
-        Suspend;
+        suspend;
       end  
     end
     
@@ -210,7 +210,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Constraints';
         
-        Suspend;
+        suspend;
       end
     end
     
@@ -228,7 +228,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Indices';
         
-        Suspend;
+        suspend;
       end 
     end
   end
@@ -251,7 +251,7 @@ begin
   
     for
     select CAPTION, DESCRIPTION 
-    from VW_L_INVALID_STYLEGUIDE
+    from VW_L_STYLEGUIDE_CHECK
     into :STYLE_GUIDE_KEYW, :TO_DO
     do
     begin
@@ -298,15 +298,15 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
           HIT = True;
           RESERVED = relation_name; 
-          FOUND_IN = 'Felder (VW_L_RESERVED_WORDS)';
+          FOUND_IN = 'Felder (VW_L_STYLEGUIDE_KEYWORD)';
           
-          Suspend;
+          suspend;
         end
         else
         begin
@@ -319,7 +319,7 @@ begin
             RESERVED = relation_name; 
             FOUND_IN = 'Felder (RDB$TYPE_NAME)';
             
-            Suspend;     
+            suspend;     
           end
         end
       end  
@@ -333,7 +333,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -341,7 +341,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Domains';
           
-          Suspend;
+          suspend;
         end  
       end  
       
@@ -354,7 +354,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -362,7 +362,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Sequences';
           
-          Suspend;
+          suspend;
         end    
       end
     
@@ -375,7 +375,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -383,7 +383,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'StoredProcedures';
           
-          Suspend;
+          suspend;
         end  
       end
       
@@ -395,7 +395,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -403,7 +403,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Parameters/Returns';
           
-          Suspend;
+          suspend;
         end  
       end  
       
@@ -416,7 +416,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -424,7 +424,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'StoredFunctions';
           
-          Suspend;
+          suspend;
         end    
       end
       
@@ -436,7 +436,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -444,7 +444,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Arguments (SF)';
           
-          Suspend;
+          suspend;
         end  
       end  
           
@@ -457,7 +457,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -465,7 +465,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Packages';
           
-          Suspend;
+          suspend;
         end        
       end           
         
@@ -478,7 +478,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -486,7 +486,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Tabellen/Views';
           
-          Suspend;
+          suspend;
         end  
       end
       
@@ -499,7 +499,7 @@ begin
       do
       begin  
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -507,7 +507,7 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Constraints';
           
-          Suspend;
+          suspend;
         end
       end
       
@@ -520,7 +520,7 @@ begin
       do
       begin
         if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:relation_name)))) 
         then
         begin
@@ -528,14 +528,14 @@ begin
           RESERVED = relation_name; 
           FOUND_IN = 'Indices';
           
-          Suspend;
+          suspend;
         end 
       end
     end
     else
     begin
        if (exists(select 1 
-                   from VW_L_RESERVED_WORDS 
+                   from VW_L_STYLEGUIDE_KEYWORD 
                    where Upper(Trim(CAPTION))=Upper(Trim(:AKeyWordToCheck)))) 
         then
         begin
@@ -543,7 +543,7 @@ begin
           RESERVED = AKeyWordToCheck; 
           FOUND_IN = 'OnDemand';
           
-          Suspend;
+          suspend;
         end   
     end  
   end
@@ -591,7 +591,7 @@ begin
           
           MISSING_PREFIX = 'TB_ / TBL_ / TBR_';         
           
-          Suspend;         
+          suspend;         
         end
       end
       else      
@@ -602,7 +602,7 @@ begin
         
         MISSING_PREFIX = 'TB';         
         
-        Suspend; 
+        suspend; 
       end
     end
     
@@ -621,7 +621,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Temporary Tables';        
         
-        Suspend;
+        suspend;
       end
     end    
     
@@ -645,7 +645,7 @@ begin
           
           MISSING_PREFIX = 'VR_ / VW_';        
           
-          Suspend;
+          suspend;
         end
       end  
     end  
@@ -665,7 +665,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Domains';        
         
-        Suspend;
+        suspend;
       end  
     end  
     
@@ -684,7 +684,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Sequences';        
         
-        Suspend;
+        suspend;
       end      
     end
   
@@ -703,7 +703,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Procedures';        
         
-        Suspend;
+        suspend;
       end        
     end
     
@@ -722,7 +722,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Procedure Parameters';        
         
-        Suspend;
+        suspend;
       end          
     end  
     
@@ -741,7 +741,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Stored Functions';        
         
-        Suspend;
+        suspend;
       end            
     end
 
@@ -759,7 +759,7 @@ begin
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Arguments (SF)';
 --         
---         Suspend;
+--         suspend;
 --       end  
 --     end  
         
@@ -778,7 +778,7 @@ begin
         OBJECT_NAME = relation_name; 
         FOUND_IN = 'Packages';        
         
-        Suspend;
+        suspend;
       end              
     end           
            
@@ -796,7 +796,7 @@ begin
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Constraints';
 --         
---         Suspend;
+--         suspend;
 --       end
 --     end
 --     
@@ -814,7 +814,7 @@ begin
 --         OBJECT_NAME = relation_name; 
 --         FOUND_IN = 'Indices';
 --         
---         Suspend;
+--         suspend;
 --       end 
 --     end  
   end  

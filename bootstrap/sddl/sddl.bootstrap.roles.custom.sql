@@ -22,7 +22,7 @@ RETURNS (
   SQL_STATE DN_SQLSTATE,
   SUCCESS DN_BOOLEAN)
 AS
-declare project_name DN_STRING;
+declare custom_prefix DN_STRING;
 declare user_name DN_FIREBIRD_USER;
 declare project_role_all DN_DB_OBJECT;
 declare project_role_public DN_DB_OBJECT;
@@ -37,11 +37,11 @@ begin
   select RESULT_VALUE
   from PKG_SETTINGS.SP_READ_STRING ('CUSTOM',
     'SDDL',
-    'PROJECT.NAME',
+    'CUSTOM.PREFIX',
     '')
-  into :project_name;
+  into :custom_prefix;
   
-  if (Trim(project_name) = '') then
+  if (Trim(custom_prefix) = '') then
     Exit;
   
   /*----------------------------------------------------------------------------------------------*/
@@ -122,7 +122,8 @@ begin
   /*----------------------------------------------------------------------------------------------*/
   INFO = 'Custom-User anlegen';     
    
-  sql_stmt = 'CREATE USER ' || :user_name  || ' PASSWORD ''change_on_install'' FIRSTNAME ''' || :project_name || ''' MIDDLENAME '' Bootstrap '' LASTNAME ''User''';
+  sql_stmt = 'CREATE USER ' || :user_name  || ' PASSWORD ''change_on_install'' FIRSTNAME ''' || :custom_prefix || 
+    ''' MIDDLENAME '' Bootstrap '' LASTNAME ''User''';
   execute statement sql_stmt;
   
   INFO = 'Custom-Roles anlegen';
@@ -136,26 +137,28 @@ begin
   sql_stmt = 'CREATE ROLE ' || :project_role_public;
   execute statement sql_stmt;
 
-  sql_stmt = 'COMMENT ON ROLE ' || :project_role_public || ' IS ''Sammelt alle Select-, Update-, Insert- und Exectue-Rechte''';
+  sql_stmt = 'COMMENT ON ROLE ' || :project_role_public || 
+    ' IS ''Sammelt alle Select-, Update-, Insert- und Exectue-Rechte''';
   execute statement sql_stmt;
   
   sql_stmt = 'CREATE ROLE ' || :project_role_all;
   execute statement sql_stmt;
 
-  sql_stmt = 'COMMENT ON ROLE ' || :project_role_all || ' IS ''Sammelt alle Select-, Update-, Insert-, Delete- und Exectue-Rechte''';
+  sql_stmt = 'COMMENT ON ROLE ' || :project_role_all || 
+    ' IS ''Sammelt alle Select-, Update-, Insert-, Delete- und Exectue-Rechte''';
   execute statement sql_stmt;
   
   INFO = 'Custom-User und -Roles angelegt';
   SUCCESS = True;
   
-  Suspend;
+  suspend;
   
   when any do
   begin
     SUCCESS = False;
     SQL_STATE = SQLSTATE;
     
-    Suspend;
+    suspend;
   end
 end^
 SET TERM ; ^

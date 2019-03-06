@@ -30,7 +30,14 @@ begin
   begin
     WRAPPED_USER_NAME = current_user;
     
-    Suspend;
+    suspend;
+    
+    when any do
+    begin
+      WRAPPED_USER_NAME = current_user;
+      
+      suspend;
+    end
   end
   
   /*----------------------------------------------------------------------------------------------*/
@@ -56,7 +63,7 @@ begin
   begin
     INFO = Trim(AInfo);
     
-    Suspend;
+    suspend;
   end 
 end^
 SET TERM ; ^

@@ -24,6 +24,189 @@ SET TERM ^ ;
 RECREATE PACKAGE BODY PKG_SDDL
 AS
 begin
+  /*----------------------------------------------------------------------------------------------*/  
+  PROCEDURE SP_GET_CUSTOM_ROLES
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    ROLE_ALL DN_DB_OBJECT,
+    ROLE_PUBLIC DN_DB_OBJECT,
+    ROLE_DELETE DN_DB_OBJECT)
+  AS
+  begin
+    SUCCESS = False;  
+    
+    ROLE_ALL = 'SDDL_ALL';
+    ROLE_PUBLIC = 'SDDL_PUBLIC';
+    ROLE_DELETE = 'SDDL_DELETE';  
+  
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.ALL',
+      'SDDL_ALL')
+    into :ROLE_ALL;
+    
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.PUBLIC',
+      'SDDL_PUBLIC')
+    into :ROLE_PUBLIC;  
+
+    select Trim(RESULT_VALUE)
+    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
+      'SDDL',
+      'ROLE.DELETE',
+      'SDDL_DELET')
+    into :ROLE_DELETE;
+    
+    if ((Trim(:ROLE_ALL) <> '') and 
+        (Trim(:ROLE_PUBLIC) <> '') and 
+        (Trim(:ROLE_DELETE) <> '')) 
+    then
+      SUCCESS = True;
+    
+    suspend;
+    
+    when any do
+    begin
+      ROLE_ALL = 'SDDL_ALL';
+      ROLE_PUBLIC = 'SDDL_PUBLIC';
+      ROLE_DELETE = 'SDDL_DELETE';
+        
+      SUCCESS = False;
+      
+      suspend;
+    end  
+  end  
+
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_DROP_TABLE (
+    ATable DN_DB_OBJECT)
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    SQL_STATE DN_SQLSTATE,
+    LOG_MESSAGE DN_MESSAGE)
+  AS
+  begin
+    SUCCESS = False;
+    SQL_STATE = '00000';
+    LOG_MESSAGE = 'keine Information';
+    
+    /* Tabelle löschen */
+    
+    /* Prüfung ob Löschung erfolgreich */
+     
+    SUCCESS = True;
+    
+    suspend;
+    
+    when any do
+    begin
+      SUCCESS = False;
+      SQL_STATE = SQLSTATE;
+      LOG_MESSAGE = 'Fehler beim Löschen einer Tabelle';
+
+      suspend;
+    end
+  end  
+  
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_DROP_VIEW (
+    AView DN_DB_OBJECT)
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    SQL_STATE DN_SQLSTATE,
+    LOG_MESSAGE DN_MESSAGE)
+  AS
+  begin
+    SUCCESS = False;
+    SQL_STATE = '00000';
+    LOG_MESSAGE = 'keine Information';
+    
+    /* View löschen */
+    
+    /* Prüfung ob Löschung erfolgreich */
+     
+    SUCCESS = True;
+    
+    suspend;
+    
+    when any do
+    begin
+      SUCCESS = False;
+      SQL_STATE = SQLSTATE;
+      LOG_MESSAGE = 'Fehler beim Löschen einer View';
+
+      suspend;
+    end  
+  end  
+  
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_DROP_SEQ (
+    ASF DN_DB_OBJECT)
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    SQL_STATE DN_SQLSTATE,
+    LOG_MESSAGE DN_MESSAGE)
+  AS
+  begin
+    SUCCESS = False;
+    SQL_STATE = '00000';
+    LOG_MESSAGE = 'keine Information';
+    
+    /* SEQ löschen */
+    
+    /* Prüfung ob Löschung erfolgreich */
+     
+    SUCCESS = True;
+    
+    suspend;
+    
+    when any do
+    begin
+      SUCCESS = False;
+      SQL_STATE = SQLSTATE;
+      LOG_MESSAGE = 'Fehler beim Löschen einer Sequence';
+
+      suspend;
+    end  
+  end      
+
+  /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_DROP_RECURSIVE (
+    AEntity DN_DB_OBJECT,
+    ADoRecursive DN_BOOLEAN)
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    SQL_STATE DN_SQLSTATE,
+    LOG_MESSAGE DN_MESSAGE)
+  AS
+  declare drop_sequence DN_BOOLEAN;
+  begin
+    SUCCESS = False;
+    SQL_STATE = '00000';
+    LOG_MESSAGE = 'keine Information';
+    
+    :drop_sequence = False;
+    select RESULT_VALUE
+    from PKG_SETTINGS.SP_READ_BOOLEAN ('CUSTOM', 
+      'SDDL', 
+      'DROP.RECURSIVE.SEQUENCE', 
+      False)
+    into :drop_sequence;
+       
+    suspend;
+    
+    when any do
+    begin
+      SUCCESS = False;
+      SQL_STATE = SQLSTATE;
+      LOG_MESSAGE = 'Fehler beim Löschen einer Entität';
+
+      suspend;
+    end    
+  end  
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_RESTRUCTURE_TABLE (
@@ -42,7 +225,7 @@ begin
   
     SUCCESS = True;
     
-    Suspend;
+    suspend;
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -393,6 +576,7 @@ begin
     suspend;
   end    
   
+  /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_TRIGGER_BU (
     ATablename DN_DB_OBJECT)
   returns (
@@ -932,6 +1116,7 @@ begin
     gen_command = AGenCommand;
     field_description = AFieldDescription;
     
+    /*--------------------------------------------------------------------------------------------*/
     gen_command = '{UNIQUE.KEY}';
     if (gen_command = Trim(Upper(AGenCommand))) then
     begin
@@ -946,11 +1131,12 @@ begin
          
          DETERMINED = True;
          
-         Suspend;
+         suspend;
          Exit;
        end  
     end
     
+    /*--------------------------------------------------------------------------------------------*/
     gen_command = '{UNIQUE.IDX}';
     if (gen_command = Trim(Upper(AGenCommand))) then
     begin
@@ -965,11 +1151,12 @@ begin
          
          DETERMINED = True;
          
-         Suspend;
+         suspend;
          Exit;
        end  
     end   
     
+    /*--------------------------------------------------------------------------------------------*/
     gen_command = '{FK:=';
     if (gen_command = Trim(Upper(AGenCommand))) then
     begin
@@ -1013,14 +1200,20 @@ begin
            
              DETERMINED = True;
           
-             Suspend;
+             suspend;
              Exit;                  
            end        
          end
        end  
-    end 
+    end
     
-    Suspend;     
+    /*--------------------------------------------------------------------------------------------*/
+    --gen_command = '{REL:='; 
+    
+    /*--------------------------------------------------------------------------------------------*/
+    --gen_command = '{CAT:=';
+    
+    suspend;     
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -1109,7 +1302,7 @@ begin
         Trim(:AFieldname) || ' ist schon vorhanden';
     end
     
-    Suspend;
+    suspend;
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -1190,24 +1383,8 @@ begin
         Trim(:AFieldname) || ' ist schon vorhanden';
     end
     
-    Suspend;
+    suspend;
   end
-  
---   /*----------------------------------------------------------------------------------------------*/  
---   /* wird in SP_CREATE_FOREIGN_KEY für die Implementation benötigt, 
---      kann aber erst nach SP_CREATE_FOREIGN_KEY selber implementiert werden*/
---   PROCEDURE SP_CREATE_CONSTRAINTS (
---     ATablename DN_DB_OBJECT)
---   RETURNS (
---     SUCCESS DN_BOOLEAN,
---     LOG_MESSAGE DN_MESSAGE)
---   AS
---   begin
---     SUCCESS = False;
---     LOG_MESSAGE = 'DUMMY';
---     
---     Suspend;
---   end
   
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_CREATE_FOREIGN_KEY(
@@ -1287,7 +1464,7 @@ begin
           LOG_MESSAGE = 'Für die Tabelle ' || Trim(:AFKTablename) || ' konnte kein Constraint mit der Spalte ' || 
             Trim(:AFKFieldname) || ' angelegt werden';
             
-          Suspend;  
+          suspend;  
           Exit;
         end
       end
@@ -1341,7 +1518,7 @@ begin
         Trim(:AFieldname) || ' ist schon vorhanden';
     end
     
-    Suspend;
+    suspend;
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -1351,19 +1528,21 @@ begin
     SUCCESS DN_BOOLEAN,
     LOG_MESSAGE DN_MESSAGE)
   AS
-  declare variable table_name DN_DB_OBJECT;
-  declare variable field_description DN_DB_COMMENT;
-  declare variable field_name DN_DB_OBJECT;
-  declare variable gen_command DN_SDDL_COMMAND;
-  declare variable idx DN_COUNT;
-  declare variable len DN_DIMENSION;
-  declare variable fk_table_name DN_DB_OBJECT;
-  declare variable fk_field_name DN_DB_OBJECT;
-  declare variable found_command_unique_key DN_BOOLEAN;
-  declare variable found_command_foreign_key DN_BOOLEAN;
-  declare variable found_command_unique_idx DN_BOOLEAN;
-  declare variable first_try DN_BOOLEAN;
-  declare variable fk_condition DN_SQL_STMT;
+  declare table_name DN_DB_OBJECT;
+  declare field_description DN_DB_COMMENT;
+  declare field_name DN_DB_OBJECT;
+  declare gen_command DN_SDDL_COMMAND;
+  declare idx DN_COUNT;
+  declare len DN_DIMENSION;
+  declare fk_table_name DN_DB_OBJECT;
+  declare fk_field_name DN_DB_OBJECT;
+  declare found_command_unique_key DN_BOOLEAN;
+  declare found_command_foreign_key DN_BOOLEAN;
+  declare found_command_unique_idx DN_BOOLEAN;
+  declare found_command_relation DN_BOOLEAN;
+  declare found_command_catalog DN_BOOLEAN;
+  declare first_try DN_BOOLEAN;
+  declare fk_condition DN_SQL_STMT;
   begin
     SUCCESS = False;
     LOG_MESSAGE = null;
@@ -1385,19 +1564,24 @@ begin
         first_try = True;
         found_command_foreign_key = False;
         found_command_unique_key = False;
+        found_command_relation = False;
+        found_command_catalog = False;
         
         while ((found_command_foreign_key <> False) or 
-               (found_command_unique_key <> False) or 
+               (found_command_unique_key <> False) or
+               (found_command_relation <> False) or
+               (found_command_catalog <> False) or                
                (:first_try = True)) 
         do
         begin
           first_try = False;
              
+          /*--------------------------------------------------------------------------------------*/
           gen_command = '{UNIQUE.KEY}';
           
           found_command_unique_key = False;
           fk_table_name = null;
-          fk_table_name = null;
+          fk_field_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
           from SP_CHECK_COMMAND (:gen_command, :field_description)
@@ -1412,11 +1596,12 @@ begin
             SUSPEND;
           end
           
+          /*--------------------------------------------------------------------------------------*/          
           gen_command = '{UNIQUE.IDX}';
           
           found_command_unique_idx = False;
           fk_table_name = null;
-          fk_table_name = null;
+          fk_field_name = null;
           
           select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME
           from SP_CHECK_COMMAND (:gen_command, :field_description)
@@ -1431,6 +1616,7 @@ begin
             SUSPEND;
           end        
     
+          /*--------------------------------------------------------------------------------------*/    
           gen_command = '{FK:=';
           
           found_command_foreign_key = False;        
@@ -1454,6 +1640,48 @@ begin
             
             SUSPEND;
           end
+          
+          /*--------------------------------------------------------------------------------------*/
+          gen_command = '{CAT:=';
+
+          found_command_catalog = False;        
+          fk_table_name = null;
+          fk_field_name = null;
+          
+          select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME, REQUIRED
+          from SP_CHECK_COMMAND (:gen_command, :field_description)
+          into :found_command_catalog, :field_description, :fk_table_name, :fk_field_name, :fk_condition;
+          
+--           if (:found_command_catalog = True) then
+--           begin         
+--             select SUCCESS, LOG_MESSAGE
+--             from SP_CREATE_CATALOG_BY_FIELD()
+--             into :SUCCESS, :LOG_MESSAGE;
+--             
+--             SUSPEND;
+--           end
+
+          /*--------------------------------------------------------------------------------------*/
+          gen_command = '{REL:=';
+
+          found_command_relation = False;        
+          fk_table_name = null;
+          fk_field_name = null;
+          
+          select DETERMINED, FIELDDESCRIPTION, TABLENAME, FIELDNAME, REQUIRED
+          from SP_CHECK_COMMAND (:gen_command, :field_description)
+          into :found_command_relation, :field_description, :fk_table_name, :fk_field_name, :fk_condition;
+          
+--           if (:found_command_relation = True) then
+--           begin         
+--             select SUCCESS, LOG_MESSAGE
+--             from SP_CREATE_RELATION_BY_FIELD()
+--             into :SUCCESS, :LOG_MESSAGE;
+--             
+--             SUSPEND;
+--           end
+          
+          
         end                     
       end   
     end
@@ -1461,7 +1689,7 @@ begin
     begin
       LOG_MESSAGE = :ATablename || ' ist nicht vorhanden';
       
-      Suspend;
+      suspend;
     end
   end  
   
@@ -1491,7 +1719,7 @@ begin
       into :SUCCESS, :LOG_MESSAGE
       do
       begin
-        Suspend;
+        suspend;
       end  
     end 
   end
@@ -1728,7 +1956,7 @@ begin
       end
     end  
   end
-  
+    
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_GRANT_ALL
   AS
@@ -1736,28 +1964,21 @@ begin
   declare package_name DN_DB_OBJECT;
   declare role_all DN_DB_OBJECT;
   declare role_public DN_DB_OBJECT;
-  declare role_delete DN_DB_OBJECT; 
+  declare role_delete DN_DB_OBJECT;
+  declare success DN_DB_OBJECT; 
   begin
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.ALL',
-      'SDDL_ALL')
-    into :role_all;
+    success = False;
+  
+    select SUCCESS, ROLE_ALL, ROLE_PUBLIC, ROLE_DELETE
+    from SP_GET_CUSTOM_ROLES
+    into :success, :role_all, :role_public, :role_delete;
     
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.PUBLIC',
-      'SDDL_PUBLIC')
-    into :role_public;  
-
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.DELETE',
-      'SDDL_DELET')
-    into :role_delete;
+    if (success = False) then
+    begin
+      role_all = 'SDDL_ALL';
+      role_public = 'SDDL_PUBLIC';
+      role_delete = 'SDDL_DELETE';  
+    end 
  
     for
     select distinct RDB$PROCEDURE_NAME, RDB$PACKAGE_NAME 
@@ -1842,27 +2063,20 @@ begin
   declare role_all DN_DB_OBJECT;
   declare role_public DN_DB_OBJECT;
   declare role_delete DN_DB_OBJECT; 
+  declare success DN_DB_OBJECT; 
   begin
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.ALL',
-      'SDDL_ALL')
-    into :role_all;
+    success = False;
+  
+    select SUCCESS, ROLE_ALL, ROLE_PUBLIC, ROLE_DELETE
+    from SP_GET_CUSTOM_ROLES
+    into :success, :role_all, :role_public, :role_delete;
     
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.PUBLIC',
-      'SDDL_PUBLIC')
-    into :role_public;  
-
-    select Trim(RESULT_VALUE)
-    from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
-      'SDDL',
-      'ROLE.DELETE',
-      'SDDL_DELET')
-    into :role_delete;
+    if (success = False) then
+    begin
+      role_all = 'SDDL_ALL';
+      role_public = 'SDDL_PUBLIC';
+      role_delete = 'SDDL_DELETE';  
+    end 
  
     for
     select distinct a.RDB$PROCEDURE_NAME 

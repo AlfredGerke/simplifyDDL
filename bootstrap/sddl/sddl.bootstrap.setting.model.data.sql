@@ -16,7 +16,7 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------------------------*/
+/* WarnLevel festlegen ---------------------------------------------------------------------------*/
 
 SET TERM ^ ;
 EXECUTE BLOCK
@@ -63,7 +63,7 @@ END^
 SET TERM ; ^
 
 COMMIT WORK;
-/*------------------------------------------------------------------------------------------------*/
+/* Debug-Status festlegen ------------------------------------------------------------------------*/
 
 SET TERM ^ ;
 EXECUTE BLOCK
@@ -110,7 +110,7 @@ END^
 SET TERM ; ^
 
 COMMIT WORK;
-/* Custom-User definieren für das Bootstrap ------------------------------------------------------*/
+/* Custom-User/-Roles für das Bootstrap definieren -----------------------------------------------*/
 
 SET TERM ^ ;
 EXECUTE BLOCK
@@ -118,18 +118,31 @@ RETURNS (
   SQL_STATE DN_SQLSTATE,
   SUCCESS DN_BOOLEAN)
 AS
-declare project_name DN_STRING;
+declare custom_prefix DN_STRING;
 declare user_name DN_FIREBIRD_USER;
 declare project_role_all DN_DB_OBJECT;
 declare project_role_public DN_DB_OBJECT;
 declare project_role_delete DN_DB_OBJECT;
 begin
-  project_name = 'Custom';
-  user_name = Trim(project_name) || '_' || 'USER';  
-  project_role_all = Trim(project_name) || '_' || 'ALL';
-  project_role_public = Trim(project_name) || '_' || 'PUBLIC';
-  project_role_delete = Trim(project_name) || '_' || 'DELETE';
-             
+  SQL_STATE = '00000';
+  SUCCESS = False;
+  
+  -- Custom-Prefix kann beliebig gewählt werden
+  -- Custom-Prefix wird zum Prefix vom SDDL-User und SDDL-Rollen
+  -- Custom-Prefix wird zum Firstname in den SDDL-User Informationen
+  -- Custom-Prefix plus User- bzw. Rollen-Suffix dürfen nicht länger als 31 Zeichen sein
+  custom_prefix = 'Custom'; 
+
+  -- User-Prefix sollte Custom-Prefix sein, User-Suffix sollte nicht geändert werden
+  user_name = Trim(custom_prefix) || '_' || 'USER';
+
+  -- Rollen-Prefix sollte Custom-Prefix sein, Rollen-Suffix sollte nicht geändert werden
+  -- :!<--     
+  project_role_all = Trim(custom_prefix) || '_' || 'ALL';
+  project_role_public = Trim(custom_prefix) || '_' || 'PUBLIC';
+  project_role_delete = Trim(custom_prefix) || '_' || 'DELETE';
+  -- -->
+                   
   /*----------------------------------------------------------------------------------------------*/             
   update or insert
   into VW_SETTING
@@ -143,8 +156,8 @@ begin
   (
     'CUSTOM',
     'SDDL',
-    'PROJECT.NAME',
-    :project_name
+    'CUSTOM.PREFIX',
+    :custom_prefix
   )
   matching (CATEGORY_NAME, SECTION_NAME, IDENT);             
              
@@ -218,6 +231,63 @@ begin
     Upper(:project_role_delete)
   )
   matching (CATEGORY_NAME, SECTION_NAME, IDENT);  
+  
+  SUCCESS = True;
+  
+  suspend;
+  
+  when any do
+  begin
+    SQL_STATE = SQLSTATE;
+    SUCCESS = False;
+  
+    suspend;
+  end  
+END^        
+SET TERM ; ^
+/* Festlegen ob Sequencen beim Recursive-Drop gelöscht werden sollen -----------------------------*/
+
+SET TERM ^ ;
+EXECUTE BLOCK
+RETURNS (
+  SQL_STATE DN_SQLSTATE,
+  SUCCESS DN_BOOLEAN)
+AS
+declare do_drop DN_BOOLEAN;
+begin
+  SQL_STATE = '00000';
+  SUCCESS = False;
+
+  do_drop = True;
+             
+  update or insert
+  into VW_SETTING
+  (
+    CATEGORY_NAME, 
+    SECTION_NAME, 
+    IDENT, 
+    STRING_VALUE
+  )
+  values
+  (
+    'CUSTOM',
+    'SDDL',
+    'DROP.RECURSIVE.SEQUENCE',
+    :do_drop
+  )
+  matching (CATEGORY_NAME, SECTION_NAME, IDENT);
+  
+  SUCCESS = True;
+  
+  suspend;
+  
+  when any do
+  begin
+    SQL_STATE = SQLSTATE;
+    SUCCESS = False;
+  
+    suspend;
+  end                              
 END^        
 SET TERM ; ^
 

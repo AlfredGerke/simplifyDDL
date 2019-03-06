@@ -46,9 +46,10 @@ begin
           :ADescription
         );
   end
-  
+    
   /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET_LOG_INFO (ADescription DN_DESCRIPTION,
+  PROCEDURE SP_SET_LOG_INFO (
+    ADescription DN_DESCRIPTION,
     AWarnLevel DN_WARN_LEVEL)
   AS
   begin
@@ -69,7 +70,22 @@ begin
   end
   
   /*----------------------------------------------------------------------------------------------*/  
-  FUNCTION SF_GET_WARN_LEVEL_BY_CONTEXT(
+  PROCEDURE SP_SET_WARN_LEVEL (
+    AWarnLevel DN_WARN_LEVEL)
+  AS
+  begin
+    if (AWarnLevel is null) then
+      AWarnLevel = 0;
+      
+    execute 
+    procedure PKG_SETTINGS.SP_WRITE_BOOLEAN 'HISTORY', 
+      'LOG', 
+      'WARN_LEVEL', 
+      AWarnLevel;
+  end
+  
+  /*----------------------------------------------------------------------------------------------*/  
+  FUNCTION SF_GET_WARN_LEVEL(
     )
   RETURNS DN_WARN_LEVEL
   AS
@@ -101,7 +117,7 @@ begin
   AS
   declare warn_level DN_WARN_LEVEL;
   begin      
-    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+    warn_level = SF_GET_WARN_LEVEL(); 
   
     if (warn_level > 2) then
       execute
@@ -114,7 +130,7 @@ begin
   AS
   declare warn_level DN_WARN_LEVEL;
   begin    
-    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+    warn_level = SF_GET_WARN_LEVEL(); 
   
     if (warn_level > 1) then
       execute
@@ -127,15 +143,30 @@ begin
   AS
   declare warn_level DN_WARN_LEVEL;
   begin    
-    warn_level = SF_GET_WARN_LEVEL_BY_CONTEXT(); 
+    warn_level = SF_GET_WARN_LEVEL(); 
   
     if (warn_level > 0) then
       execute
       procedure SP_SET_LOG_INFO :ADescription, 1;          
   end   
           
+  /*----------------------------------------------------------------------------------------------*/          
+  PROCEDURE SP_SET_DEBUG_STATE(
+    AState DN_BOOLEAN)
+  AS
+  begin
+    if (AState is null) then
+      AState = False;
+      
+    execute 
+    procedure PKG_SETTINGS.SP_WRITE_BOOLEAN 'HISTORY', 
+      'DEBUG', 
+      'ACTIVE', 
+      AState;
+  end          
+          
   /*----------------------------------------------------------------------------------------------*/    
-  FUNCTION SF_GET_DEBUG_STATE_BY_CONTEXT(
+  FUNCTION SF_GET_DEBUG_STATE(
     )
   RETURNS DN_BOOLEAN
   AS
@@ -165,7 +196,7 @@ begin
   AS
   declare debug_flag DN_BOOLEAN;
   begin
-    debug_flag = SF_GET_DEBUG_STATE_BY_CONTEXT();
+    debug_flag = SF_GET_DEBUG_STATE();
     
     if (debug_flag = True) then
       if (Trim(ACaption) <> '')  then
@@ -195,7 +226,7 @@ SET TERM ; ^
 COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_UPDATE_INFO  
 IS 'Vereinfacht den Eintrag in die Tabelle TB_HISTORY_UPDATE';
  
-COMMENT ON FUNCTION PKG_HISTORY.SF_GET_WARN_LEVEL_BY_CONTEXT
+COMMENT ON FUNCTION PKG_HISTORY.SF_GET_WARN_LEVEL
 IS 'Ermittelt den WarnLevel für die Log-Routinen';
 
 COMMENT ON PROCEDURE PKG_HISTORY.SP_SET_LOG_INFORMATION  

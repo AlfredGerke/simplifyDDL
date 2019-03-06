@@ -25,6 +25,15 @@ CREATE OR ALTER PACKAGE PKG_SDDL
 AS
 begin
   /*----------------------------------------------------------------------------------------------*/
+  PROCEDURE SP_DROP_RECURSIVE (
+    AEntity DN_DB_OBJECT,
+    ADoRecursive DN_BOOLEAN Default True)
+  RETURNS (
+    SUCCESS DN_BOOLEAN,
+    SQL_STATE DN_SQLSTATE,
+    LOG_MESSAGE DN_MESSAGE);  
+
+  /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_RESTRUCTURE_TABLE (
     ATablename DN_DB_OBJECT,
     AColumn DN_DB_OBJECT,
