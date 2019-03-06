@@ -52,14 +52,15 @@ bootstrap
 	+sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
+		sddl\sddl.bootstrap.complete.sql
 		sddl\sddl.bootstrap.context.sql
 		sddl\sddl.bootstrap.domains.create.sql
-		sddl\sddl.bootstrap.complete.sql
 		sddl\sddl.bootstrap.history.model.create.sql
 		sddl\sddl.bootstrap.history.package.body.sql
 		sddl\sddl.bootstrap.history.package.header.sql
 		sddl\sddl.bootstrap.package.body.sql
 		sddl\sddl.bootstrap.package.header.sql
+		sddl\sddl.bootstrap.roles.custom.sql
 		sddl\sddl.bootstrap.roles.standard.sql
 		sddl\sddl.bootstrap.setting.model.create.sql
 		sddl\sddl.bootstrap.setting.model.data.sql
@@ -78,14 +79,5 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\make.log
-1=sddl\sddl.bootstrap.package.body.sql
 [Selected Project Files]
 Main=
-Selected=make\make.log
-[make\make.log]
-TopLine=6721
-Caret=27,6759
-[sddl\sddl.bootstrap.package.body.sql]
-TopLine=1822
-Caret=1,1840

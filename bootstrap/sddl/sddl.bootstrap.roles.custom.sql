@@ -20,8 +20,7 @@ EXECUTE BLOCK
 RETURNS (
   INFO DN_STRING,
   SQL_STATE DN_SQLSTATE,
-  SUCCESS DN_BOOLEAN
-  )
+  SUCCESS DN_BOOLEAN)
 AS
 declare project_name DN_STRING;
 declare user_name DN_FIREBIRD_USER;
@@ -149,10 +148,14 @@ begin
   INFO = 'Custom-User und -Roles angelegt';
   SUCCESS = True;
   
+  Suspend;
+  
   when any do
   begin
     SUCCESS = False;
     SQL_STATE = SQLSTATE;
+    
+    Suspend;
   end
 end^
 SET TERM ; ^
