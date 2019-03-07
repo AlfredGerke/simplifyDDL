@@ -18,7 +18,7 @@
 
 /* Constraints der Tabelle über das Bootstrap anlegen --------------------------------------------*/
 
-select SUCCESS DN_BOOLEAN, LOG_MESSAGE
+select SUCCESS, LOG_MESSAGE
 from PKG_SDDL.SP_CREATE_ALL_CONSTRAINTS;
 
 COMMIT WORK;

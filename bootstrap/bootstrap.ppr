@@ -86,18 +86,14 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.example.grants.execute.sql
-1=test\test.example.grants.setup.sql
-2=test\test.example.grants.teardown.sql
+0=make\make.log
+1=test\test.log
 [Selected Project Files]
 Main=
-Selected=test\test.example.grants.execute.sql
-[test\test.example.grants.execute.sql]
-TopLine=1
-Caret=23,12
-[test\test.example.grants.setup.sql]
-TopLine=1
-Caret=23,12
-[test\test.example.grants.teardown.sql]
-TopLine=1
-Caret=23,12
+Selected=test\test.log
+[make\make.log]
+TopLine=7059
+Caret=1,1
+[test\test.log]
+TopLine=517
+Caret=1,1
