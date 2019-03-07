@@ -15,7 +15,6 @@
 
 /* Überflüssiges DDL entfernen -------------------------------------------------------------------*/                                   
 
-/* SHEll DEL {Dateiname der Testdatenbank, vollständig MIT Pfadangabe}.FDB; */
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

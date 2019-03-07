@@ -1,11 +1,12 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
 /* Date: 2019-02-22                                                        
-/* Description: Test-Datenbank vorbereiten    
+/* Description: Testfall zurücksetzen   
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
 /* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
 /* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Datenbank-Connect wird vorausgesetzt
 /*   
 /*------------------------------------------------------------------------------------------------*/
 /* History: 2019-02-22
@@ -13,13 +14,9 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/* DDL: Datenbankobjekte die nur für den Test benötigt werden ------------------------------------*/                                   
-
-/* Data: Daten die nur für den Test benötigt werden ----------------------------------------------*/                                   
-
-/* Settings: Einstellung von Context-Variablen die nur für den Test benötigt werden --------------*/                                   
-
-COMMIT WORK;
+/* Teardown: Testfall zurücksetzen ---------------------------------------------------------------*/                                  
+                                                                                  
+-- Derzeit nicht notwendig COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/

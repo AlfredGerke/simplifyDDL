@@ -68,7 +68,7 @@ begin
     ADoStamp DN_BOOLEAN,
     ADoComment DN_BOOLEAN,
     AComment DN_COMMENT, 
-    ADoPK DN_BOOLEAN)
+    ADoPK DN_BOOLEAN DEFAULT True)
   RETURNS (
     SUCCESS DN_BOOLEAN);
    
@@ -91,50 +91,7 @@ begin
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_GRANT (
     ADBObject DN_DB_OBJECT);
-          
---   /* Dekleration bezgl. der Defaults in der Signatur ------------------------------------------*/
---   /* kann nach Tests komplett entfernt werden */    
---     
---   /*-------------------------------------------------------------------------------------------*/  
---   PROCEDURE SP_CREATE_SEQUNECE(
---     ATablename DN_DB_OBJECT,
---     AFieldname DN_DB_OBJECT Default 'ID',
---     AComment DN_COMMENT Default '')
---   RETURNS (
---     SUCCESS DN_BOOLEAN);
---     
---   /*-------------------------------------------------------------------------------------------*/  
---   PROCEDURE SP_CREATE_TBL_CATALOG (
---     ATablename DN_DB_OBJECT,
---     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
---     AComment DN_COMMENT DEFAULT '', 
---     ACreateUniqueKey DN_BOOLEAN DEFAULT True)
---   RETURNS (
---     SUCCESS DN_BOOLEAN,
---     CATALOGNAME DN_DB_OBJECT,
---     TABLENAME DN_DB_OBJECT);        
---     
---   /*-------------------------------------------------------------------------------------------*/  
---   PROCEDURE SP_CREATE_CATALOG (
---     ACatalogname DN_DB_OBJECT,
---     ADomain DN_DB_OBJECT DEFAULT 'DN_CAPTION',
---     AComment DN_COMMENT DEFAULT '')
---   RETURNS (
---     SUCCESS DN_BOOLEAN);
---     
---   /*-------------------------------------------------------------------------------------------*/  
---   PROCEDURE SP_GRANT_VIEW (
---     ADBObject DN_DB_OBJECT,  
---     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
---     ADeleteRole DN_DB_OBJECT DEFAULT 'SDDL_DELETE',
---     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC');
---     
---   /*-------------------------------------------------------------------------------------------*/  
---   PROCEDURE SP_GRANT_SEQ (
---     ADBObject DN_DB_OBJECT,  
---     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
---     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC');   
-    
+              
 end^  
 SET TERM ; ^
 

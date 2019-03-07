@@ -34,14 +34,21 @@ bootstrap
 			pattern\create_sysdba\database.security.create.sql
 		+connect
 			pattern\connect\connect.sysdba.sql
-	-test
+	+test
+		+tasks
+			test\test.example.complete.execute.sql
+			test\test.example.complete.setup.sql
+			test\test.example.complete.teardown.sql
+			test\test.example.constraints.execute.sql
+			test\test.example.constraints.setup.sql
+			test\test.example.constraints.teardown.sql
+			test\test.example.grants.execute.sql
+			test\test.example.grants.setup.sql
+			test\test.example.grants.teardown.sql
 		test\_test.bat
 		test\test.bat
 		test\test.db.setup.sql
 		test\test.db.teardown.sql
-		test\test.example.1.execute.sql
-		test\test.example.1.setup.sql
-		test\test.example.1.teardown.sql
 		test\test.isql.setup.sql
 		test\test.sql
 	-readme
@@ -72,29 +79,25 @@ bootstrap
 		sddl\sddl.bootstrap.styleguide.package.header.sql
 	-connect
 		connect\connect.sysdba.sql
-	-make
+	+make
 		make\_make.bat
 		make\sddl.bootstrap.install.sql
 		make\sddl.bootstrap.test-db.create.sql
 		make\make.bat
 		make\make.log
 [Open project files]
-0=sddl\sddl.bootstrap.common.package.body.sql
-1=sddl\sddl.bootstrap.roles.custom.sql
-2=sddl\sddl.bootstrap.package.body.sql
-3=make\make.log
+0=test\test.example.grants.execute.sql
+1=test\test.example.grants.setup.sql
+2=test\test.example.grants.teardown.sql
 [Selected Project Files]
 Main=
-Selected=make\make.log
-[sddl\sddl.bootstrap.common.package.body.sql]
-TopLine=23
-Caret=15,39
-[sddl\sddl.bootstrap.roles.custom.sql]
-TopLine=137
-Caret=5,151
-[sddl\sddl.bootstrap.package.body.sql]
-TopLine=1697
-Caret=31,1634
-[make\make.log]
-TopLine=7060
-Caret=1,1
+Selected=test\test.example.grants.execute.sql
+[test\test.example.grants.execute.sql]
+TopLine=1
+Caret=23,12
+[test\test.example.grants.setup.sql]
+TopLine=1
+Caret=23,12
+[test\test.example.grants.teardown.sql]
+TopLine=1
+Caret=23,12

@@ -1,23 +1,25 @@
 /*------------------------------------------------------------------------------------------------*/
 /* Author: Alfred Gerke (AGE)                                                  
-/* Date: 2019-02-22                                                        
-/* Description: Test-Datenbank vorbereiten    
+/* Date: 2019-03-07                                                        
+/* Description: Execute für Testfall     
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
 /* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
 /* - Das Script ist für die Ausführung im ISQL erstellt worden
+/* - Datenbank-Connect wird vorausgesetzt
 /*   
 /*------------------------------------------------------------------------------------------------*/
-/* History: 2019-02-22
+/* History: 2019-03-07
 /*          Script erstellen
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/* DDL: Datenbankobjekte die nur für den Test benötigt werden ------------------------------------*/                                   
+/* Execute: Test durchführen ---------------------------------------------------------------------*/        
 
-/* Data: Daten die nur für den Test benötigt werden ----------------------------------------------*/                                   
+/* Constraints der Tabelle über das Bootstrap anlegen --------------------------------------------*/
 
-/* Settings: Einstellung von Context-Variablen die nur für den Test benötigt werden --------------*/                                   
+select SUCCESS DN_BOOLEAN, LOG_MESSAGE
+from PKG_SDDL.SP_CREATE_ALL_CONSTRAINTS;
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

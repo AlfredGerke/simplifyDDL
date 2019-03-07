@@ -27,6 +27,8 @@ goto ENDE2
 CLS
 echo.
 echo    Test ausgeführt 
+echo    Logs überprüfen
 echo.
+pause
 
 :ENDE2
