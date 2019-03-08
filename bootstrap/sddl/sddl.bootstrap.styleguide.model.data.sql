@@ -16,7 +16,7 @@
 
 /*------------------------------------------------------------------------------------------------*/
 
-insert into VW_L_STYLEGUIDE_CHECK (CAPTION, DESCRIPTION) values ('TYPE', 'TYPE in TYP umbenennen');
+-- insert into VW_L_STYLEGUIDE_CHECK (CAPTION, DESCRIPTION) values ('<Bezeichnung welche nicht vorhanden sein soll>', '<Beschreibung wie die Bezeichnung gändert werden sollte>');
 /*------------------------------------------------------------------------------------------------*/
 
 insert into VW_L_STYLEGUIDE_KEYWORD (CAPTION, DESCRIPTION) values ('ADD', 'Firebird but not SQL Standard');       

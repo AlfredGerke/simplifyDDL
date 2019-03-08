@@ -16,8 +16,8 @@ ProjectFilesOnly=0
 Extensions=*.*
 [Project tree]
 bootstrap
-	-pattern
-		+test
+	+pattern
+		-test
 			pattern\test\_test.bat
 			pattern\test\test.bat
 			pattern\test\test.db.setup.sql
@@ -27,36 +27,40 @@ bootstrap
 			pattern\test\test.example.1.teardown.sql
 			pattern\test\test.isql.setup.sql
 			pattern\test\test.sql
-		+create_sysdba
+		-create_sysdba
 			pattern\create_sysdba\_createSysdba.bat
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
 		+connect
 			pattern\connect\connect.sysdba.sql
+			connect\connect.custom_user.sql
 	+test
-		+tasks
-			test\test.example.complete.execute.sql
-			test\test.example.complete.setup.sql
-			test\test.example.complete.teardown.sql
-			test\test.example.constraints.execute.sql
-			test\test.example.constraints.setup.sql
-			test\test.example.constraints.teardown.sql
-			test\test.example.grants.execute.sql
-			test\test.example.grants.setup.sql
-			test\test.example.grants.teardown.sql
+		-tasks
+			test\test.bootstrap.complete.execute.sql
+			test\test.bootstrap.complete.setup.sql
+			test\test.bootstrap.complete.teardown.sql
+			test\test.bootstrap.constraints.execute.sql
+			test\test.bootstrap.constraints.setup.sql
+			test\test.bootstrap.constraints.teardown.sql
+			test\test.bootstrap.grants.execute.sql
+			test\test.bootstrap.grants.setup.sql
+			test\test.bootstrap.grants.teardown.sql
+			test\test.bootstrap.common.setup.sql
+			test\test.bootstrap.common.execute.sql
+			test\test.bootstrap.common.teardown.sql
 		test\_test.bat
 		test\test.bat
 		test\test.db.setup.sql
 		test\test.db.teardown.sql
 		test\test.isql.setup.sql
 		test\test.sql
-	-readme
+	+readme
 		README.md
 	+log
 		make\make.log
 		test\test.log
-	+sddl
+	-sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -77,8 +81,9 @@ bootstrap
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	-connect
+	+connect
 		connect\connect.sysdba.sql
+		connect\connect.custom_user.sql
 	+make
 		make\_make.bat
 		make\sddl.bootstrap.install.sql
@@ -90,10 +95,10 @@ bootstrap
 1=test\test.log
 [Selected Project Files]
 Main=
-Selected=test\test.log
+Selected=make\make.log
 [make\make.log]
-TopLine=7059
+TopLine=1
 Caret=1,1
 [test\test.log]
-TopLine=517
-Caret=1,1
+TopLine=706
+Caret=19,619

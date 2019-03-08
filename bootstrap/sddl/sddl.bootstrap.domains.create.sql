@@ -17,6 +17,20 @@
 
 /* Domains für das sDDL.bootstrap ----------------------------------------------------------------*/
 
+CREATE DOMAIN DN_ENTITY_TYPE_CAPTION
+AS VARCHAR(31)
+DEFAULT 'UNKNOWN'
+CHECK (VALUE IN ('UNKNOWN', 'TABLE', 'GTT', 'VIEW', 'PK CONSTRAINT', 'FK CONSTRAINT', 'ALT CONSTRAINT', 'INDEX', 'SEQUENCE'));
+
+COMMENT ON DOMAIN DN_ENTITY_TYPE_CAPTION
+IS 'Auflistung von Entitäten, welche vom sDDL.bootstrap verwaltet werden';
+
+CREATE DOMAIN DN_ENTITY_TYPE
+AS SMALLINT;
+
+COMMENT ON DOMAIN DN_ENTITY_TYPE
+IS 'Entitätentyp';
+
 CREATE DOMAIN DN_SQLCLASS
 AS VARCHAR(2);
 
@@ -58,13 +72,13 @@ CREATE DOMAIN DN_PREFIX
 AS VARCHAR(3);
 
 COMMENT ON DOMAIN DN_PREFIX
-IS 'Kürzel';
+IS 'Prefix (3 Zeichen)';
 
-CREATE DOMAIN DN_PREFIX_PLUS
+CREATE DOMAIN DN_PREFIX_EXT
 AS VARCHAR(64);
 
-COMMENT ON DOMAIN DN_PREFIX_PLUS
-IS 'Kürzel';
+COMMENT ON DOMAIN DN_PREFIX_EXT
+IS 'Prefix (64 Zeichen)';
 
 CREATE DOMAIN DN_CAPTION
 AS VARCHAR(64);
@@ -88,7 +102,7 @@ CREATE DOMAIN DN_INDEX
 AS INTEGER;
 
 COMMENT ON DOMAIN DN_INDEX
-IS 'Einfacher Typ für Position/Index';
+IS 'Einfacher Index für Position, etc.';
 
 CREATE DOMAIN DN_COLUMNLIST_SEPARATOR
 AS VARCHAR(1)
@@ -96,21 +110,21 @@ DEFAULT ','
 CHECK (VALUE IN (',', ';'));
 
 COMMENT ON DOMAIN DN_COLUMNLIST_SEPARATOR
-IS 'Separator';
+IS 'Spaltenlisten-Separator';
             
 /* DN_COLUMNLIST birgt die Gefahr das die Dimension zu klein ist */            
 CREATE DOMAIN DN_COLUMNLIST
 AS VARCHAR(4000);
 
 COMMENT ON DOMAIN DN_COLUMNLIST
-IS 'Spaltenliste';
+IS 'für einfache Spaltenlisten, Dimension beachten';
 
 /* DN_SQL_STMT birgt die Gefahr das die Dimension zu klein ist */
 CREATE DOMAIN DN_SQL_STMT
 AS VARCHAR(6000);
 
 COMMENT ON DOMAIN DN_SQL_STMT
-IS 'für einfache SQL Statements';
+IS 'für einfache SQL Statements, Dimension beachten';
 
 CREATE DOMAIN DN_BOOLEAN
 AS BOOLEAN
@@ -137,7 +151,7 @@ AS BIGINT
 NOT NULL;
 
 COMMENT ON DOMAIN DN_IDENTIFICATION
-IS 'Identification einer Tabelle';
+IS 'Identification einer Tabelle, Mandatory für IDs von Tabellen';
         
 CREATE DOMAIN DN_FILENAME_SHORT 
 AS VARCHAR(255);
@@ -145,17 +159,24 @@ AS VARCHAR(255);
 COMMENT ON DOMAIN DN_FILENAME_SHORT
 IS 'Dateiname ohne Pfad';
 
+/* DN_FILENAME Birgt die Gefahr das die Dimension zu klein ist */
 CREATE DOMAIN DN_FILENAME 
 AS VARCHAR(4000);
 
 COMMENT ON DOMAIN DN_FILENAME
-IS 'Dateiname';        
+IS 'Dateiname mit Pfad, Dimension beachten';        
         
 CREATE DOMAIN DN_DESCRIPTION 
 AS VARCHAR(4000);
 
 COMMENT ON DOMAIN DN_DESCRIPTION
-IS 'Beschreibung';        
+IS 'Beschreibung als String';        
+
+CREATE DOMAIN DN_DESC_BLOB
+AS BLOB SUB_TYPE TEXT;
+
+COMMENT ON DOMAIN DN_DESC_BLOB
+IS 'Beschreibung als Blob';
 
 CREATE DOMAIN DN_CURRENT_USER 
 AS VARCHAR(31)
@@ -163,7 +184,7 @@ DEFAULT CURRENT_USER
 NOT NULL;
 
 COMMENT ON DOMAIN DN_CURRENT_USER
-IS 'Aktuller Benutzer';        
+IS 'Aktuller Benutzer, per Default am besten mit "current_user" vorbelegen';        
 
 CREATE DOMAIN DN_CURRENT_TIMESTAMP 
 AS TIMESTAMP
@@ -177,7 +198,7 @@ CREATE DOMAIN DN_FIREBIRD_USER
 AS VARCHAR(31);
 
 COMMENT ON DOMAIN DN_FIREBIRD_USER
-IS 'Firebird Benutzername';        
+IS 'Firebird Benutzername, im Idealfall ein logischer Benutzer';        
 
 CREATE DOMAIN DN_TIMESTAMP 
 AS TIMESTAMP;
@@ -188,11 +209,26 @@ IS 'Zeit und Datum';
 CREATE DOMAIN DN_FLOAT AS
 FLOAT;
 
+COMMENT ON DOMAIN DN_FLOAT
+IS 'Float';
+
 CREATE DOMAIN DN_INTEGER AS
 INTEGER;
 
+COMMENT ON DOMAIN DN_INTEGER 
+IS 'Integer';
+
 CREATE DOMAIN DN_STRING AS
-VARCHAR(4000);        
+VARCHAR(4000);
+
+COMMENT ON DOMAIN DN_STRING 
+IS 'String, Dimension beachten';
+        
+CREATE DOMAIN DN_STRING_SHORT AS
+VARCHAR(254);
+
+COMMENT ON DOMAIN DN_STRING_SHORT 
+IS 'String, Dimension beachten';
 
 CREATE DOMAIN DN_DEBUG_ITEM
 AS VARCHAR(4000)
@@ -234,14 +270,26 @@ IS 'Warnlevel: 0=Unknown / 1=Exception / 2=Warning / 3=Info';
 CREATE DOMAIN DN_CATEGORY AS
 VARCHAR(128) CHARACTER SET WIN1252;
 
+COMMENT ON DOMAIN DN_CATEGORY
+IS 'Kategorie, z.B. Projektname';
+
 CREATE DOMAIN DN_CATEGORY_IDENT AS
 VARCHAR(128) CHARACTER SET WIN1252;
+
+COMMENT ON DOMAIN DN_CATEGORY_IDENT
+IS 'Ident, vergleichbar mit dem Ident einer Ini-Datei';
 
 CREATE DOMAIN DN_CATEGORY_SECTION AS
 VARCHAR(128) CHARACTER SET WIN1252;
 
+COMMENT ON DOMAIN DN_CATEGORY_SECTION
+IS 'Section, vergleichbar mit der Section einer Ini-Datei';
+
 CREATE DOMAIN DN_CATEGORY_STRING_VALUE AS
 VARCHAR(4069) CHARACTER SET WIN1252;
+        
+COMMENT ON DOMAIN DN_CATEGORY_STRING_VALUE
+IS 'Value, vergleichbar mit dem Value einer Ini-Datei, Dimension beachten';
         
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

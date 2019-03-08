@@ -239,7 +239,7 @@ begin
   declare variable idx DN_COUNT;
   declare variable table_name DN_DB_OBJECT;
   declare variable len DN_DIMENSION;
-  declare variable pre_fix DN_PREFIX_PLUS;
+  declare variable pre_fix DN_PREFIX_EXT;
   begin
     DETERMINED = False;
     TABLENAME = ATABLENAME;
@@ -353,7 +353,7 @@ begin
     if ((COUNT_PK_FIELDS is null) or (COUNT_PK_FIELDS = 0)) then
     begin
       suspend;
-      Exit;
+      exit;
     end
     
     for
@@ -1014,7 +1014,7 @@ begin
       if (SUCCESS = False) then
       begin
         suspend;
-        Exit;
+        exit;
       end  
      end   
     
@@ -1028,7 +1028,7 @@ begin
       if (SUCCESS = False) then
       begin
         suspend;
-        Exit;
+        exit;
       end      
     end      
       
@@ -1042,7 +1042,7 @@ begin
       if (SUCCESS = False) then
       begin
         suspend;
-        Exit;
+        exit;
       end      
     end      
         
@@ -1056,7 +1056,7 @@ begin
       if (SUCCESS = False) then
       begin
         suspend;
-        Exit;
+        exit;
       end      
     end          
     
@@ -1132,7 +1132,7 @@ begin
          DETERMINED = True;
          
          suspend;
-         Exit;
+         exit;
        end  
     end
     
@@ -1152,7 +1152,7 @@ begin
          DETERMINED = True;
          
          suspend;
-         Exit;
+         exit;
        end  
     end   
     
@@ -1201,7 +1201,7 @@ begin
              DETERMINED = True;
           
              suspend;
-             Exit;                  
+             exit;                  
            end        
          end
        end  
@@ -1465,7 +1465,7 @@ begin
             Trim(:AFKFieldname) || ' angelegt werden';
             
           suspend;  
-          Exit;
+          exit;
         end
       end
                                     
@@ -2089,7 +2089,7 @@ begin
       procedure
         SP_GRANT_SP (Trim(:relation_name), :role_all, :role_public);
         
-      Exit;  
+      exit;  
     end    
     
     for
@@ -2103,7 +2103,7 @@ begin
       procedure
         SP_GRANT_SF (Trim(:relation_name), :role_all, :role_public);
         
-      Exit;  
+      exit;  
     end
     
     for
@@ -2117,7 +2117,7 @@ begin
       procedure
         SP_GRANT_PKG (Trim(:relation_name), :role_all, :role_public);
         
-      Exit;  
+      exit;  
     end            
     
     for
@@ -2131,7 +2131,7 @@ begin
       procedure
         SP_GRANT_VIEW (Trim(:relation_name), :role_all, :role_delete, :role_public);
         
-      Exit;  
+      exit;  
     end   
     
     for
@@ -2145,7 +2145,7 @@ begin
       procedure
         SP_GRANT_SEQ (Trim(:relation_name), :role_all, :role_public);
         
-      Exit;  
+      exit;  
     end   
   
     for
@@ -2159,7 +2159,7 @@ begin
       procedure
         SP_GRANT_EXC (Trim(:relation_name), :role_all, :role_public);
         
-      Exit;  
+      exit;  
     end     
   end              
 end^

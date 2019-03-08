@@ -37,6 +37,16 @@ begin
     AInfo DN_MESSAGE)
   RETURNS (
     INFO DN_MESSAGE);
+    
+  /*----------------------------------------------------------------------------------------------*/    
+  PROCEDURE SP_DESCRIBE(
+   AEntity DN_DB_OBJECT)
+  RETURNS (
+    ENTITY_TYPE_CAPTION DN_ENTITY_TYPE_CAPTION,
+    ENTITY_NAME DN_DB_OBJECT,
+    CAPTION1 DN_CAPTION,
+    CAPTION2 DN_CAPTION,
+    CAPTION3 DN_CAPTION);  
 end^
 SET TERM ; ^
 

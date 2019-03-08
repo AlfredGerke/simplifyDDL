@@ -42,7 +42,7 @@ begin
   into :custom_prefix;
   
   if (Trim(custom_prefix) = '') then
-    Exit;
+    exit;
   
   /*----------------------------------------------------------------------------------------------*/
   select RESULT_VALUE
@@ -53,7 +53,7 @@ begin
   into :user_name;
   
   if (Trim(user_name) = '') then
-    Exit;
+    exit;
     
   /*----------------------------------------------------------------------------------------------*/    
   select RESULT_VALUE
@@ -64,7 +64,7 @@ begin
   into :project_role_delete;
   
   if (Trim(project_role_delete) = '') then
-    Exit;
+    exit;
   
   /*----------------------------------------------------------------------------------------------*/  
   select RESULT_VALUE
@@ -75,7 +75,7 @@ begin
   into :project_role_public;
     
   if (Trim(project_role_public) = '') then
-    Exit;
+    exit;
     
   /*----------------------------------------------------------------------------------------------*/    
   select RESULT_VALUE
@@ -86,7 +86,7 @@ begin
   into :project_role_all;    
     
   if (Trim(project_role_all) = '') then
-    Exit;
+    exit;
 
   /*----------------------------------------------------------------------------------------------*/
   INFO = 'Custom-User löschen';
@@ -150,6 +150,17 @@ begin
   
   INFO = 'Custom-User und -Roles angelegt';
   SUCCESS = True;
+  
+  /*----------------------------------------------------------------------------------------------*/  
+  
+  sql_stmt = 'GRANT ' || :project_role_all || ' TO ' || :user_name;
+  execute statement sql_stmt;
+  
+  sql_stmt = 'GRANT ' || :project_role_public || ' TO ' || :user_name;
+  execute statement sql_stmt;
+  
+  sql_stmt = 'GRANT ' || :project_role_delete || ' TO ' || :user_name;
+  execute statement sql_stmt;
   
   suspend;
   

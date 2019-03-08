@@ -26,22 +26,32 @@ input 'test.db.setup.sql';
 
 /* Issues testen ---------------------------------------------------------------------------------*/                                           
 
+/* Begin Test: Common-Package testen */
+/* Connect: sollte auch unter eingeschränten Nutzern funktionieren */
+input '..\connect\connect.custom_user.sql';
+
+input 'test.bootstrap.common.setup.sql';
+input 'test.bootstrap.common.execute.sql';
+input 'test.bootstrap.common.teardown.sql';
+/* End Test: Common-Package testen */
+
+
 /* Begin Test: Tabellen vervollständigen */
 /* Connect: Tabellen vervollständingen darf nur der SYSDBA */
 input '..\connect\connect.sysdba.sql';
 
-input 'test.example.complete.setup.sql';
-input 'test.example.complete.execute.sql';
-input 'test.example.complete.teardown.sql';
+input 'test.bootstrap.complete.setup.sql';
+input 'test.bootstrap.complete.execute.sql';
+input 'test.bootstrap.complete.teardown.sql';
 /* End Test: Tabellen vervollständigen */
 
 /* Begin Test: Constraints anlegen */
 /* Connect: Constraints der Tabellen anlegen darf nur der SYSDBA */
 input '..\connect\connect.sysdba.sql';
 
-input 'test.example.constraints.setup.sql';
-input 'test.example.constraints.execute.sql';
-input 'test.example.constraints.teardown.sql';
+input 'test.bootstrap.constraints.setup.sql';
+input 'test.bootstrap.constraints.execute.sql';
+input 'test.bootstrap.constraints.teardown.sql';
 /* End Test: Constraints anlegen */
 
 /* Begin Test: Grants verteilen */
@@ -49,9 +59,9 @@ input 'test.example.constraints.teardown.sql';
 /* Connect: Grants verteilen darf nur der SYSDBA */
 input '..\connect\connect.sysdba.sql';
 
-input 'test.example.grants.setup.sql';
-input 'test.example.grants.execute.sql';
-input 'test.example.grants.teardown.sql';
+input 'test.bootstrap.grants.setup.sql';
+input 'test.bootstrap.grants.execute.sql';
+input 'test.bootstrap.grants.teardown.sql';
 /* End Test: Grants verteilen */
 
 /* Teardown für DB -------------------------------------------------------------------------------*/                                   
