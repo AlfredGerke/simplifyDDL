@@ -40,7 +40,7 @@ from PKG_COMMON.SP_SUSPEND_MESSAGE ('Message');
 /* DESCRIBE testen -------------------------------------------------------------------------------*/
 
 select * 
-from PKG_COMMON.SP_DESCRIBE ('VW_HISTORY_UPDATE');
+from PKG_COMMON.SP_DESCRIBE ('TB_HISTORY_UPDATE');
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

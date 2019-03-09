@@ -16,10 +16,29 @@
 
 /* Execute: Test durchführen ---------------------------------------------------------------------*/        
 
+/* Tabellen über Describe anzeigen ---------------------------------------------------------------*/
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_1');
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_2');
+
+COMMIT WORK;
 /* Constraints der Tabelle über das Bootstrap anlegen --------------------------------------------*/
 
+/* Die Kommentare aller Relationen der DB werden auf sDDL-Befehle durchsucht und entsprechend umgesetzt */
 select SUCCESS, LOG_MESSAGE
 from PKG_SDDL.SP_CREATE_ALL_CONSTRAINTS;
+
+COMMIT WORK;
+/* Tabellen über Describe anzeigen ---------------------------------------------------------------*/
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_1');
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_2');
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

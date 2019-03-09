@@ -16,10 +16,29 @@
 
 /* Execute: Test durchführen ---------------------------------------------------------------------*/        
 
+/* Tabellen über Describe anzeigen ---------------------------------------------------------------*/
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_1');
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_2');
+
+COMMIT WORK;
 /* Grants  über das Bootstrap anlegen --------------------------------------------*/
 
+/* Alle Grants werden gemäß der Konventionen des sDDL.bootstrap vergeben */
 execute 
 procedure PKG_SDDL.SP_GRANT_ALL;
+
+COMMIT WORK;
+/* Tabellen über Describe anzeigen ---------------------------------------------------------------*/
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_1');
+
+select * 
+from PKG_COMMON.SP_DESCRIBE ('TEST_2');
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

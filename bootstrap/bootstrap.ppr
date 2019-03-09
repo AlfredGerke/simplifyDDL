@@ -32,11 +32,11 @@ bootstrap
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		+connect
+		-connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
 	+test
-		-tasks
+		+tasks
 			test\test.bootstrap.complete.execute.sql
 			test\test.bootstrap.complete.setup.sql
 			test\test.bootstrap.complete.teardown.sql
@@ -55,12 +55,12 @@ bootstrap
 		test\test.db.teardown.sql
 		test\test.isql.setup.sql
 		test\test.sql
-	+readme
+	-readme
 		README.md
 	+log
 		make\make.log
 		test\test.log
-	-sddl
+	+sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -91,14 +91,30 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=make\make.log
-1=test\test.log
+0=test\test.bootstrap.complete.setup.sql
+1=test\test.bootstrap.complete.execute.sql
+2=sddl\sddl.bootstrap.package.header.sql
+3=test\test.bootstrap.constraints.execute.sql
+4=test\test.bootstrap.grants.execute.sql
+5=test\test.log
 [Selected Project Files]
 Main=
-Selected=make\make.log
-[make\make.log]
+Selected=test\test.log
+[test\test.bootstrap.complete.setup.sql]
+TopLine=24
+Caret=5,51
+[test\test.bootstrap.complete.execute.sql]
 TopLine=1
+Caret=23,43
+[sddl\sddl.bootstrap.package.header.sql]
+TopLine=45
 Caret=1,1
+[test\test.bootstrap.constraints.execute.sql]
+TopLine=1
+Caret=1,30
+[test\test.bootstrap.grants.execute.sql]
+TopLine=5
+Caret=1,30
 [test\test.log]
-TopLine=706
-Caret=19,619
+TopLine=251
+Caret=12,259

@@ -40,10 +40,10 @@ begin
     
   /*----------------------------------------------------------------------------------------------*/    
   PROCEDURE SP_DESCRIBE(
-   AEntity DN_DB_OBJECT)
+   AEntity DN_DB_OBJECT DEFAULT 'ALL')
   RETURNS (
-    ENTITY_TYPE_CAPTION DN_ENTITY_TYPE_CAPTION,
-    ENTITY_NAME DN_DB_OBJECT,
+    RECORD_TYPE DN_DESCRIBE_RECORD_TYPE,
+    RECORD_TYPE_CAPTION DN_DESCRIBE_RECORD_CAPTION,
     CAPTION1 DN_CAPTION,
     CAPTION2 DN_CAPTION,
     CAPTION3 DN_CAPTION);  
