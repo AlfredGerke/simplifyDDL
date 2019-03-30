@@ -15,9 +15,10 @@
 /*   
 /*------------------------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------------------------*/          
-/* IP, Port, Alias, User und Passwort hier nur ein Beispiel */      
-         
+/*------------------------------------------------------------------------------------------------*/
+/* CONNECT '{IP}/{Port}:{Alias oder Datenbankname mit Pfad}' 
+/* USER 'SYSDBA' PASSWORD 'Pass';          
+/* IP, Port, Alias, User und Passwort hier nur ein Beispiel */              
 CONNECT '127.0.0.1/32303:SIMPLIFYDDL' 
 USER 'SYSDBA' PASSWORD 'masterkey';
 

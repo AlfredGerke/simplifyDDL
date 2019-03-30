@@ -39,6 +39,9 @@ echo In den Test-Ordner wechseln
 cd ..\test\
 
 echo Test ausführen
-_test C:\Users\Alfred\Programme\Firebird\x32\v304\ test.log
+REM GLOIN
+REM _test C:\Users\Alfred\Programme\Firebird\x32\v304\ test.log
+
+_test C:\firebird\64\304\ test.log
 
 :END_TEST

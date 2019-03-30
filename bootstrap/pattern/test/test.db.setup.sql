@@ -18,8 +18,8 @@
 SHEll DEL {Dateiname der Testdatenbank, vollständig MIT Pfadangabe};
 
 /* Alias in der database.conf hinterlegen */
-CREATE DATABASE '127.0.0.1/32303:{ALIAS oder Dateiname, vollständig MIT Pfadangabe}'
-USER 'SYSDBA' PASSWORD 'masterkey'
+CREATE DATABASE '{IP}/{Port}:{ALIAS oder Dateiname, vollständig MIT Pfadangabe}'
+USER 'SYSDBA' PASSWORD '{Pass}'
 PAGE_SIZE 16384;
 /*DEFAULT CHARACTER SET WIN1252 COLLATION WIN1252;*/
 

@@ -4,20 +4,23 @@ Compilator.Log=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.lo
 Compilator.DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
 Compilator.SaveAll=1
 Compilator.Capture=0
-Compilator.HideOutput=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
 Compilator.LogType=0
 DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
-DefaultCPIndex=0
+DefaultCP=0
 LogtoEnd=1
 DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 bootstrap
-	+pattern
-		-test
+	-pattern
+		+test
 			pattern\test\_test.bat
 			pattern\test\test.bat
 			pattern\test\test.db.setup.sql
@@ -32,11 +35,11 @@ bootstrap
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		-connect
+		+connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
 	+test
-		+tasks
+		-tasks
 			test\test.bootstrap.complete.execute.sql
 			test\test.bootstrap.complete.setup.sql
 			test\test.bootstrap.complete.teardown.sql
@@ -57,10 +60,10 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	+log
+	-log
 		make\make.log
 		test\test.log
-	+sddl
+	-sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -81,40 +84,20 @@ bootstrap
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	+connect
+	-connect
 		connect\connect.sysdba.sql
 		connect\connect.custom_user.sql
-	+make
+	-make
 		make\_make.bat
 		make\sddl.bootstrap.install.sql
 		make\sddl.bootstrap.test-db.create.sql
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.bootstrap.complete.setup.sql
-1=test\test.bootstrap.complete.execute.sql
-2=sddl\sddl.bootstrap.package.header.sql
-3=test\test.bootstrap.constraints.execute.sql
-4=test\test.bootstrap.grants.execute.sql
-5=test\test.log
+0=test\test.sql
 [Selected Project Files]
 Main=
-Selected=test\test.log
-[test\test.bootstrap.complete.setup.sql]
-TopLine=24
-Caret=5,51
-[test\test.bootstrap.complete.execute.sql]
-TopLine=1
-Caret=23,43
-[sddl\sddl.bootstrap.package.header.sql]
-TopLine=45
-Caret=1,1
-[test\test.bootstrap.constraints.execute.sql]
-TopLine=1
-Caret=1,30
-[test\test.bootstrap.grants.execute.sql]
-TopLine=5
-Caret=1,30
-[test\test.log]
-TopLine=251
-Caret=12,259
+Selected=test\test.sql
+[test\test.sql]
+TopLine=17
+Caret=71,19
