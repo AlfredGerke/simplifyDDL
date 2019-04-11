@@ -5,7 +5,9 @@ sDDL.bootstrap
 
 Framework, welches näher am Ursprungsprojekt [ZABonline](https://github.com/AlfredGerke/ZABonline "ZABonline - Einarbeitung in die Entwicklung von Web-Anwendugen mit WaveMaker") ist.
 
-Das Framework soll einen neuen Ansatz in die Entwicklung bringen.
+Das Framework soll einen neuen Ansatz in die Entwicklung zum sDDL bringen.
+
+*sDDL.bootstrap* ersetzt den Entwicklungsstrang zum sDDL komplett.
 
 **Inhaltsübersicht:**
 
@@ -103,7 +105,7 @@ Freeware und kann ohne Bedenken eingesetzt werden.
 Zielvorgabe
 -----------
 
-Bei *sDDL.bootstrap* handelt es sich um ein Sammlung von StoredProcedures, sowie 
+Bei *sDDL.bootstrap* handelt es sich um ein Sammlung von Packages, sowie 
 eines Workflow um auf der Basis einer Tabelle notwendige DDL Syntax automatisch 
 erstellen zu können.
 

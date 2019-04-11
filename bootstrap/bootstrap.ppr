@@ -13,11 +13,12 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 bootstrap
 	+pattern
-		-test
+		+test
 			pattern\test\_test.bat
 			pattern\test\test.bat
 			pattern\test\test.db.setup.sql
@@ -27,12 +28,12 @@ bootstrap
 			pattern\test\test.example.1.teardown.sql
 			pattern\test\test.isql.setup.sql
 			pattern\test\test.sql
-		-create_sysdba
+		+create_sysdba
 			pattern\create_sysdba\_createSysdba.bat
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		-connect
+		+connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
 	+test
@@ -57,10 +58,10 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	+log
+	-log
 		make\make.log
 		test\test.log
-	+sddl
+	-sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -91,30 +92,5 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.bootstrap.common.setup.sql
-1=test\test.bootstrap.common.teardown.sql
-2=test\test.bootstrap.common.execute.sql
-3=sddl\sddl.bootstrap.common.package.header.sql
-4=sddl\sddl.bootstrap.domains.create.sql
-5=test\test.log
 [Selected Project Files]
 Main=
-Selected=test\test.log
-[test\test.bootstrap.common.setup.sql]
-TopLine=1
-Caret=1,1
-[test\test.bootstrap.common.teardown.sql]
-TopLine=1
-Caret=1,1
-[test\test.bootstrap.common.execute.sql]
-TopLine=21
-Caret=38,44
-[sddl\sddl.bootstrap.common.package.header.sql]
-TopLine=15
-Caret=16,45
-[sddl\sddl.bootstrap.domains.create.sql]
-TopLine=1
-Caret=1,1
-[test\test.log]
-TopLine=197
-Caret=77,222

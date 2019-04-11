@@ -14,12 +14,14 @@ HTServer=localhost
 test
 	+log
 		test.log
+		..\make\make.log
 	+firebird
 		+x32
 			+v303
 				..\..\..\..\..\..\..\Firebird\x32\v303\databases.conf
 	+connect
 		..\connect\connect.sysdba.sql
+		..\connect\connect.custom_user.sql
 	+dispatcher
 		test.sql
 	+teardown
@@ -35,14 +37,22 @@ test
 		_test.bat
 		test.bat
 [Open project files]
-0=Neu1.txt
-1=test.log
+0=test.log
+1=..\make\make.log
+2=..\connect\connect.sysdba.sql
+3=..\connect\connect.custom_user.sql
 [Selected Project Files]
 Main=
-Selected=test.log
-[Neu1.txt]
-TopLine=1
-Caret=1,1
+Selected=..\connect\connect.custom_user.sql
 [test.log]
-TopLine=6
+TopLine=1338
 Caret=1,1
+[..\make\make.log]
+TopLine=7642
+Caret=1,1
+[..\connect\connect.sysdba.sql]
+TopLine=1
+Caret=36,22
+[..\connect\connect.custom_user.sql]
+TopLine=1
+Caret=4,25
