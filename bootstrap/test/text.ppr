@@ -35,5 +35,14 @@ test
 		_test.bat
 		test.bat
 [Open project files]
+0=Neu1.txt
+1=test.log
 [Selected Project Files]
 Main=
+Selected=test.log
+[Neu1.txt]
+TopLine=1
+Caret=1,1
+[test.log]
+TopLine=6
+Caret=1,1

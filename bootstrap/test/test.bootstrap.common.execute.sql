@@ -40,7 +40,8 @@ from PKG_COMMON.SP_SUSPEND_MESSAGE ('Message');
 /* DESCRIBE testen -------------------------------------------------------------------------------*/
 
 select * 
-from PKG_COMMON.SP_DESCRIBE ('TB_HISTORY_UPDATE');
+from PKG_COMMON.SP_DESCRIBE ('TB_HISTORY_UPDATE')
+where RECORD_TYPE=1 or RECORD_TYPE=2;
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
