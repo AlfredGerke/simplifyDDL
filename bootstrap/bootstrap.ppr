@@ -1,9 +1,11 @@
 [Config]
-Compilator.FileName=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.bat
-Compilator.Log=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.log
-Compilator.DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
+Compilator.FileName=C:\WINDOWS\System32\cmd.exe
+Compilator.PSPar=/K "C:\sourcen\github\simplifyDDL\bootstrap\make\make.bat"
+Compilator.Log=C:\sourcen\github\simplifyDDL\bootstrap\make\make.log
+Compilator.DefaultDir=C:\sourcen\github\simplifyDDL\bootstrap\make\
 Compilator.SaveAll=1
 Compilator.Capture=0
+Compilator.ParsLog=*                    ;anything
 Compilator.CompileOnBackground=0
 Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
@@ -30,16 +32,16 @@ bootstrap
 			pattern\test\test.example.1.teardown.sql
 			pattern\test\test.isql.setup.sql
 			pattern\test\test.sql
-		-create_sysdba
+		+create_sysdba
 			pattern\create_sysdba\_createSysdba.bat
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		+connect
+		-connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
-	+test
-		-tasks
+	-test
+		+tasks
 			test\test.bootstrap.complete.execute.sql
 			test\test.bootstrap.complete.setup.sql
 			test\test.bootstrap.complete.teardown.sql
@@ -94,10 +96,5 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.sql
 [Selected Project Files]
 Main=
-Selected=test\test.sql
-[test\test.sql]
-TopLine=17
-Caret=71,19
