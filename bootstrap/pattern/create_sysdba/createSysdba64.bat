@@ -9,5 +9,7 @@ echo _createSYSDBA {FB3 Rootdir mit abschlieﬂendem \} {Pfad u. Name der Logdatei
 
 REM GLOIN
 REM FB3 Rootdir und Logdatei hier nur ein Beispiel
-REM _createSysdba C:\Firebird\x64\v304\ createSysdba64.log
-_createSysdba C:\firebird\64\304\ createSysdba64.log
+_createSysdba C:\Firebird\x64\v304\ createSysdba64.log
+
+REM NB
+REM _createSysdba C:\firebird\64\304\ createSysdba64.log

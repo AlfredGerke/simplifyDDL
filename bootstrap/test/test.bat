@@ -40,8 +40,9 @@ cd ..\test\
 
 echo Test ausführen
 REM GLOIN
-REM _test C:\Users\Alfred\Programme\Firebird\x32\v304\ test.log
+_test C:\Users\Alfred\Programme\Firebird\x32\v304\ test.log
 
-_test C:\firebird\64\304\ test.log
+REM NB
+REM _test C:\firebird\64\304\ test.log
 
 :END_TEST

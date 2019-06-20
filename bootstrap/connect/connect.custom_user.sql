@@ -17,12 +17,16 @@
 
 /*------------------------------------------------------------------------------------------------*/          
 
-/* GLOIN         
+-- GLOIN         
 CONNECT '127.0.0.1/32304:SIMPLIFYDDL'
-*/
-CONNECT '127.0.0.1/64304:sDDLbootstrap' 
-USER 'CUSTOM_USER' PASSWORD 'change_on_install'
+USER 'CUSTOM_USER' 
+PASSWORD 'change_on_install'
 ROLE 'CUSTOM_ALL';
+-- NB
+-- CONNECT '127.0.0.1/64304:sDDLbootstrap' 
+-- USER 'CUSTOM_USER' 
+-- PASSWORD 'change_on_install'
+-- ROLE 'CUSTOM_ALL';
 
 /*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/
