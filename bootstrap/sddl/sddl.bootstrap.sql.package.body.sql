@@ -42,9 +42,9 @@ begin
 
   /*----------------------------------------------------------------------------------------------*/
   FUNCTION SF_GET (AIdent DN_SQL_IDENT not null)
-  RETURNS DN_SQL_STMT
+  RETURNS DN_SQL_BLOB
   AS
-  declare sql_stmt DN_SQL_STMT;
+  declare sql_stmt DN_SQL_BLOB;
   begin
     sql_stmt = null;
     
@@ -127,7 +127,7 @@ begin
     
     if (SF_IS_AVAILABLE(:AIdent) = true) then
     begin
-      execute statement SF_GET();
+      execute statement SF_GET(:AIdent);
     
       execute 
       procedure SP_CLEAR (:AIdent);
@@ -151,6 +151,42 @@ begin
         cast(SQLSTATE as DN_DESCRIPTION));    
     end  
   end
+  
+  /*----------------------------------------------------------------------------------------------*/  
+  PROCEDURE SP_EXECUTE_ALL
+  AS
+  declare variable sql_stmt DN_SQL_STMT;
+  begin
+    sql_stmt = null;  
+    for
+    select SQL_STATEMENT
+    from VW_T_SQL_STATEMENT    
+    into :sql_stmt
+    do
+    begin
+      execute statement :sql_stmt;
+      sql_stmt = null; 
+    end
+
+    when any do
+    begin
+      execute 
+      procedure SP_CLEAR;
+          
+      execute
+      procedure PKG_HISTORY.SP_SET_LOG_ERROR (
+        cast(GDSCODE as DN_DESCRIPTION));
+        
+      execute
+      procedure PKG_HISTORY.SP_SET_LOG_ERROR (
+        cast(SQLCODE as DN_DESCRIPTION));    
+        
+      execute
+      procedure PKG_HISTORY.SP_SET_LOG_ERROR (
+        cast(SQLSTATE as DN_DESCRIPTION));    
+    end    
+  end        
+  
 end^
 SET TERM ; ^
 

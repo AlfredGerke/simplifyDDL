@@ -23,8 +23,12 @@ CREATE OR ALTER PACKAGE PKG_SQL
 AS
 begin
   /*----------------------------------------------------------------------------------------------*/
+  FUNCTION SF_IS_AVAILABLE (AIdent DN_SQL_IDENT not null)
+  RETURNS DN_BOOLEAN;
+
+  /*----------------------------------------------------------------------------------------------*/
   FUNCTION SF_GET (AIdent DN_SQL_IDENT not null default 'DEFAULT')
-  RETURNS DN_SQL_STMT;
+  RETURNS DN_SQL_BLOB;
   
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_SET(AStatement DN_SQL_STMT,
@@ -41,7 +45,10 @@ begin
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_EXECUTE(AStatement DN_SQL_STMT default null,
     AClear DN_BOOLEAN default false,
-    AIdent DN_SQL_IDENT not null default 'DEFAULT');  
+    AIdent DN_SQL_IDENT not null default 'DEFAULT');
+    
+  /*----------------------------------------------------------------------------------------------*/  
+  PROCEDURE SP_EXECUTE_ALL;        
     
 end^
 SET TERM ; ^
