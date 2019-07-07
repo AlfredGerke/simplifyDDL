@@ -72,6 +72,16 @@ input 'test.bootstrap.grants.execute.sql';
 input 'test.bootstrap.grants.teardown.sql';
 /* End Test: Grants verteilen */
 
+/* Begin Test:Kataloge testen */
+/* Connect: sollte auch unter eingeschränkten Nutzern funktionieren */
+input '..\connect\connect.custom_user.sql';
+
+input 'test.bootstrap.catalog.setup.sql';
+input 'test.bootstrap.catalog.execute.sql';
+input 'test.bootstrap.catalog.teardown.sql';
+/* End Test: SQL-Package testen */
+
+
 /* Teardown für DB -------------------------------------------------------------------------------*/                                   
          
 /* Connect: Datenbank zurücksetzen darf nur der SYSDBA */

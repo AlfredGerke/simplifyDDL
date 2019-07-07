@@ -16,51 +16,90 @@
 
 /* Setup: Test durchführen -----------------------------------------------------------------------*/   
 
+--- prüfen ob nach einem COMMIT die GTT wirklich leer ist: es darf keine script mehr ausgegeben werden
+
 select * 
 from  PKG_SQL.SP_GET;
 
 /* --- */
 
+--- script1 anlegen
+
 execute
-procedure PKG_SQL.SP_SET('select *');
+procedure PKG_SQL.SP_SET('select *', 'script1');
      
 execute
-procedure PKG_SQL.SP_SET('from hummeldummel');
+procedure PKG_SQL.SP_SET('from hummeldummel1', 'script1');
 
 execute
-procedure PKG_SQL.SP_SET('where dummel is null');
+procedure PKG_SQL.SP_SET('where dummel1 is null', 'script1');
 
-/* --- */
-
-select * 
-from  PKG_SQL.SP_GET;
-
-/* --- */
+--- script2 anlegen
 
 execute
-procedure PKG_SQL.SP_CLEAR;
-
-select * 
-from  PKG_SQL.SP_GET;
-
-/* --- */
-
-execute
-procedure PKG_SQL.SP_SET('select *');
+procedure PKG_SQL.SP_SET('select *', 'script2');
      
 execute
-procedure PKG_SQL.SP_SET('from VW_HISTORY_UPDATE');
+procedure PKG_SQL.SP_SET('from hummeldummel2', 'script2');
 
 execute
-procedure PKG_SQL.SP_SET('where MAJOR = 0');
+procedure PKG_SQL.SP_SET('where dummel2 is null', 'script2');
+
 
 /* --- */
 
+--- prüfen ob DEFAULT Script vorhanden: es darf keine script mehr ausgegeben werden
 select * 
 from  PKG_SQL.SP_GET;
 
+--- prüfen ob script1 vorhanden: es muss script1 ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('script1');
+
+--- prüfen ob script1 vorhanden: es muss script2 ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('script2');
+
 /* --- */
 
+--- script1 löschen
+execute
+procedure PKG_SQL.SP_CLEAR('script1');
+
+--- prüfen ob DEFAULT Script vorhanden: es darf keine script mehr ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET;
+
+--- prüfen ob script1 vorhanden: es darf keine script mehr ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('script1');
+
+--- prüfen ob script2 vorhanden: es muss script2 ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('script2');
+
+/* --- */
+
+--- select_history_update anlegen
+
+execute
+procedure PKG_SQL.SP_SET('select *', 'select_history_update');
+     
+execute
+procedure PKG_SQL.SP_SET('from VW_HISTORY_UPDATE', 'select_history_update');
+
+execute
+procedure PKG_SQL.SP_SET('where MAJOR = 0', 'select_history_update');
+
+/* --- */
+
+--- prüfen ob select_history_update vorhanden: es muss select_history_update ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('select_history_update');
+
+/* --- */
+
+--- prüfen ob select_history_update ausgeführt wird: es muss select_history_update ausgeführt werden
 set term ^ ;
 execute block
 returns (
@@ -76,7 +115,7 @@ returns (
 AS
 begin
   for 
-  execute statement PKG_SQL.SF_GET()
+  execute statement PKG_SQL.SF_GET('select_history_update')
   into 
     :ID, 
     :MAJOR, 

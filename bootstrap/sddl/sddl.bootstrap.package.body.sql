@@ -57,7 +57,7 @@ begin
     from PKG_SETTINGS.SP_READ_STRING('CUSTOM',
       'SDDL',
       'ROLE.DELETE',
-      'SDDL_DELET')
+      'SDDL_DELETE')
     into :ROLE_DELETE;
     
     if ((Trim(:ROLE_ALL) <> '') and 
@@ -216,12 +216,18 @@ begin
   RETURNS (
     SUCCESS DN_BOOLEAN)
   AS
-    declare sql_stmt DN_SQL_STMT;
+    --- declare sql_stmt DN_SQL_STMT;
   begin
     SUCCESS = False;
     
-    sql_stmt = 'ALTER TABLE ' || :ATABLENAME || ' ALTER COLUMN ' || :AColumn || ' POSITION ' || :APosition; 
-    execute statement sql_stmt;
+    execute 
+    procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :ATABLENAME || ' ALTER COLUMN ' || :AColumn || 
+      ' POSITION ' || :APosition);
+    
+    /* 
+      sql_stmt = 'ALTER TABLE ' || :ATABLENAME || ' ALTER COLUMN ' || :AColumn || ' POSITION ' || :APosition; 
+      execute statement sql_stmt;
+    */
   
     SUCCESS = True;
     
@@ -384,7 +390,7 @@ begin
     ATablename DN_DB_OBJECT,
     AViewname DN_DB_OBJECT)  
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable field_name DN_DB_OBJECT;
   declare variable field_description DN_DB_COMMENT;
   declare variable idx DN_COUNT;
@@ -411,10 +417,16 @@ begin
             field_description = substring(:field_description from idx+1);
         end   
       
+        execute
+        procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :AViewname || '.' || :field_name || 
+          ' IS ''' || :field_description || '''');
+      
+        /*
         sql_stmt = 'COMMENT ON COLUMN ' || :AViewname || '.' || :field_name || 
           ' IS ''' || :field_description || '''';
   
         execute statement sql_stmt;
+        */
       end  
       
       field_description = null;
@@ -428,7 +440,7 @@ begin
   RETURNS (
     SUCCESS DN_BOOLEAN)  
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   declare variable columnlist DN_COLUMNLIST;
   declare variable interfacelist DN_COLUMNLIST;
@@ -452,7 +464,7 @@ begin
     else
       relation_name = 'VW_' || :table_name;  
       
-    sql_stmt = '';
+    --- sql_stmt = '';
     interfacelist = '';
     implementationlist = '';
   
@@ -471,9 +483,16 @@ begin
       implementationlist = '*';   
     end  
     
+    /*
     sql_stmt = 'create or alter view ' || :relation_name || :interfacelist || 
       ' as ' || ascii_char(13) || 'select ' || ascii_char(13) || :implementationlist 
       || ascii_char(13) || 'from' || ascii_char(13) || :ATablename;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_SET('create or alter view ' || :relation_name || :interfacelist || 
+      ' as ' || ascii_char(13) || 'select ' || ascii_char(13) || :implementationlist 
+      || ascii_char(13) || 'from' || ascii_char(13) || :ATablename);
     
     if (:AOrderByPrim = True) then
     begin 
@@ -482,13 +501,16 @@ begin
       into :pk_columncount, :pk_columnlist;
       
       if (pk_columncount > 0) then
-        sql_stmt = sql_stmt || ' order by ' || :pk_columnlist;     
+        --- sql_stmt = sql_stmt || ' order by ' || :pk_columnlist;
+        execute
+        procedure PKG_SQL.SP_SET(' order by ' || :pk_columnlist);     
     end
       
     --- execute statement sql_stmt;
     execute
-    procedure PKG_SQL.SP_EXECUTE(sql_stmt, true);
+    procedure PKG_SQL.SP_EXECUTE;
     
+    /*
     if (:AOrderByPrim = True) then
       sql_stmt = 'COMMENT ON VIEW ' || :relation_name || 
         ' IS ''Standard Readonly-View für die Tabelle ' || :ATablename || 
@@ -497,10 +519,22 @@ begin
       sql_stmt = 'COMMENT ON VIEW ' || :relation_name || 
         ' IS ''Standard Update-View für die Tabelle ' || :ATablename || 
         ' (created by SP_CREATE_STD_TABLE_VIEW)''';
-  
+    */
+
+    if (:AOrderByPrim = True) then
+      execute
+      procedure PKG_SQL.SP_SET('COMMENT ON VIEW ' || :relation_name || 
+        ' IS ''Standard Readonly-View für die Tabelle ' || :ATablename || 
+        ' (created by SP_CREATE_STD_TABLE_VIEW)''');
+    else
+      execute
+      procedure PKG_SQL.SP_SET('COMMENT ON VIEW ' || :relation_name || 
+        ' IS ''Standard Update-View für die Tabelle ' || :ATablename || 
+        ' (created by SP_CREATE_STD_TABLE_VIEW)''');
+
     --- execute statement sql_stmt;
     execute
-    procedure PKG_SQL.SP_EXECUTE(sql_stmt, true);
+    procedure PKG_SQL.SP_EXECUTE;
     
     execute
     procedure
@@ -518,7 +552,7 @@ begin
   returns (
     SUCCESS DN_BOOLEAN)
   as
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   declare variable sequence_name DN_DB_OBJECT;
   declare variable table_name DN_DB_OBJECT;
@@ -547,8 +581,9 @@ begin
       if (exists(select 1 from RDB$GENERATORS where RDB$GENERATOR_NAME=:sequence_name)) then
       begin   
   
-  /* Die eigentümliche Formatierung des DDL-Codes sorgt für ein einfach lesbares Format des 
-     fertigen Triggercodes in der DB */
+    /* Die eigentümliche Formatierung des DDL-Codes sorgt für ein einfach lesbares Format des 
+       fertigen Triggercodes in der DB */
+    /*    
         sql_stmt = 'CREATE TRIGGER ' || :relation_name || ' FOR ' || :ATablename
                    || ' ACTIVE BEFORE INSERT POSITION 0
   as
@@ -562,14 +597,40 @@ begin
       new.cre_user = PKG_COMMON.SF_GET_CURRENT_USER();
     end  
   end ';       
+     */
+     
+        /* Die eigentümliche Formatierung des DDL-Codes sorgt für ein einfach lesbares Format des 
+           fertigen Triggercodes in der DB */
+     
+        execute
+        procedure PKG_SQL.SP_EXECUTE('CREATE TRIGGER ' || :relation_name || ' FOR ' || :ATablename
+                   || ' ACTIVE BEFORE INSERT POSITION 0
+  as
+  declare variable curr_user DN_DB_OBJECT;
+  begin
+    if (new.id is null) then
+      new.id = next value for ' || :sequence_name || ';
+  
+    if (new.cre_user is null) then
+    begin  
+      new.cre_user = PKG_COMMON.SF_GET_CURRENT_USER();
+    end  
+  end ');
         
-        execute statement sql_stmt;
+        --- execute statement sql_stmt;
            
+        /*   
         sql_stmt = 'COMMENT ON TRIGGER ' || :relation_name || 
           ' IS ''Before-Insert-Trigger für die Tabelle ' || :ATablename || 
           ' (created by SP_CREATE_TRIGGER_BI)''';
+        */  
           
-        execute statement sql_stmt;
+        --- execute statement sql_stmt;
+        
+        execute
+        procedure PKG_SQL.SP_EXECUTE('COMMENT ON TRIGGER ' || :relation_name || 
+          ' IS ''Before-Insert-Trigger für die Tabelle ' || :ATablename || 
+          ' (created by SP_CREATE_TRIGGER_BI)''');
           
         SUCCESS = True;
       end
@@ -586,7 +647,7 @@ begin
   returns (
     SUCCESS DN_BOOLEAN)
   as
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   declare variable determined DN_BOOLEAN;
   declare variable table_name DN_DB_OBJECT;
@@ -612,6 +673,7 @@ begin
   
   /* Die eigentümliche Formatierung des DDL-Codes sorgt für ein einfach lesbares Format des 
      fertigen Triggercodes in der DB */
+  /*   
       sql_stmt = 'CREATE TRIGGER ' || :relation_name || ' FOR ' || :ATablename
                  || ' ACTIVE BEFORE UPDATE POSITION 0
   as
@@ -620,13 +682,34 @@ begin
     new.chg_user = PKG_COMMON.SF_GET_CURRENT_USER();
     new.chg_date = current_timestamp;
   end ';
-      execute statement sql_stmt;
-         
+  */
+  ---    execute statement sql_stmt;
+      
+    /* Die eigentümliche Formatierung des DDL-Codes sorgt für ein einfach lesbares Format des 
+       fertigen Triggercodes in der DB */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('CREATE TRIGGER ' || :relation_name || ' FOR ' || :ATablename
+                 || ' ACTIVE BEFORE UPDATE POSITION 0
+  as
+  declare variable curr_user DN_DB_OBJECT;
+  begin
+    new.chg_user = PKG_COMMON.SF_GET_CURRENT_USER();
+    new.chg_date = current_timestamp;
+  end ');
+      
+      /*   
       sql_stmt = 'COMMENT ON TRIGGER ' || :relation_name || 
         ' IS ''Before-Update-Trigger für die Tabelle ' || :ATablename || 
         ' (created by SP_CREATE_TRIGGER_BU)''';
         
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON TRIGGER ' || :relation_name || 
+        ' IS ''Before-Update-Trigger für die Tabelle ' || :ATablename || 
+        ' (created by SP_CREATE_TRIGGER_BU)''');      
         
       SUCCESS = True;  
     end
@@ -642,7 +725,7 @@ begin
   RETURNS (
     SUCCESS DN_BOOLEAN)    
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   declare variable table_name DN_DB_OBJECT;
   declare variable determined DN_BOOLEAN;
@@ -666,12 +749,23 @@ begin
     end
     else
     begin
+      /*
       sql_stmt = 'CREATE SEQUENCE ' || :relation_name;  
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('CREATE SEQUENCE ' || :relation_name);
+      
+      /*
       sql_stmt = 'ALTER SEQUENCE ' || :relation_name || ' RESTART WITH 0';
       execute statement sql_stmt;
+      */
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER SEQUENCE ' || :relation_name || ' RESTART WITH 0');
       
+      /*
       if (Trim(AComment) = '') then
         sql_stmt = 'COMMENT ON SEQUENCE ' || :relation_name || 
           ' IS ''Sequence für das Feld ' || :AFieldname || ' der Tabelle ' || :ATablename || 
@@ -681,7 +775,22 @@ begin
           ' IS ''' || :AComment || 
           ' (created by SP_CREATE_SEQUNECE)''';     
     
-      execute statement sql_stmt;            
+      execute statement sql_stmt;
+      */
+      
+      if (Trim(AComment) = '') then
+        execute
+        procedure PKG_SQL.SP_SET('COMMENT ON SEQUENCE ' || :relation_name || 
+          ' IS ''Sequence für das Feld ' || :AFieldname || ' der Tabelle ' || :ATablename || 
+          ' (created by SP_CREATE_SEQUNECE)''');
+      else
+        execute
+        procedure PKG_SQL.SP_SET('COMMENT ON SEQUENCE ' || :relation_name || 
+          ' IS ''' || :AComment || 
+          ' (created by SP_CREATE_SEQUNECE)''');
+          
+      execute
+      procedure PKG_SQL.SP_EXECUTE;         
         
       SUCCESS = True;  
     end
@@ -700,7 +809,7 @@ begin
     CATALOGNAME DN_DB_OBJECT,
     TABLENAME DN_DB_OBJECT)
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   declare variable cat_comment DN_COMMENT;
   declare variable cat_name DN_DB_OBJECT;
@@ -721,6 +830,7 @@ begin
     end
     else
     begin
+      /*
       sql_stmt = 'CREATE TABLE ' || :relation_name || ' (
       ID  DN_IDENTIFICATION,
       CAPTION ' || :ADomain || ',
@@ -731,50 +841,113 @@ begin
       CHG_DATE DN_TIMESTAMP
   )';
       execute statement sql_stmt;
+      */     
+      execute
+      procedure PKG_SQL.SP_EXECUTE('CREATE TABLE ' || :relation_name || ' (
+      ID  DN_IDENTIFICATION,
+      CAPTION ' || :ADomain || ',
+      DESCRIPTION DN_DESCRIPTION,
+      CRE_USER DN_FIREBIRD_USER,
+      CRE_DATE DN_CURRENT_TIMESTAMP,
+      CHG_USER DN_FIREBIRD_USER,
+      CHG_DATE DN_TIMESTAMP
+  )');
       
+      /*
       sql_stmt = 'COMMENT ON TABLE ' || :relation_name || ' IS ''Katalog: ' || :relation_name || 
         ' für ' || :cat_comment || ' (created by SP_CREATE_TBL_CATALOG)''';
       execute statement sql_stmt;
-      
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON TABLE ' || :relation_name || ' IS ''Katalog: ' || :relation_name || 
+        ' für ' || :cat_comment || ' (created by SP_CREATE_TBL_CATALOG)''');
+
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.ID IS ''Primärschlüssel''';
       execute statement sql_stmt;
-  
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.ID IS ''Primärschlüssel''');
+
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CAPTION IS ''Bezeichnung''';
       execute statement sql_stmt;
-  
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CAPTION IS ''Bezeichnung''');
+
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.DESCRIPTION IS ''Beschreibung''';
       execute statement sql_stmt;
-  
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.DESCRIPTION IS ''Beschreibung''');
+      
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CRE_USER IS ''Erstellt von''';
       execute statement sql_stmt;
-  
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CRE_USER IS ''Erstellt von''');
+ 
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CRE_DATE IS ''Erstellt am''';
       execute statement sql_stmt;
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CRE_DATE IS ''Erstellt am''');
   
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CHG_USER IS ''Geändert von''';
       execute statement sql_stmt;
-  
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CHG_USER IS ''Geändert von''');
+      
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CHG_DATE IS ''Geändert am''';    
-      execute statement sql_stmt;    
-            
+      execute statement sql_stmt;
+      */    
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CHG_DATE IS ''Geändert am''');
+      
+      /*      
       sql_stmt = 'ALTER TABLE ' || :relation_name || ' ADD CONSTRAINT PK_' || :cat_name ||
         ' PRIMARY KEY (ID)';      
       execute statement sql_stmt;
+      */
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :relation_name || ' ADD CONSTRAINT PK_' || :cat_name ||
+        ' PRIMARY KEY (ID)');
       
       if (:ACreateUniqueKey = True) then
       begin
+        /*
         sql_stmt = 'ALTER TABLE ' || :relation_name || ' ADD CONSTRAINT ALT_' || :cat_name || 
           ' UNIQUE (CAPTION) USING INDEX ALT_IDX_' || :cat_name;
         execute statement sql_stmt;
+        */
+        execute
+        procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :relation_name || ' ADD CONSTRAINT ALT_' || :cat_name || 
+          ' UNIQUE (CAPTION) USING INDEX ALT_IDX_' || :cat_name);        
       end    
       else
       begin
+        /*
         sql_stmt = 'CREATE UNIQUE INDEX ALT_' || :cat_name || ' ON ' || :relation_name || 
           '(CAPTION)';        
         execute statement sql_stmt;
-  
+        */
+        execute
+        procedure PKG_SQL.SP_EXECUTE('CREATE UNIQUE INDEX ALT_' || :cat_name || ' ON ' || :relation_name || 
+          '(CAPTION)');
+
+        /*
         sql_stmt = 'COMMENT ON INDEX ALT_' || :cat_name || ' IS ''(created by SP_CREATE_TBL_CATALOG)''';    
-        execute statement sql_stmt;             
+        execute statement sql_stmt;
+        */
+        execute
+        procedure PKG_SQL.SP_EXECUTE('COMMENT ON INDEX ALT_' || :cat_name || ' IS ''(created by SP_CREATE_TBL_CATALOG)''');                    
       end  
            
       CATALOGNAME = cat_name;
