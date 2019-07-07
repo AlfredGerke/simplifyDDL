@@ -4,12 +4,10 @@ Compilator.Log=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make\make.lo
 Compilator.DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
 Compilator.SaveAll=1
 Compilator.Capture=0
-Compilator.CompileOnBackground=0
-Compilator.ProgSaveAll=0
-Compilator.ProgRunSelection=0
+Compilator.HideOutput=0
 Compilator.LogType=0
 DefaultDir=C:\Users\Alfred\Sourcen\GitHub\simplifyDDL\bootstrap\make
-DefaultCP=0
+DefaultCPIndex=0
 LogtoEnd=1
 DontOpen=0
 AbsolutePath=0
@@ -38,8 +36,8 @@ bootstrap
 		-connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
-	-test
-		-tasks
+	+test
+		+tasks
 			test\test.bootstrap.complete.execute.sql
 			test\test.bootstrap.complete.setup.sql
 			test\test.bootstrap.complete.teardown.sql
@@ -52,18 +50,21 @@ bootstrap
 			test\test.bootstrap.common.setup.sql
 			test\test.bootstrap.common.execute.sql
 			test\test.bootstrap.common.teardown.sql
+			test\test.bootstrap.sql.teardown.sql
+			test\test.bootstrap.sql.execute.sql
+			test\test.bootstrap.sql.setup.sql
 		test\_test.bat
 		test\test.bat
 		test\test.db.setup.sql
 		test\test.db.teardown.sql
 		test\test.isql.setup.sql
 		test\test.sql
-	-readme
+	+readme
 		README.md
-	-log
+	+log
 		make\make.log
 		test\test.log
-	-sddl
+	+sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -80,19 +81,59 @@ bootstrap
 		sddl\sddl.bootstrap.setting.model.data.sql
 		sddl\sddl.bootstrap.setting.package.body.sql
 		sddl\sddl.bootstrap.setting.package.header.sql
+		sddl\sddl.bootstrap.sql.model.create.sql
+		sddl\sddl.bootstrap.sql.package.body.sql
+		sddl\sddl.bootstrap.sql.package.header.sql
 		sddl\sddl.bootstrap.styleguide.model.create.sql
 		sddl\sddl.bootstrap.styleguide.model.data.sql
 		sddl\sddl.bootstrap.styleguide.package.body.sql
 		sddl\sddl.bootstrap.styleguide.package.header.sql
-	-connect
+	+connect
 		connect\connect.sysdba.sql
 		connect\connect.custom_user.sql
-	-make
+	+make
 		make\_make.bat
 		make\sddl.bootstrap.install.sql
 		make\sddl.bootstrap.test-db.create.sql
 		make\make.bat
 		make\make.log
 [Open project files]
+0=sddl\sddl.bootstrap.sql.package.header.sql
+1=sddl\sddl.bootstrap.sql.package.body.sql
+2=sddl\sddl.bootstrap.domains.create.sql
+3=sddl\sddl.bootstrap.package.body.sql
+4=test\test.bootstrap.sql.setup.sql
+5=make\make.log
+6=sddl\sddl.bootstrap.sql.model.create.sql
+7=test\test.bootstrap.sql.execute.sql
+8=test\test.log
 [Selected Project Files]
 Main=
+Selected=make\make.log
+[sddl\sddl.bootstrap.sql.package.header.sql]
+TopLine=9
+Caret=25,31
+[sddl\sddl.bootstrap.sql.package.body.sql]
+TopLine=109
+Caret=33,160
+[sddl\sddl.bootstrap.domains.create.sql]
+TopLine=260
+Caret=18,265
+[sddl\sddl.bootstrap.package.body.sql]
+TopLine=464
+Caret=33,503
+[test\test.bootstrap.sql.setup.sql]
+TopLine=1
+Caret=1,1
+[make\make.log]
+TopLine=1412
+Caret=25,1423
+[sddl\sddl.bootstrap.sql.model.create.sql]
+TopLine=19
+Caret=1,1
+[test\test.bootstrap.sql.execute.sql]
+TopLine=15
+Caret=1,1
+[test\test.log]
+TopLine=1605
+Caret=66,493

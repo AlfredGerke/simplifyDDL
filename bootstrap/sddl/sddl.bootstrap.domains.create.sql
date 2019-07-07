@@ -254,6 +254,20 @@ NOT NULL;
 COMMENT ON DOMAIN DN_DEBUG_ITEM
 IS 'Debug-Info';  
 
+CREATE DOMAIN DN_SQL_BLOB
+AS BLOB SUB_TYPE TEXT;
+
+COMMENT ON DOMAIN DN_SQL_BLOB
+IS 'Umfangreiche SQL-Statements'; 
+
+CREATE DOMAIN DN_SQL_IDENT
+AS VARCHAR(64)
+DEFAULT 'DEFAULT';
+
+COMMENT ON DOMAIN DN_SQL_IDENT
+IS 'Identifizierung für ein Script'; 
+
+
 /* Domains für TB_HISTORY_UPDATE -----------------------------------------------------------------*/
 
 CREATE DOMAIN DN_MAJOR_NO

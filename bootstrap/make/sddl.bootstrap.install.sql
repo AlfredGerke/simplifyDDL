@@ -51,6 +51,10 @@ input '..\sddl\sddl.bootstrap.history.model.create.sql';
 input '..\sddl\sddl.bootstrap.history.package.header.sql';
 input '..\sddl\sddl.bootstrap.history.package.body.sql';
 
+input '..\sddl\sddl.bootstrap.sql.model.create.sql';
+input '..\sddl\sddl.bootstrap.sql.package.header.sql';
+input '..\sddl\sddl.bootstrap.sql.package.body.sql';
+
 input '..\sddl\sddl.bootstrap.package.header.sql';
 input '..\sddl\sddl.bootstrap.package.body.sql';
 

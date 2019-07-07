@@ -35,6 +35,15 @@ input 'test.bootstrap.common.execute.sql';
 input 'test.bootstrap.common.teardown.sql';
 /* End Test: Common-Package testen */
 
+/* Begin Test: SQL-Package testen */
+/* Connect: sollte auch unter eingeschränkten Nutzern funktionieren */
+input '..\connect\connect.custom_user.sql';
+
+input 'test.bootstrap.sql.setup.sql';
+input 'test.bootstrap.sql.execute.sql';
+input 'test.bootstrap.sql.teardown.sql';
+/* End Test: SQL-Package testen */
+
 /* Begin Test: Tabellen vervollständigen */
 /* Connect: Tabellen vervollständingen darf nur der SYSDBA */
 input '..\connect\connect.sysdba.sql';

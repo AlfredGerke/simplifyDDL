@@ -485,7 +485,9 @@ begin
         sql_stmt = sql_stmt || ' order by ' || :pk_columnlist;     
     end
       
-    execute statement sql_stmt;
+    --- execute statement sql_stmt;
+    execute
+    procedure PKG_SQL.SP_EXECUTE(sql_stmt, true);
     
     if (:AOrderByPrim = True) then
       sql_stmt = 'COMMENT ON VIEW ' || :relation_name || 
@@ -496,7 +498,9 @@ begin
         ' IS ''Standard Update-View für die Tabelle ' || :ATablename || 
         ' (created by SP_CREATE_STD_TABLE_VIEW)''';
   
-    execute statement sql_stmt;
+    --- execute statement sql_stmt;
+    execute
+    procedure PKG_SQL.SP_EXECUTE(sql_stmt, true);
     
     execute
     procedure
