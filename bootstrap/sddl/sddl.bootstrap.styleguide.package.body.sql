@@ -844,7 +844,7 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.styleguide.package.pody.sql',
+    'sddl.bootstrap.styleguide.package.body.sql',
     'Package-Body Styleguide installiert');
 END^        
 SET TERM ; ^

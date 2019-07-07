@@ -16,13 +16,11 @@
 
 /* Setup: Testfall einrichten --------------------------------------------------------------------*/   
 
-execute
-procedure PKG_SDDL.SP_CREATE_CATALOG('CATALOG1', 'DN_SQL_IDENT', 'Testkatalog');
-
-COMMIT WORK;
+select SUCCESS
+from PKG_SDDL.SP_CREATE_CATALOG('CATALOG_1', 'DN_SQL_IDENT', 'Testkatalog');
 
 execute 
-procedure PKG_SDDL.SP_GRANT('VW_L_CATALOG1');
+procedure PKG_SDDL.SP_GRANT('VW_L_CATALOG_1');
                                                                                   
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

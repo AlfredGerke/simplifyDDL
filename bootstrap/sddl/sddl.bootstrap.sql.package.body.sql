@@ -189,6 +189,43 @@ begin
   
 end^
 SET TERM ; ^
+/*------------------------------------------------------------------------------------------------*/
+
+COMMENT ON FUNCTION PKG_SQL.SF_IS_AVAILABLE 
+IS 'Prüft ob zu einem SQL-Ident ein Script vorhanden ist';
+
+COMMENT ON FUNCTION PKG_SQL.SF_GET 
+IS 'Ermittelt zu einem SQL-Ident ein Script';
+
+COMMENT ON PROCEDURE PKG_SQL.SP_SET 
+IS 'Übergibt zu einem SQL-Ident eine Zeile eines Scriptes';
+
+COMMENT ON PROCEDURE PKG_SQL.SP_GET 
+IS 'Ermittelt zu einem SQL-Ident ein Script';
+
+COMMENT ON PROCEDURE PKG_SQL.SP_CLEAR 
+IS 'Löscht zu einem SQL-Ident ein Script';
+
+COMMENT ON PROCEDURE PKG_SQL.SP_EXECUTE 
+IS 'Führt zu einem SQL-Ident ein Script aus';
+
+COMMENT ON PROCEDURE PKG_SQL.SP_EXECUTE_ALL 
+IS 'Führt alle Scripte aus';
+    
+COMMIT WORK;
+/*------------------------------------------------------------------------------------------------*/
+
+SET TERM ^ ;
+EXECUTE BLOCK AS
+BEGIN
+  execute
+  procedure
+  PKG_HISTORY.SP_SET_UPDATE_INFO (0,
+    0,
+    'sddl.bootstrap.sql.package.body.sql',
+    'Package-Body des SQL-Package installiert');
+END^        
+SET TERM ; ^
 
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

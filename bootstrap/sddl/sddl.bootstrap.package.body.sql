@@ -1019,7 +1019,7 @@ begin
     SUCCESS DN_BOOLEAN)  
   AS
   declare variable relation_name DN_DB_OBJECT;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   begin
     SUCCESS = False;
     
@@ -1034,22 +1034,48 @@ begin
     end
     else
     begin
+      /*
       sql_stmt = 
         'ALTER TABLE ' || :relation_name || ' ADD CRE_USER DN_FIREBIRD_USER, ADD CRE_DATE DN_CURRENT_TIMESTAMP, ' ||
         'ADD CHG_USER DN_FIREBIRD_USER, ADD CHG_DATE DN_TIMESTAMP';
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :relation_name || ' ADD CRE_USER DN_FIREBIRD_USER, ADD CRE_DATE DN_CURRENT_TIMESTAMP, ' ||
+        'ADD CHG_USER DN_FIREBIRD_USER, ADD CHG_DATE DN_TIMESTAMP');
+      
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CRE_USER IS ''Erstellt von''';
       execute statement sql_stmt;
+      */
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CRE_USER IS ''Erstellt von''');
   
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CRE_DATE IS ''Erstellt am''';
       execute statement sql_stmt;
+      */
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CRE_DATE IS ''Erstellt am''');
   
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CHG_USER IS ''Geändert von''';
       execute statement sql_stmt;
+      */
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CHG_USER IS ''Geändert von''');
   
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.CHG_DATE IS ''Geändert am''';    
-      execute statement sql_stmt;    
+      execute statement sql_stmt;
+      */    
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.CHG_DATE IS ''Geändert am''');
             
       SUCCESS = True;  
     end      
@@ -1064,7 +1090,7 @@ begin
     SUCCESS DN_BOOLEAN)  
   AS
   declare variable relation_name DN_DB_OBJECT;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   begin
     SUCCESS = False;
     
@@ -1079,11 +1105,21 @@ begin
     end
     else
     begin
+      /*
       sql_stmt = 'ALTER TABLE ' || :relation_name || ' ADD DESCRIPTION DN_DESCRIPTION';
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :relation_name || ' ADD DESCRIPTION DN_DESCRIPTION');
+      
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :relation_name || '.DESCRIPTION IS ''Beschreibung''';
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :relation_name || '.DESCRIPTION IS ''Beschreibung''');      
   
       SUCCESS = True;  
     end      
@@ -1099,7 +1135,7 @@ begin
     SUCCESS DN_BOOLEAN)  
   AS
   declare variable relation_name DN_DB_OBJECT;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   begin
     SUCCESS = False;
     
@@ -1111,8 +1147,13 @@ begin
     end
     else
     begin
+      /*
       sql_stmt = 'COMMENT ON TABLE ' || :relation_name || ' IS ''' || :AComment || '''';
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON TABLE ' || :relation_name || ' IS ''' || :AComment || '''');
   
       SUCCESS = True;  
     end      
@@ -1127,7 +1168,7 @@ begin
     SUCCESS DN_BOOLEAN)  
   AS
   declare variable relation_name DN_DB_OBJECT;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable determined DN_BOOLEAN;
   begin
     SUCCESS = False;
@@ -1151,12 +1192,23 @@ begin
       if (:determined = False) then
         relation_name = ATablename;    
     
+      /*
       sql_stmt = 'ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT PK_' || :relation_name ||
         ' PRIMARY KEY (ID)';      
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT PK_' || :relation_name ||
+        ' PRIMARY KEY (ID)');
+      
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :ATablename || '.ID IS ''Primärschlüssel''';
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :ATablename || '.ID IS ''Primärschlüssel''');      
       
       SUCCESS = True;  
     end      
@@ -1408,7 +1460,7 @@ begin
   declare variable index_name_fix DN_SDDL_COMMAND;
   declare variable constraint_name DN_DB_OBJECT;
   declare variable constraint_name_fix DN_SDDL_COMMAND;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable counter DN_COUNT;
   begin
     SUCCESS = False;
@@ -1462,13 +1514,25 @@ begin
           Trim(CAST(counter AS varchar(4)));      
       end    
       
+      /*
       sql_stmt = 'ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT ' || :constraint_name || 
         ' UNIQUE (' || :AFieldname ||') USING INDEX ' || :index_name;         
       execute statement sql_stmt;
-                                                                               
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT ' || :constraint_name || 
+        ' UNIQUE (' || :AFieldname ||') USING INDEX ' || :index_name);
+        
+      /*                                                                         
       sql_stmt = 'COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
         :AFieldDescription || '''';
-      execute statement sql_stmt;    
+      execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
+        :AFieldDescription || '''');          
       
       SUCCESS = True;
       LOG_MESSAGE = 'Ok';
@@ -1495,7 +1559,7 @@ begin
   declare variable table_name DN_DB_OBJECT;
   declare variable index_name DN_DB_OBJECT;
   declare variable index_name_fix DN_SDDL_COMMAND;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable counter DN_COUNT;
   begin
     SUCCESS = False;
@@ -1544,12 +1608,23 @@ begin
           Trim(CAST(counter AS varchar(4)));      
       end    
       
+      /*
       sql_stmt = 'CREATE UNIQUE INDEX ' || :index_name || ' ON ' || :ATablename || ' ('|| :AFieldname || ')' ;   
       execute statement sql_stmt;
-                                                                               
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('CREATE UNIQUE INDEX ' || :index_name || ' ON ' || :ATablename || ' ('|| :AFieldname || ')');
+        
+      /*                                                                         
       sql_stmt = 'COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
         :AFieldDescription || '''';
-      execute statement sql_stmt;    
+      execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
+        :AFieldDescription || '''');          
       
       SUCCESS = True;
       LOG_MESSAGE = 'Ok';
@@ -1582,7 +1657,7 @@ begin
   declare variable short_relation_name DN_DB_OBJECT;
   declare variable counter DN_COUNT;
   declare variable determined DN_BOOLEAN;
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable fk_condition DN_SQL_STMT;
   begin
     SUCCESS = False;
@@ -1633,7 +1708,11 @@ begin
         into :SUCCESS, :LOG_MESSAGE
         do
         begin
-          /* Prüfen ob bei SUCCESS=FALSE abgebrochen werden soll. s. folgende Zeilen */
+          /* 
+             Prüfen ob bei SUCCESS=FALSE abgebrochen werden soll. s. folgende Zeilen 
+             Prüfung: Da es vorkommen kann das die SP_CREATE_CONSTRAINTS kein Resultset zurück liefert,
+                      ist es nicht sinnvoll inherhalb des begin-end Blockes SUCCESS auf False abzugragen
+          */           
         end
           
         if (SUCCESS = False) then
@@ -1676,15 +1755,28 @@ begin
       else  
         fk_condition = 'DELETE CASCADE ON UPDATE CASCADE';
     
+      /*
       sql_stmt = 'ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT ' || :constraint_name || 
         ' FOREIGN KEY (' || :AFieldname || ') REFERENCES ' || :AFKTablename || ' (' || :AFKFieldname || 
-        ') ON ' || :fk_condition; /*||DELETE SET NULL ON UPDATE CASCADE';*/
+        ') ON ' || :fk_condition; ---||DELETE SET NULL ON UPDATE CASCADE';
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('ALTER TABLE ' || :ATablename || ' ADD CONSTRAINT ' || :constraint_name || 
+        ' FOREIGN KEY (' || :AFieldname || ') REFERENCES ' || :AFKTablename || ' (' || :AFKFieldname || 
+        ') ON ' || :fk_condition);
     
+      /*
       sql_stmt = 'COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
           :AFieldDescription || '''';
       execute statement sql_stmt;
-    
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('COMMENT ON COLUMN ' || :ATablename || '.' || :AFieldname || ' IS ''' || 
+          :AFieldDescription || '''');
+      
       SUCCESS = True;
       LOG_MESSAGE = 'Ok';
     end
@@ -1908,31 +2000,61 @@ begin
     ADeleteRole DN_DB_OBJECT DEFAULT 'SDDL_DELETE',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC')
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  -- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   begin 
     if (position(Upper('VR') in Upper(:ADBObject)) = 1) then
     begin
+      /*
       sql_stmt = 'GRANT SELECT ON ' || :ADBObject || ' TO ' || :AAllRole;
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('GRANT SELECT ON ' || :ADBObject || ' TO ' || :AAllRole);
+      
+      /*
       sql_stmt = 'GRANT SELECT ON ' || :ADBObject || ' TO ' || :APublicRole;
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('GRANT SELECT ON ' || :ADBObject || ' TO ' || :APublicRole);      
     end  
     else
     begin
+      /*
       sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || :ADBObject || ' TO ' || :AAllRole;
       execute statement sql_stmt;
+      */
+
+      execute
+      procedure PKG_SQL.SP_EXECUTE('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || :ADBObject || ' TO ' || :AAllRole);      
       
+      /*
       sql_stmt = 'GRANT SELECT, INSERT, UPDATE ON ' || :ADBObject || ' TO ' || :APublicRole;
       execute statement sql_stmt;
+      */
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE('GRANT SELECT, INSERT, UPDATE ON ' || :ADBObject || ' TO ' || :APublicRole);
+
+      /*
       sql_stmt = 'GRANT DELETE ON ' || :ADBObject || ' TO ' || :ADeleteRole;
       execute statement sql_stmt;
+      */
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE('GRANT DELETE ON ' || :ADBObject || ' TO ' || :ADeleteRole);      
     end
     
+    /*
     sql_stmt = 'GRANT SELECT ON ' || :ADBObject || ' TO PUBLIC';
     execute statement sql_stmt;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT SELECT ON ' || :ADBObject || ' TO PUBLIC');   
             
     for 
     select RDB$RELATION_NAME
@@ -1941,8 +2063,9 @@ begin
     into :relation_name
     do
     begin
-      sql_stmt = null;
+      --- sql_stmt = null;
       
+      /*
       if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then 
         sql_stmt = 'GRANT SELECT ON ' || :relation_name || ' TO ' || :ADBObject;
       else
@@ -1956,9 +2079,34 @@ begin
         else
           sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO ' || :ADBObject;    
       end
+      */
       
+      if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then 
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT ON ' || :relation_name || ' TO ' || :ADBObject);
+      else
+      if (position(Upper('VW') in Upper(Trim(:relation_name))) = 1) then            
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || :relation_name || ' TO ' || :ADBObject);       
+      else
+      if (position(Upper('T') in Upper(Trim(:relation_name))) = 1) then
+      begin 
+        if (position(Upper('VR') in Upper(:ADBObject)) = 1) then
+          execute
+          procedure PKG_SQL.SP_SET('GRANT SELECT ON ' || Trim(:relation_name) || ' TO ' || :ADBObject);                
+        else
+          execute
+          procedure PKG_SQL.SP_SET('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO ' || :ADBObject);                             
+      end
+    
+      /*
       if (sql_stmt is not null) then
         execute statement sql_stmt;
+      */  
+      
+      if (PKG_SQL.SF_IS_AVAILABLE() = True) then  
+        execute
+        procedure PKG_SQL.SP_EXECUTE;
     end  
   end
   
@@ -1968,13 +2116,23 @@ begin
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC')
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   begin 
+    /*
     sql_stmt = 'GRANT USAGE ON SEQUENCE ' || :ADBObject || ' TO ' || :AAllRole;
-    execute statement sql_stmt;    
+    execute statement sql_stmt;
+    */    
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT USAGE ON SEQUENCE ' || :ADBObject || ' TO ' || :AAllRole);
   
+    /*
     sql_stmt = 'GRANT USAGE ON SEQUENCE ' || :ADBObject || ' TO ' || :APublicRole;   
-    execute statement sql_stmt;  
+    execute statement sql_stmt;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT USAGE ON SEQUENCE ' || :ADBObject || ' TO ' || :APublicRole);      
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -1983,13 +2141,23 @@ begin
     AAllRole DN_DB_OBJECT DEFAULT 'SDDL_ALL',
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC')
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   begin 
+    /*
     sql_stmt = 'GRANT USAGE ON EXCEPTION ' || :ADBObject || ' TO ' || :AAllRole;
-    execute statement sql_stmt;    
+    execute statement sql_stmt;
+    */
     
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT USAGE ON EXCEPTION ' || :ADBObject || ' TO ' || :AAllRole);        
+    
+    /*
     sql_stmt = 'GRANT USAGE ON EXCEPTION ' || :ADBObject || ' TO ' || :APublicRole;   
-    execute statement sql_stmt;    
+    execute statement sql_stmt;
+    */  
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT USAGE ON EXCEPTION ' || :ADBObject || ' TO ' || :APublicRole);      
   end
   
   /*----------------------------------------------------------------------------------------------*/  
@@ -1999,14 +2167,24 @@ begin
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
     AAllowHistory DN_BOOLEAN = True)
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
   begin 
+    /*
     sql_stmt = 'GRANT EXECUTE ON PROCEDURE ' || :ADBObject || ' TO ' || :AAllRole;
     execute statement sql_stmt;
+    */
     
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PROCEDURE ' || :ADBObject || ' TO ' || :AAllRole);
+    
+    /*
     sql_stmt = 'GRANT EXECUTE ON PROCEDURE ' || :ADBObject || ' TO ' || :APublicRole;
-    execute statement sql_stmt;  
+    execute statement sql_stmt;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PROCEDURE ' || :ADBObject || ' TO ' || :APublicRole);      
     
     for
     select a.RDB$DEPENDED_ON_NAME
@@ -2018,17 +2196,34 @@ begin
     begin
       /* Eventuell zuerst prüfen ob :relation_name tatsächlich eine VIEW ist */
     
+      /*
       if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
         sql_stmt = 'GRANT SELECT ON ' || Trim(:relation_name) || ' TO PROCEDURE ' || :ADBObject;
       else
-        sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PROCEDURE ' || :ADBObject;
+        sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PROCEDURE ' || :ADBObject;        
           
       execute statement sql_stmt;  
+      */
       
+      if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT ON ' || Trim(:relation_name) || ' TO PROCEDURE ' || :ADBObject);
+      else
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PROCEDURE ' || :ADBObject);                    
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE;
+    
       if (:AAllowHistory = True) then
       begin
+        /*
         sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PROCEDURE ' || :ADBObject;
-        execute statement sql_stmt;          
+        execute statement sql_stmt;
+        */
+        
+        execute
+        procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PROCEDURE ' || :ADBObject);                  
       end
     end
   end
@@ -2040,14 +2235,24 @@ begin
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
     AAllowHistory DN_BOOLEAN = True)
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
-  begin 
+  begin
+    /*
     sql_stmt = 'GRANT EXECUTE ON FUNCTION ' || :ADBObject || ' TO ' || :AAllRole;
     execute statement sql_stmt;
+    */
     
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON FUNCTION ' || :ADBObject || ' TO ' || :AAllRole);
+    
+    /*
     sql_stmt = 'GRANT EXECUTE ON FUNCTION ' || :ADBObject || ' TO ' || :APublicRole;
-    execute statement sql_stmt;  
+    execute statement sql_stmt;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON FUNCTION ' || :ADBObject || ' TO ' || :APublicRole);      
     
     for
     select a.RDB$DEPENDED_ON_NAME
@@ -2059,17 +2264,34 @@ begin
     begin
       /* Eventuell zuerst prüfen ob :relation_name tatsächlich eine VIEW ist */
     
+      /*
       if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
         sql_stmt = 'GRANT SELECT ON ' || Trim(:relation_name) || ' TO FUNCTION ' || :ADBObject;
       else
         sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO FUNCTION ' || :ADBObject;
           
-      execute statement sql_stmt;  
+      execute statement sql_stmt;
+      */  
+
+      if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT ON ' || Trim(:relation_name) || ' TO FUNCTION ' || :ADBObject);
+      else
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO FUNCTION ' || :ADBObject);
       
+      execute
+      procedure PKG_SQL.SP_EXECUTE;
+            
       if (:AAllowHistory = True) then
       begin
+        /*
         sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO FUNCTION ' || :ADBObject;
-        execute statement sql_stmt;          
+        execute statement sql_stmt;
+        */
+        
+        execute
+        procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PACKAGE PKG_HISTORY TO FUNCTION ' || :ADBObject);                  
       end
     end
   end
@@ -2081,29 +2303,24 @@ begin
     APublicRole DN_DB_OBJECT DEFAULT 'SDDL_PUBLIC',
     AAllowHistory DN_BOOLEAN = True)
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  --- declare variable sql_stmt DN_SQL_STMT;
   declare variable relation_name DN_DB_OBJECT;
-  begin
-
-  execute
-  procedure PKG_HISTORY.SP_SET_DEBUG :ADBObject, 
-    'Package';  
-  
+  begin 
+    /*
     sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :AAllRole;
-
-  execute
-  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
-   :sql_stmt;
-    
     execute statement sql_stmt;
+    */
     
-    sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :APublicRole;
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :AAllRole);
     
-  execute
-  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
-   :sql_stmt;
-      
-    execute statement sql_stmt;    
+    /*
+    sql_stmt = 'GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :APublicRole;   
+    execute statement sql_stmt;
+    */
+    
+    execute
+    procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PACKAGE ' || :ADBObject || ' TO ' || :APublicRole);        
     
     for
     select distinct RDB$DEPENDED_ON_NAME
@@ -2115,21 +2332,34 @@ begin
     begin
       /* Eventuell zuerst prüfen ob :relation_name tatsächlich eine VIEW ist */
     
+      /*
       if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
         sql_stmt = 'GRANT SELECT ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject;
       else
         sql_stmt = 'GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject;
           
-  execute
-  procedure PKG_HISTORY.SP_SET_DEBUG 'SQL-STMT', 
-   :sql_stmt;
-            
-      execute statement sql_stmt;  
+      execute statement sql_stmt;
+      */
+
+      if (position(Upper('VR') in Upper(Trim(:relation_name))) = 1) then
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject);
+      else
+        execute
+        procedure PKG_SQL.SP_SET('GRANT SELECT, INSERT, UPDATE, DELETE ON ' || Trim(:relation_name) || ' TO PACKAGE ' || :ADBObject);
+      
+      execute
+      procedure PKG_SQL.SP_EXECUTE;       
       
       if ((:AAllowHistory = True) and (Upper(Trim(:ADBOBject)) <> 'PKG_HISTORY')) then
       begin
+        /*
         sql_stmt = 'GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PACKAGE ' || :ADBObject;
-        execute statement sql_stmt;          
+        execute statement sql_stmt;
+        */
+        
+        execute
+        procedure PKG_SQL.SP_EXECUTE('GRANT EXECUTE ON PACKAGE PKG_HISTORY TO PACKAGE ' || :ADBObject);                  
       end
     end  
   end
@@ -2437,7 +2667,7 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.package.body.sql',
+    'sddl.bootstrap.package.body.sql',
     'Package-Body des sDDL-Bootstrap installiert');
 END^        
 SET TERM ; ^

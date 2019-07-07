@@ -73,8 +73,8 @@ input 'test.bootstrap.grants.teardown.sql';
 /* End Test: Grants verteilen */
 
 /* Begin Test:Kataloge testen */
-/* Connect: sollte auch unter eingeschränkten Nutzern funktionieren */
-input '..\connect\connect.custom_user.sql';
+/* Connect: Kataloge anlegen darf ur der SYSDBA */
+input '..\connect\connect.sysdba.sql';
 
 input 'test.bootstrap.catalog.setup.sql';
 input 'test.bootstrap.catalog.execute.sql';

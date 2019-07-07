@@ -19,7 +19,7 @@
 /* Tabellen über Describe anzeigen ---------------------------------------------------------------*/
 
 select * 
-from PKG_COMMON.SP_DESCRIBE ('TBL_CATALOG1');
+from PKG_COMMON.SP_DESCRIBE ('TBL_CATALOG_1');
                                                             
 COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/

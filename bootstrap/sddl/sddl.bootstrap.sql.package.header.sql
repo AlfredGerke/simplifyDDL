@@ -23,7 +23,7 @@ CREATE OR ALTER PACKAGE PKG_SQL
 AS
 begin
   /*----------------------------------------------------------------------------------------------*/
-  FUNCTION SF_IS_AVAILABLE (AIdent DN_SQL_IDENT not null)
+  FUNCTION SF_IS_AVAILABLE (AIdent DN_SQL_IDENT not null default 'DEFAULT')
   RETURNS DN_BOOLEAN;
 
   /*----------------------------------------------------------------------------------------------*/

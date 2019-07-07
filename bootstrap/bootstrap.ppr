@@ -17,7 +17,7 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 bootstrap
-	-pattern
+	+pattern
 		-test
 			pattern\test\_test.bat
 			pattern\test\test.bat
@@ -37,7 +37,13 @@ bootstrap
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
 	+test
-		+tasks
+		-tasks
+			test\test.bootstrap.catalog.execute.sql
+			test\test.bootstrap.catalog.setup.sql
+			test\test.bootstrap.catalog.teardown.sql
+			test\test.bootstrap.common.execute.sql
+			test\test.bootstrap.common.setup.sql
+			test\test.bootstrap.common.teardown.sql
 			test\test.bootstrap.complete.execute.sql
 			test\test.bootstrap.complete.setup.sql
 			test\test.bootstrap.complete.teardown.sql
@@ -47,15 +53,9 @@ bootstrap
 			test\test.bootstrap.grants.execute.sql
 			test\test.bootstrap.grants.setup.sql
 			test\test.bootstrap.grants.teardown.sql
-			test\test.bootstrap.common.setup.sql
-			test\test.bootstrap.common.execute.sql
-			test\test.bootstrap.common.teardown.sql
-			test\test.bootstrap.sql.teardown.sql
 			test\test.bootstrap.sql.execute.sql
 			test\test.bootstrap.sql.setup.sql
-			test\test.bootstrap.catalog.execute.sql
-			test\test.bootstrap.catalog.teardown.sql
-			test\test.bootstrap.catalog.setup.sql
+			test\test.bootstrap.sql.teardown.sql
 		test\_test.bat
 		test\test.bat
 		test\test.db.setup.sql
@@ -101,26 +101,14 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.sql
-1=test\test.bootstrap.catalog.execute.sql
-2=test\test.bootstrap.catalog.setup.sql
-3=test\test.bootstrap.complete.execute.sql
-4=test\test.log
+0=test\test.log
+1=sddl\sddl.bootstrap.package.body.sql
 [Selected Project Files]
 Main=
-Selected=test\test.log
-[test\test.sql]
-TopLine=39
-Caret=30,81
-[test\test.bootstrap.catalog.execute.sql]
-TopLine=1
-Caret=33,22
-[test\test.bootstrap.catalog.setup.sql]
-TopLine=1
-Caret=1,23
-[test\test.bootstrap.complete.execute.sql]
-TopLine=1
-Caret=1,23
+Selected=sddl\sddl.bootstrap.package.body.sql
 [test\test.log]
-TopLine=1720
-Caret=26,1730
+TopLine=1859
+Caret=37,1873
+[sddl\sddl.bootstrap.package.body.sql]
+TopLine=223
+Caret=30,177

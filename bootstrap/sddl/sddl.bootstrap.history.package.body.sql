@@ -288,28 +288,28 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.setting.model.sql',
+    'sddl.bootstrap.setting.model.create.sql',
     'Model für die Settings installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.setting.data.sql',
+    'sddl.bootstrap.setting.model.data.sql',
     'Daten für die Settings eingetrage');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.setting.package.header.sql',
+    'sddl.bootstrap.setting.package.header.sql',
     'Package-Header für die Settings installiert');
 
   execute
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.setting.package.body.sql',
+    'sddl.bootstrap.setting.package.body.sql',
     'Package-Body für die Settings installiert');
 
   execute

@@ -105,7 +105,7 @@ BEGIN
   procedure
   PKG_HISTORY.SP_SET_UPDATE_INFO (0,
     0,
-    'sddl.bootstrap.create.package.header.sql',
+    'sddl.bootstrap.package.header.sql',
     'Package-Header des sDDL-Bootstrap installiert');
 END^        
 SET TERM ; ^
