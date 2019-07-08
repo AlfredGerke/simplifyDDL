@@ -30,9 +30,9 @@ begin
   FUNCTION SF_GET (AIdent DN_SQL_IDENT not null default 'DEFAULT')
   RETURNS DN_SQL_BLOB;
   
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET(AStatement DN_SQL_STMT,
-    AIdent DN_SQL_IDENT not null default 'DEFAULT');
+  /*----------------------------------------------------------------------------------------------*/    
+  PROCEDURE SP_SET(AScript DN_SQL_BLOB,
+    AIdent DN_SQL_IDENT not null default 'DEFAULT');  
      
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_GET (AIdent DN_SQL_IDENT not null default 'DEFAULT')
@@ -43,7 +43,7 @@ begin
   PROCEDURE SP_CLEAR(AIdent DN_SQL_IDENT default null);      
   
   /*----------------------------------------------------------------------------------------------*/  
-  PROCEDURE SP_EXECUTE(AStatement DN_SQL_STMT default null,
+  PROCEDURE SP_EXECUTE(AScript DN_SQL_BLOB default null,
     AClear DN_BOOLEAN default false,
     AIdent DN_SQL_IDENT not null default 'DEFAULT');
     

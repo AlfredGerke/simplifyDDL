@@ -56,15 +56,15 @@ begin
     RETURN sql_stmt;
   end      
 
-  /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_SET(AStatement DN_SQL_STMT,
-    AIdent DN_SQL_IDENT not null)
+  /*----------------------------------------------------------------------------------------------*/   
+  PROCEDURE SP_SET(AScript DN_SQL_BLOB,
+    AIdent DN_SQL_IDENT not null)     
   AS
-  declare sql_stmt DN_SQL_STMT;  
+  declare sql_script DN_SQL_BLOB;  
   begin
-    sql_stmt = SF_GET(AIdent);
+    sql_script = SF_GET(AIdent);
     
-    if (sql_stmt is null) then
+    if (sql_script is null) then
       insert 
       into VW_T_SQL_STATEMENT
       (
@@ -73,18 +73,18 @@ begin
       )
       values
       (
-        :AStatement,
+        :AScript,
         Upper(:AIdent)
       );
     else
     begin
-      sql_stmt = sql_stmt || ASCII_CHAR(13) || :AStatement;
+      sql_script = sql_script || ascii_char(13) || :AScript;
       update VW_T_SQL_STATEMENT
-      set SQL_STATEMENT = :sql_stmt
+      set SQL_STATEMENT = :sql_script
       where Upper(SQL_IDENT) = Upper(:AIdent);                
     end  
   end
-     
+  
   /*----------------------------------------------------------------------------------------------*/
   PROCEDURE SP_GET (AIdent DN_SQL_IDENT not null)
   RETURNS (
@@ -112,7 +112,7 @@ begin
   end  
   
   /*----------------------------------------------------------------------------------------------*/
-  PROCEDURE SP_EXECUTE(AStatement DN_SQL_STMT,
+  PROCEDURE SP_EXECUTE(AScript DN_SQL_BLOB,
     AClear DN_BOOLEAN,
     AIdent DN_SQL_IDENT not null)
   AS
@@ -121,9 +121,9 @@ begin
       execute 
       procedure SP_CLEAR(:AIdent);
       
-    if (AStatement is not null) then  
+    if (AScript is not null) then  
       execute
-      procedure SP_SET(:AStatement, :AIdent);
+      procedure SP_SET(:AScript, :AIdent);
     
     if (SF_IS_AVAILABLE(:AIdent) = true) then
     begin
@@ -155,7 +155,7 @@ begin
   /*----------------------------------------------------------------------------------------------*/  
   PROCEDURE SP_EXECUTE_ALL
   AS
-  declare variable sql_stmt DN_SQL_STMT;
+  declare variable sql_stmt DN_SQL_BLOB;
   begin
     sql_stmt = null;  
     for
