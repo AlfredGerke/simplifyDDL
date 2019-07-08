@@ -64,10 +64,10 @@ bootstrap
 		test\test.sql
 	-readme
 		README.md
-	-log
+	+log
 		make\make.log
 		test\test.log
-	+sddl
+	-sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -101,22 +101,14 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=sddl\sddl.bootstrap.sql.package.header.sql
-1=sddl\sddl.bootstrap.sql.model.create.sql
-2=sddl\sddl.bootstrap.sql.package.body.sql
-3=sddl\sddl.bootstrap.styleguide.package.body.sql
+0=make\make.log
+1=test\test.log
 [Selected Project Files]
 Main=
-Selected=sddl\sddl.bootstrap.styleguide.package.body.sql
-[sddl\sddl.bootstrap.sql.package.header.sql]
-TopLine=9
-Caret=1,33
-[sddl\sddl.bootstrap.sql.model.create.sql]
-TopLine=11
+Selected=test\test.log
+[make\make.log]
+TopLine=1
 Caret=1,1
-[sddl\sddl.bootstrap.sql.package.body.sql]
-TopLine=1
-Caret=1,59
-[sddl\sddl.bootstrap.styleguide.package.body.sql]
-TopLine=1
+[test\test.log]
+TopLine=276
 Caret=1,1
