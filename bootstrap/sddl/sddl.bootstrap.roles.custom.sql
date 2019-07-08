@@ -28,6 +28,7 @@ declare project_role_all DN_DB_OBJECT;
 declare project_role_public DN_DB_OBJECT;
 declare project_role_delete DN_DB_OBJECT;
 declare sql_stmt DN_SQL_STMT;
+declare sql_stmt DN_SQL_BLOB;
 begin
   INFO = 'Custom-Einträge in der Settings prüfen';
   SQL_STATE = '00000';

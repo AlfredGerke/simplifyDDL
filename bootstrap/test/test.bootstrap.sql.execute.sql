@@ -124,8 +124,55 @@ begin
     :DESCRIPTION, 
     :CRE_USER, 
     :CRE_DATE, 
-    :CHG_USER, 
-    :CHG_DATE
+    :CHG_USER,
+    :CHG_DATE 
+  do
+    suspend;    
+end
+^
+set term ; ^
+
+--- select_from_setting anlegen
+execute
+procedure PKG_SQL.SP_SET('
+select
+*
+from
+VW_SETTING
+',
+'select_from_setting');
+
+execute
+procedure PKG_SQL.SP_SET('
+where
+CATEGORY_NAME
+=
+''CUSTOM''',
+'select_from_setting');
+
+--- prüfen ob select_from_setting vorhanden: es muss select_from_setting ausgegeben werden
+select * 
+from  PKG_SQL.SP_GET('select_from_setting');
+
+--- prüfen ob select_from_setting ausgeführt wird: es muss select_from_setting ausgeführt werden
+set term ^ ;
+execute block
+returns (
+  ID DN_IDENTIFICATION,
+  CATEGORY_NAME DN_CATEGORY,
+  SECTION_NAME DN_CATEGORY_SECTION,
+  IDENT DN_CATEGORY_IDENT,
+  STRING_VALUE DN_CATEGORY_STRING_VALUE)
+AS
+begin
+  for 
+  execute statement PKG_SQL.SF_GET('select_from_setting')
+  into 
+    :ID,
+    :CATEGORY_NAME,
+    :SECTION_NAME,
+    :IDENT,
+    :STRING_VALUE
   do
     suspend;    
 end

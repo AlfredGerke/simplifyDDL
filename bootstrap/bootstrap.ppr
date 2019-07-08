@@ -17,7 +17,7 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 bootstrap
-	+pattern
+	-pattern
 		-test
 			pattern\test\_test.bat
 			pattern\test\test.bat
@@ -62,9 +62,9 @@ bootstrap
 		test\test.db.teardown.sql
 		test\test.isql.setup.sql
 		test\test.sql
-	+readme
+	-readme
 		README.md
-	+log
+	-log
 		make\make.log
 		test\test.log
 	+sddl
@@ -101,14 +101,22 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=test\test.log
-1=sddl\sddl.bootstrap.package.body.sql
+0=sddl\sddl.bootstrap.sql.package.header.sql
+1=sddl\sddl.bootstrap.sql.model.create.sql
+2=sddl\sddl.bootstrap.sql.package.body.sql
+3=sddl\sddl.bootstrap.styleguide.package.body.sql
 [Selected Project Files]
 Main=
-Selected=sddl\sddl.bootstrap.package.body.sql
-[test\test.log]
-TopLine=1859
-Caret=37,1873
-[sddl\sddl.bootstrap.package.body.sql]
-TopLine=223
-Caret=30,177
+Selected=sddl\sddl.bootstrap.styleguide.package.body.sql
+[sddl\sddl.bootstrap.sql.package.header.sql]
+TopLine=9
+Caret=1,33
+[sddl\sddl.bootstrap.sql.model.create.sql]
+TopLine=11
+Caret=1,1
+[sddl\sddl.bootstrap.sql.package.body.sql]
+TopLine=1
+Caret=1,59
+[sddl\sddl.bootstrap.styleguide.package.body.sql]
+TopLine=1
+Caret=1,1
