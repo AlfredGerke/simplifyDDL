@@ -28,7 +28,7 @@ SET HEADING on;
 SET LIST on;
 
 /* Connect ---------------------------------------------------------------------------------------*/
-CONNECT '127.0.0.1:SIMPLIFYDDL' USER 'SYSDBA' PASSWORD 'masterkey';
+CONNECT '127.0.0.1/64302:SIMPLIFYDDL' USER 'SYSDBA' PASSWORD 'masterkey';
 
 /* Input -----------------------------------------------------------------------------------------*/
 input 'create_sequences.sql';

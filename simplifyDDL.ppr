@@ -2,6 +2,8 @@
 Compilator.SaveAll=0
 Compilator.Capture=0
 Compilator.HideOutput=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
 Compilator.LogType=0
 DefaultCPIndex=0
 LogtoEnd=1
@@ -9,6 +11,7 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 [Project tree]
 simplifyDDL
 	+firebird
@@ -47,13 +50,41 @@ simplifyDDL
 		source\create_dynamic_dict.sql
 [Open project files]
 0=README.md
-1=..\..\..\Programme\Firebird_3_0\firebird.conf
+1=source\_make.bat
+2=source\create_db.sql
+3=source\make_sDDL.bat
+4=source\create_static_dict.sql
+5=..\..\..\..\..\..\Firebird\x64\v302\databases.conf
+6=source\batch.sql
+7=source\create_sequences.sql
+8=source\make_sDDL.log
 [Selected Project Files]
 Main=
-Selected=README.md
+Selected=source\_make.bat
 [README.md]
 TopLine=161
 Caret=28,177
-[..\..\..\Programme\Firebird_3_0\firebird.conf]
-TopLine=543
-Caret=20,569
+[source\_make.bat]
+TopLine=1
+Caret=109,13
+[source\create_db.sql]
+TopLine=1
+Caret=1,16
+[source\make_sDDL.bat]
+TopLine=1
+Caret=50,12
+[source\create_static_dict.sql]
+TopLine=21
+Caret=64,21
+[..\..\..\..\..\..\Firebird\x64\v302\databases.conf]
+TopLine=1
+Caret=78,23
+[source\batch.sql]
+TopLine=1
+Caret=25,31
+[source\create_sequences.sql]
+TopLine=1
+Caret=1,1
+[source\make_sDDL.log]
+TopLine=9
+Caret=1,1
