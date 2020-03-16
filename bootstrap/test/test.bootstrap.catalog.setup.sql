@@ -1,28 +1,28 @@
 /*------------------------------------------------------------------------------------------------*/
-/* Author:  Alfred Gerke (AGE)                                                  
-/* Date:    2015-07-10                                                        
-/* Purpose: Erstellt eine Datenbank um sDDL entwickeln zu können    
+/* Author: Alfred Gerke (AGE)                                                  
+/* Date: 2019-07-07                                                        
+/* Description: Setup für einzelnen Testfall    
 /*                                                                              
 /*------------------------------------------------------------------------------------------------*/
 /* - Das Script arbeitet mit Befehlen der SQL-Erweiterung für FB 3.0x   
 /* - Das Script ist für die Ausführung im ISQL erstellt worden
-/*              
+/* - Datenbank-Connect wird vorausgesetzt
+/*   
 /*------------------------------------------------------------------------------------------------*/
-/* History: 2015-07-10
+/* History: 2019-07-07
 /*          Script erstellen
+/*   
 /*------------------------------------------------------------------------------------------------*/
 
-/* Vorhandene Datenbank löschen: Pfad anpassen! */
-SHEll DEL C:\Users\Alfred\Sourcen\db\firebird\simplifyDDL\SIMPLIFYDDL.FDB;
+/* Setup: Testfall einrichten --------------------------------------------------------------------*/   
 
-/* Entwicklungsdatenbank erstellen: Alias SIMPLIFYDDL anlegen! */
-CREATE DATABASE '127.0.0.1/64302:SIMPLIFYDDL' 
-USER 'SYSDBA' 
-PASSWORD 'masterkey' 
-PAGE_SIZE 4096 
-DEFAULT CHARACTER SET UTF8 
-COLLATION UTF8;
+select SUCCESS
+from PKG_SDDL.SP_CREATE_CATALOG('CATALOG_1', 'DN_SQL_IDENT', 'Testkatalog');
 
+execute 
+procedure PKG_SDDL.SP_GRANT('VW_L_CATALOG_1');
+                                                                                  
+COMMIT WORK;
 /*------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------*/  
+/*------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------*/

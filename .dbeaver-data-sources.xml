@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
 	<data-source id="935DE3C2-98B6-570B-ED4D-B7999941718E-15c6fcb28b1-1d796d77e2237999" provider="generic" driver="935DE3C2-98B6-570B-ED4D-B7999941718E" name="Firebird 3 - SIMPLIFYDDL" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
-		<connection host="localhost" port="3050" server="" database="SIMPLIFYDDL" url="jdbc:firebirdsql://localhost:3050/SIMPLIFYDDL" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
+		<connection host="localhost" port="32304" server="" database="SIMPLIFYDDL" url="jdbc:firebirdsql://localhost:32304/SIMPLIFYDDL" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
 			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
 				<property name="sshConnectTimeout" value="10000"/>
 				<property name="port" value="22"/>
@@ -12,9 +12,26 @@
 			</network-handler>
 		</connection>
 		<filters>
+			<filter type="org.jkiss.dbeaver.ext.generic.model.GenericSequence">
+				<include name="SDDL$SEQ*"/>
+			</filter>
 			<filter type="org.jkiss.dbeaver.ext.generic.model.GenericTable">
 				<include name="SDDL$*"/>
 			</filter>
 		</filters>
 	</data-source>
+	<data-source id="jaybird-1639e9cd6d2-684e87a58c4eb777" provider="jaybird" driver="jaybird" name="Firebird 2 - ZABONLINEEMBEDDED" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="localhost" port="32258" server="" database="ZABONLINEEMBEDDED" url="jdbc:firebirdsql://localhost:32258/ZABONLINEEMBEDDED" user="SYSDBA" password="HgUVNERRTxMccuc=" type="dev">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" save-password="false">
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
+				<property name="sshConnectTimeout" value="10000"/>
+				<property name="port" value="22"/>
+				<property name="implementation" value="jsch"/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+		</connection>
+	</data-source>
+	<filters/>
 </data-sources>

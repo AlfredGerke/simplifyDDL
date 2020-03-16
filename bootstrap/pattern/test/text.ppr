@@ -1,0 +1,78 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+[Project tree]
+test
+	+log
+		test.log
+	+connect
+		..\connect\connect.sysdba.sql
+	+dispatcher
+		test.sql
+	+teardown
+		test.db.teardown.sql
+		test.example.1.teardown.sql
+	+setup
+		test.db.setup.sql
+		test.example.1.setup.sql
+		test.isql.setup.sql
+	+execute
+		test.example.1.execute.sql
+	+make
+		_test.bat
+		test.bat
+[Open project files]
+0=..\connect\connect.sysdba.sql
+1=test.sql
+2=test.db.teardown.sql
+3=test.example.1.teardown.sql
+4=test.db.setup.sql
+5=test.example.1.setup.sql
+6=test.isql.setup.sql
+7=test.example.1.execute.sql
+8=_test.bat
+9=test.bat
+[Selected Project Files]
+Main=
+Selected=test.bat
+[..\connect\connect.sysdba.sql]
+TopLine=1
+Caret=1,23
+[test.sql]
+TopLine=1
+Caret=1,1
+[test.db.teardown.sql]
+TopLine=1
+Caret=1,1
+[test.example.1.teardown.sql]
+TopLine=1
+Caret=1,1
+[test.db.setup.sql]
+TopLine=1
+Caret=30,22
+[test.example.1.setup.sql]
+TopLine=1
+Caret=1,1
+[test.isql.setup.sql]
+TopLine=1
+Caret=1,1
+[test.example.1.execute.sql]
+TopLine=1
+Caret=1,1
+[_test.bat]
+TopLine=1
+Caret=76,21
+[test.bat]
+TopLine=1
+Caret=60,11

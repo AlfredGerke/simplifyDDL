@@ -1,0 +1,58 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+[Project tree]
+test
+	+log
+		test.log
+		..\make\make.log
+	+firebird
+		+x32
+			+v303
+				..\..\..\..\..\..\..\Firebird\x32\v303\databases.conf
+	+connect
+		..\connect\connect.sysdba.sql
+		..\connect\connect.custom_user.sql
+	+dispatcher
+		test.sql
+	+teardown
+		test.db.teardown.sql
+		test.example.1.teardown.sql
+	+setup
+		test.db.setup.sql
+		test.example.1.setup.sql
+		test.isql.setup.sql
+	+execute
+		test.example.1.execute.sql
+	+make
+		_test.bat
+		test.bat
+[Open project files]
+0=test.log
+1=..\make\make.log
+2=..\connect\connect.sysdba.sql
+3=..\connect\connect.custom_user.sql
+[Selected Project Files]
+Main=
+Selected=..\connect\connect.custom_user.sql
+[test.log]
+TopLine=1338
+Caret=1,1
+[..\make\make.log]
+TopLine=7642
+Caret=1,1
+[..\connect\connect.sysdba.sql]
+TopLine=1
+Caret=36,22
+[..\connect\connect.custom_user.sql]
+TopLine=1
+Caret=4,25
