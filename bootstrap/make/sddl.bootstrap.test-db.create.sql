@@ -15,17 +15,11 @@
 /*------------------------------------------------------------------------------------------------*/
 
 -- Vorhandene Datenbank löschen: Pfad prüfen und eventl. anpassen!
--- GLOIN
 SHEll DEL C:\Users\Alfred\Sourcen\db\firebird\simplifyDDL\SIMPLIFYDDL.FDB;
--- NB
--- SHEll DEL C:\firebird\db\SDDL_BOOTSTRAP.FDB;
 
 /* Entwicklungsdatenbank erstellen: Alias SIMPLIFYDDL anlegen! */
 
--- GLOIN
-CREATE DATABASE '127.0.0.1/32304:SIMPLIFYDDL'
--- NB
--- CREATE DATABASE '127.0.0.1/64304:sDDLbootstrap' 
+CREATE DATABASE '127.0.0.1/64307:SIMPLIFYDDL'
 USER 'SYSDBA' 
 PASSWORD 'masterkey' 
 PAGE_SIZE 4096 

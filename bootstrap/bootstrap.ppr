@@ -19,8 +19,8 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 bootstrap
-	+pattern
-		+test
+	-pattern
+		-test
 			pattern\test\_test.bat
 			pattern\test\test.bat
 			pattern\test\test.db.setup.sql
@@ -30,12 +30,12 @@ bootstrap
 			pattern\test\test.example.1.teardown.sql
 			pattern\test\test.isql.setup.sql
 			pattern\test\test.sql
-		+create_sysdba
+		-create_sysdba
 			pattern\create_sysdba\_createSysdba.bat
 			pattern\create_sysdba\createSysdba32.bat
 			pattern\create_sysdba\createSysdba64.bat
 			pattern\create_sysdba\database.security.create.sql
-		+connect
+		-connect
 			pattern\connect\connect.sysdba.sql
 			connect\connect.custom_user.sql
 	+test
@@ -69,7 +69,7 @@ bootstrap
 	+log
 		make\make.log
 		test\test.log
-	-sddl
+	+sddl
 		sddl\sddl.bootstrap.common.package.body.sql
 		sddl\sddl.bootstrap.common.package.header.sql
 		sddl\sddl.bootstrap.complete.sql
@@ -103,22 +103,18 @@ bootstrap
 		make\make.bat
 		make\make.log
 [Open project files]
-0=pattern\create_sysdba\_createSysdba.bat
-1=pattern\create_sysdba\createSysdba32.bat
-2=pattern\create_sysdba\createSysdba64.bat
-3=pattern\create_sysdba\database.security.create.sql
+0=make\make.log
+1=test\test.bat
+2=test\test.log
 [Selected Project Files]
 Main=
-Selected=pattern\create_sysdba\createSysdba32.bat
-[pattern\create_sysdba\_createSysdba.bat]
+Selected=test\test.log
+[make\make.log]
+TopLine=8338
+Caret=1,8368
+[test\test.bat]
 TopLine=1
-Caret=1,1
-[pattern\create_sysdba\createSysdba32.bat]
-TopLine=1
-Caret=30,11
-[pattern\create_sysdba\createSysdba64.bat]
-TopLine=1
-Caret=36,12
-[pattern\create_sysdba\database.security.create.sql]
-TopLine=1
-Caret=1,1
+Caret=22,42
+[test\test.log]
+TopLine=283
+Caret=7,337
